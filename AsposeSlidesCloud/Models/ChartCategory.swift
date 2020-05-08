@@ -29,36 +29,27 @@
 import Foundation
 
 
-/** Represents document DTO. */
+/** Represents chart category resource */
 
-public struct Document: Codable {
+public struct ChartCategory: Codable {
 
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
-    /** Link to Document properties. */
-    public var documentProperties: ResourceUriElement?
-    /** Link to Document properties. */
-    public var viewProperties: ResourceUriElement?
-    /** Link to slides collection. */
-    public var slides: ResourceUriElement?
-    /** Link to images collection. */
-    public var images: ResourceUriElement?
-    /** Link to layout slides collection. */
-    public var layoutSlides: ResourceUriElement?
-    /** Link to master slides collection. */
-    public var masterSlides: ResourceUriElement?
+    /** Gets or sets the categories for chart data */
+    public var categories: [ChartCategory]?
+    /** Category value */
+    public var value: String?
+    /** Get or sets the fill format. */
+    public var fillFormat: FillFormat?
+    /** Get or sets the effect format. */
+    public var effectFormat: EffectFormat?
+    /** Get or sets the line format. */
+    public var lineFormat: LineFormat?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, documentProperties: ResourceUriElement?, viewProperties: ResourceUriElement?, slides: ResourceUriElement?, images: ResourceUriElement?, layoutSlides: ResourceUriElement?, masterSlides: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
-        self.documentProperties = documentProperties
-        self.viewProperties = viewProperties
-        self.slides = slides
-        self.images = images
-        self.layoutSlides = layoutSlides
-        self.masterSlides = masterSlides
+    public init(categories: [ChartCategory]?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+        self.categories = categories
+        self.value = value
+        self.fillFormat = fillFormat
+        self.effectFormat = effectFormat
+        self.lineFormat = lineFormat
     }
 
 

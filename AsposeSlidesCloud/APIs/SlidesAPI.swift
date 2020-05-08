@@ -3229,6 +3229,48 @@ open class SlidesAPI {
     }
 
     /**
+     Read presentation document properties.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlidesViewProperties(request: getSlidesViewPropertiesRequest, completion: @escaping ((_ data: ViewProperties?,_ error: Error?) -> Void)) {
+        getSlidesViewPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read presentation document properties.
+     - GET /slides/{name}/viewProperties
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<ViewProperties> 
+     */
+    open class func getSlidesViewPropertiesWithRequestBuilder(request: getSlidesViewPropertiesRequest) -> RequestBuilder<ViewProperties> {
+        var path = "/slides/{name}/viewProperties"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<ViewProperties>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Move file
      
      - parameter request: object containing request parameters
@@ -5922,6 +5964,48 @@ open class SlidesAPI {
         let requestBuilder: RequestBuilder<Document>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Update presentation document properties.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSlidesViewProperties(request: putSlidesViewPropertiesRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
+        putSlidesViewPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update presentation document properties.
+     - PUT /slides/{name}/viewProperties
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<DocumentProperty> 
+     */
+    open class func putSlidesViewPropertiesWithRequestBuilder(request: putSlidesViewPropertiesRequest) -> RequestBuilder<DocumentProperty> {
+        var path = "/slides/{name}/viewProperties"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<DocumentProperty>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**

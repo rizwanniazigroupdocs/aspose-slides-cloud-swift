@@ -108,6 +108,13 @@ public struct Series: Codable {
         case radarWithMarkers = "RadarWithMarkers"
         case filledRadar = "FilledRadar"
         case seriesOfMixedTypes = "SeriesOfMixedTypes"
+        case treemap = "Treemap"
+        case sunburst = "Sunburst"
+        case histogram = "Histogram"
+        case paretoLine = "ParetoLine"
+        case boxAndWhisker = "BoxAndWhisker"
+        case waterfall = "Waterfall"
+        case funnel = "Funnel"
     }
     /** Series type. */
     public var type: ModelType?

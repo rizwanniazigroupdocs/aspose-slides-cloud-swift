@@ -94,6 +94,9 @@ public struct APIHelper {
         if value == nil {
             return false
         }
+        if val is Int {
+            return val as! Int != 0
+        }
         let val = value!
         if val is String {
             return val as! String != ""

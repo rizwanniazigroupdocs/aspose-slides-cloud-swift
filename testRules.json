@@ -110,6 +110,7 @@
 			"Type": "Shape",
 			"Parameter": "DTO"
 		},
+		{ "Value": {}, "InvalidValue": null, "Type": "ViewProperties", "Parameter": "DTO", "Method": "PutSlidesViewProperties" },
 		{ "Value": { "Text": "testPortion" }, "InvalidValue": null, "Type": "Portion", "Parameter": "DTO", "Method": "PostAddNewPortion" },
 		{ "Value": { "Text": "testPortion" }, "InvalidValue": null, "Type": "Portion", "Parameter": "DTO", "Method": "PostNotesSlideAddNewPortion" },
 		{ "Value": { "Text": "testPortion" }, "InvalidValue": null, "Type": "Portion", "Parameter": "DTO", "Method": "PutSetParagraphPortionProperties" },

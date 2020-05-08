@@ -108,6 +108,13 @@ public struct Chart: Codable {
         case radarWithMarkers = "RadarWithMarkers"
         case filledRadar = "FilledRadar"
         case seriesOfMixedTypes = "SeriesOfMixedTypes"
+        case treemap = "Treemap"
+        case sunburst = "Sunburst"
+        case histogram = "Histogram"
+        case paretoLine = "ParetoLine"
+        case boxAndWhisker = "BoxAndWhisker"
+        case waterfall = "Waterfall"
+        case funnel = "Funnel"
     }
     /** Gets or sets the type of the chart. */
     public var chartType: ChartType?
@@ -116,7 +123,7 @@ public struct Chart: Codable {
     /** Gets or sets the series of chart data values. */
     public var series: [Series]?
     /** Gets or sets the categories for chart data */
-    public var categories: [String]?
+    public var categories: [ChartCategory]?
     /** Gets or sets the title. */
     public var title: ChartTitle?
     /** Gets or sets the back wall. */
@@ -132,7 +139,7 @@ public struct Chart: Codable {
     /** Gets or sets the plot area. */
     public var plotArea: PlotArea?
 
-    public init(chartType: ChartType?, showDataLabelsOverMaximum: Bool?, series: [Series]?, categories: [String]?, title: ChartTitle?, backWall: ChartWall?, sideWall: ChartWall?, floor: ChartWall?, legend: Legend?, axes: Axes?, plotArea: PlotArea?) {
+    public init(chartType: ChartType?, showDataLabelsOverMaximum: Bool?, series: [Series]?, categories: [ChartCategory]?, title: ChartTitle?, backWall: ChartWall?, sideWall: ChartWall?, floor: ChartWall?, legend: Legend?, axes: Axes?, plotArea: PlotArea?) {
         self.chartType = chartType
         self.showDataLabelsOverMaximum = showDataLabelsOverMaximum
         self.series = series

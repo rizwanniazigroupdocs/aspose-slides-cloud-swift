@@ -2084,6 +2084,28 @@ public struct getSlidesThemeFormatSchemeRequest: Codable {
     }
 }
 
+public struct getSlidesViewPropertiesRequest: Codable {
+
+    /** Read presentation document properties. */
+    public var name: String
+
+    /** Read presentation document properties. */
+    public var password: String
+
+    /** Read presentation document properties. */
+    public var folder: String
+
+    /** Read presentation document properties. */
+    public var storage: String
+
+    public init(name: String, password: String, folder: String, storage: String) {
+        self.name = name
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
 public struct moveFileRequest: Codable {
 
     /** Move file */
@@ -3987,6 +4009,32 @@ public struct putSlidesSlideSizeRequest: Codable {
         self.height = height
         self.sizeType = sizeType
         self.scaleType = scaleType
+    }
+}
+
+public struct putSlidesViewPropertiesRequest: Codable {
+
+    /** Update presentation document properties. */
+    public var name: String
+
+    /** Update presentation document properties. */
+    public var dto: ViewProperties
+
+    /** Update presentation document properties. */
+    public var password: String
+
+    /** Update presentation document properties. */
+    public var folder: String
+
+    /** Update presentation document properties. */
+    public var storage: String
+
+    public init(name: String, dto: ViewProperties, password: String, folder: String, storage: String) {
+        self.name = name
+        self.dto = dto
+        self.password = password
+        self.folder = folder
+        self.storage = storage
     }
 }
 

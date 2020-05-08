@@ -29,36 +29,31 @@
 import Foundation
 
 
-/** Represents document DTO. */
+/** One value series. */
 
-public struct Document: Codable {
+public struct BoxAndWhiskerSeries: Codable {
 
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
-    /** Link to Document properties. */
-    public var documentProperties: ResourceUriElement?
-    /** Link to Document properties. */
-    public var viewProperties: ResourceUriElement?
-    /** Link to slides collection. */
-    public var slides: ResourceUriElement?
-    /** Link to images collection. */
-    public var images: ResourceUriElement?
-    /** Link to layout slides collection. */
-    public var layoutSlides: ResourceUriElement?
-    /** Link to master slides collection. */
-    public var masterSlides: ResourceUriElement?
+    public enum QuartileMethod: String, Codable { 
+        case exclusive = "Exclusive"
+        case inclusive = "Inclusive"
+    }
+    /** Quartile method. */
+    public var quartileMethod: QuartileMethod?
+    /** True if inner points are shown. */
+    public var showInnerPoints: Bool?
+    /** True if mean line is shown. */
+    public var showMeanLine: Bool?
+    /** True if mean markers are shown. */
+    public var showMeanMarkers: Bool?
+    /** True if outlier points are shown. */
+    public var showOutlierPoints: Bool?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, documentProperties: ResourceUriElement?, viewProperties: ResourceUriElement?, slides: ResourceUriElement?, images: ResourceUriElement?, layoutSlides: ResourceUriElement?, masterSlides: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
-        self.documentProperties = documentProperties
-        self.viewProperties = viewProperties
-        self.slides = slides
-        self.images = images
-        self.layoutSlides = layoutSlides
-        self.masterSlides = masterSlides
+    public init(quartileMethod: QuartileMethod?, showInnerPoints: Bool?, showMeanLine: Bool?, showMeanMarkers: Bool?, showOutlierPoints: Bool?) {
+        self.quartileMethod = quartileMethod
+        self.showInnerPoints = showInnerPoints
+        self.showMeanLine = showMeanLine
+        self.showMeanMarkers = showMeanMarkers
+        self.showOutlierPoints = showOutlierPoints
     }
 
 

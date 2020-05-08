@@ -509,6 +509,11 @@ class SlidesAPITests : XCTestCase {
         ("testgetSlidesThemeFormatSchemeInvalidpassword", testgetSlidesThemeFormatSchemeInvalidpassword),
         ("testgetSlidesThemeFormatSchemeInvalidfolder", testgetSlidesThemeFormatSchemeInvalidfolder),
         ("testgetSlidesThemeFormatSchemeInvalidstorage", testgetSlidesThemeFormatSchemeInvalidstorage),
+        ("testgetSlidesViewProperties", testgetSlidesViewProperties),
+        ("testgetSlidesViewPropertiesInvalidname", testgetSlidesViewPropertiesInvalidname),
+        ("testgetSlidesViewPropertiesInvalidpassword", testgetSlidesViewPropertiesInvalidpassword),
+        ("testgetSlidesViewPropertiesInvalidfolder", testgetSlidesViewPropertiesInvalidfolder),
+        ("testgetSlidesViewPropertiesInvalidstorage", testgetSlidesViewPropertiesInvalidstorage),
         ("testmoveFile", testmoveFile),
         ("testmoveFileInvalidsrcPath", testmoveFileInvalidsrcPath),
         ("testmoveFileInvaliddestPath", testmoveFileInvaliddestPath),
@@ -959,6 +964,12 @@ class SlidesAPITests : XCTestCase {
         ("testputSlidesSlideSizeInvalidheight", testputSlidesSlideSizeInvalidheight),
         ("testputSlidesSlideSizeInvalidsizeType", testputSlidesSlideSizeInvalidsizeType),
         ("testputSlidesSlideSizeInvalidscaleType", testputSlidesSlideSizeInvalidscaleType),
+        ("testputSlidesViewProperties", testputSlidesViewProperties),
+        ("testputSlidesViewPropertiesInvalidname", testputSlidesViewPropertiesInvalidname),
+        ("testputSlidesViewPropertiesInvaliddto", testputSlidesViewPropertiesInvaliddto),
+        ("testputSlidesViewPropertiesInvalidpassword", testputSlidesViewPropertiesInvalidpassword),
+        ("testputSlidesViewPropertiesInvalidfolder", testputSlidesViewPropertiesInvalidfolder),
+        ("testputSlidesViewPropertiesInvalidstorage", testputSlidesViewPropertiesInvalidstorage),
         ("testputUpdateNotesSlide", testputUpdateNotesSlide),
         ("testputUpdateNotesSlideInvalidname", testputUpdateNotesSlideInvalidname),
         ("testputUpdateNotesSlideInvalidslideIndex", testputUpdateNotesSlideInvalidslideIndex),
@@ -7155,6 +7166,70 @@ class SlidesAPITests : XCTestCase {
         }
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
+    func testgetSlidesViewProperties() {
+        let expectation = self.expectation(description: "testgetSlidesViewProperties")
+        let request = getSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "name", type: "String"), password: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "storage", type: "String"))
+        TestUtils.initialize("getSlidesViewProperties") { (response, error) -> Void in
+            SlidesAPI.getSlidesViewProperties(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testgetSlidesViewPropertiesInvalidname() {
+        let expectation = self.expectation(description: "testgetSlidesViewProperties")
+        var request = getSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "name", type: "String"), password: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "getSlidesViewProperties", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("getSlidesViewProperties", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.getSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlidesViewProperties", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testgetSlidesViewPropertiesInvalidpassword() {
+        let expectation = self.expectation(description: "testgetSlidesViewProperties")
+        var request = getSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "name", type: "String"), password: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "getSlidesViewProperties", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("getSlidesViewProperties", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.getSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlidesViewProperties", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testgetSlidesViewPropertiesInvalidfolder() {
+        let expectation = self.expectation(description: "testgetSlidesViewProperties")
+        var request = getSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "name", type: "String"), password: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "getSlidesViewProperties", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("getSlidesViewProperties", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.getSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlidesViewProperties", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testgetSlidesViewPropertiesInvalidstorage() {
+        let expectation = self.expectation(description: "testgetSlidesViewProperties")
+        var request = getSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "name", type: "String"), password: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "getSlidesViewProperties", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "getSlidesViewProperties", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("getSlidesViewProperties", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.getSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "getSlidesViewProperties", parameterName: "storage", parameterValue: request.storage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
     func testmoveFile() {
         let expectation = self.expectation(description: "testmoveFile")
         let request = moveFileRequest(srcPath: TestUtils.getTestValue(functionName: "moveFile", name: "srcPath", type: "String"), destPath: TestUtils.getTestValue(functionName: "moveFile", name: "destPath", type: "String"), srcStorageName: TestUtils.getTestValue(functionName: "moveFile", name: "srcStorageName", type: "String"), destStorageName: TestUtils.getTestValue(functionName: "moveFile", name: "destStorageName", type: "String"), versionId: TestUtils.getTestValue(functionName: "moveFile", name: "versionId", type: "String"))
@@ -12947,6 +13022,83 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("putSlidesSlideSize", "scaleType", request.scaleType) { (response, error) -> Void in
             SlidesAPI.putSlidesSlideSize(request: request) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "putSlidesSlideSize", parameterName: "scaleType", parameterValue: request.scaleType as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testputSlidesViewProperties() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        let request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        TestUtils.initialize("putSlidesViewProperties") { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testputSlidesViewPropertiesInvalidname() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        var request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "putSlidesViewProperties", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("putSlidesViewProperties", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putSlidesViewProperties", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testputSlidesViewPropertiesInvaliddto() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        var request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        request.dto = TestUtils.getInvalidTestValue(functionName: "putSlidesViewProperties", name: "dto", value: request.dto as Any, type: "ViewProperties")
+        TestUtils.initialize("putSlidesViewProperties", "dto", request.dto) { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putSlidesViewProperties", parameterName: "dto", parameterValue: request.dto as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testputSlidesViewPropertiesInvalidpassword() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        var request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "putSlidesViewProperties", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("putSlidesViewProperties", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putSlidesViewProperties", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testputSlidesViewPropertiesInvalidfolder() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        var request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "putSlidesViewProperties", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("putSlidesViewProperties", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putSlidesViewProperties", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testputSlidesViewPropertiesInvalidstorage() {
+        let expectation = self.expectation(description: "testputSlidesViewProperties")
+        var request = putSlidesViewPropertiesRequest(name: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "name", type: "String"), dto: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "dto", type: "ViewProperties"), password: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putSlidesViewProperties", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "putSlidesViewProperties", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("putSlidesViewProperties", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.putSlidesViewProperties(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putSlidesViewProperties", parameterName: "storage", parameterValue: request.storage as Any)
                 expectation.fulfill()
             }
         }

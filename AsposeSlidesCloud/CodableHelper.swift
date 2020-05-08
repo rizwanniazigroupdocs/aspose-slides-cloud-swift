@@ -80,6 +80,9 @@ open class CodableHelper {
         if (value is Data) {
             return (value as? Data, nil)
         }
+        if (value is String) {
+            return ((value as! String).data(using: .utf8), nil)
+        }
 
         let encoder = JSONEncoder()
         if prettyPrint {
