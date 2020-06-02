@@ -28,7 +28,7 @@
 import Foundation
 
 
-public struct copyFileRequest: Codable {
+public struct CopyFileRequest: Codable {
 
     /** Copy file */
     public var srcPath: String
@@ -54,7 +54,7 @@ public struct copyFileRequest: Codable {
     }
 }
 
-public struct copyFolderRequest: Codable {
+public struct CopyFolderRequest: Codable {
 
     /** Copy folder */
     public var srcPath: String
@@ -76,7 +76,7 @@ public struct copyFolderRequest: Codable {
     }
 }
 
-public struct createFolderRequest: Codable {
+public struct CreateFolderRequest: Codable {
 
     /** Create the folder */
     public var path: String
@@ -90,7 +90,7 @@ public struct createFolderRequest: Codable {
     }
 }
 
-public struct deleteFileRequest: Codable {
+public struct DeleteFileRequest: Codable {
 
     /** Delete file */
     public var path: String
@@ -108,7 +108,7 @@ public struct deleteFileRequest: Codable {
     }
 }
 
-public struct deleteFolderRequest: Codable {
+public struct DeleteFolderRequest: Codable {
 
     /** Delete folder */
     public var path: String
@@ -126,7 +126,7 @@ public struct deleteFolderRequest: Codable {
     }
 }
 
-public struct deleteNotesSlideRequest: Codable {
+public struct DeleteNotesSlideRequest: Codable {
 
     /** Remove notes slide. */
     public var name: String
@@ -152,7 +152,7 @@ public struct deleteNotesSlideRequest: Codable {
     }
 }
 
-public struct deleteNotesSlideParagraphRequest: Codable {
+public struct DeleteNotesSlideParagraphRequest: Codable {
 
     /** Remove a paragraph. */
     public var name: String
@@ -190,7 +190,7 @@ public struct deleteNotesSlideParagraphRequest: Codable {
     }
 }
 
-public struct deleteNotesSlideParagraphsRequest: Codable {
+public struct DeleteNotesSlideParagraphsRequest: Codable {
 
     /** Remove a range of paragraphs. */
     public var name: String
@@ -228,7 +228,7 @@ public struct deleteNotesSlideParagraphsRequest: Codable {
     }
 }
 
-public struct deleteNotesSlidePortionRequest: Codable {
+public struct DeleteNotesSlidePortionRequest: Codable {
 
     /** Remove a portion. */
     public var name: String
@@ -270,7 +270,7 @@ public struct deleteNotesSlidePortionRequest: Codable {
     }
 }
 
-public struct deleteNotesSlidePortionsRequest: Codable {
+public struct DeleteNotesSlidePortionsRequest: Codable {
 
     /** Remove a range of portions. */
     public var name: String
@@ -312,7 +312,7 @@ public struct deleteNotesSlidePortionsRequest: Codable {
     }
 }
 
-public struct deleteNotesSlideShapeRequest: Codable {
+public struct DeleteNotesSlideShapeRequest: Codable {
 
     /** Remove a shape. */
     public var name: String
@@ -346,7 +346,7 @@ public struct deleteNotesSlideShapeRequest: Codable {
     }
 }
 
-public struct deleteNotesSlideShapesRequest: Codable {
+public struct DeleteNotesSlideShapesRequest: Codable {
 
     /** Remove a range of shapes. */
     public var name: String
@@ -380,7 +380,7 @@ public struct deleteNotesSlideShapesRequest: Codable {
     }
 }
 
-public struct deleteParagraphRequest: Codable {
+public struct DeleteParagraphRequest: Codable {
 
     /** Remove a paragraph. */
     public var name: String
@@ -418,7 +418,7 @@ public struct deleteParagraphRequest: Codable {
     }
 }
 
-public struct deleteParagraphsRequest: Codable {
+public struct DeleteParagraphsRequest: Codable {
 
     /** Remove a range of paragraphs. */
     public var name: String
@@ -456,7 +456,7 @@ public struct deleteParagraphsRequest: Codable {
     }
 }
 
-public struct deletePortionRequest: Codable {
+public struct DeletePortionRequest: Codable {
 
     /** Remove a portion. */
     public var name: String
@@ -498,7 +498,7 @@ public struct deletePortionRequest: Codable {
     }
 }
 
-public struct deletePortionsRequest: Codable {
+public struct DeletePortionsRequest: Codable {
 
     /** Remove a range of portions. */
     public var name: String
@@ -540,7 +540,7 @@ public struct deletePortionsRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationRequest: Codable {
+public struct DeleteSlideAnimationRequest: Codable {
 
     /** Remove animation from a slide. */
     public var name: String
@@ -566,7 +566,7 @@ public struct deleteSlideAnimationRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationEffectRequest: Codable {
+public struct DeleteSlideAnimationEffectRequest: Codable {
 
     /** Remove an effect from slide animation. */
     public var name: String
@@ -596,7 +596,7 @@ public struct deleteSlideAnimationEffectRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationInteractiveSequenceRequest: Codable {
+public struct DeleteSlideAnimationInteractiveSequenceRequest: Codable {
 
     /** Remove an interactive sequence from slide animation. */
     public var name: String
@@ -626,7 +626,7 @@ public struct deleteSlideAnimationInteractiveSequenceRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationInteractiveSequenceEffectRequest: Codable {
+public struct DeleteSlideAnimationInteractiveSequenceEffectRequest: Codable {
 
     /** Remove an effect from slide animation interactive sequence. */
     public var name: String
@@ -660,7 +660,7 @@ public struct deleteSlideAnimationInteractiveSequenceEffectRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationInteractiveSequencesRequest: Codable {
+public struct DeleteSlideAnimationInteractiveSequencesRequest: Codable {
 
     /** Clear all interactive sequences from slide animation. */
     public var name: String
@@ -686,7 +686,7 @@ public struct deleteSlideAnimationInteractiveSequencesRequest: Codable {
     }
 }
 
-public struct deleteSlideAnimationMainSequenceRequest: Codable {
+public struct DeleteSlideAnimationMainSequenceRequest: Codable {
 
     /** Clear main sequence in slide animation. */
     public var name: String
@@ -712,7 +712,7 @@ public struct deleteSlideAnimationMainSequenceRequest: Codable {
     }
 }
 
-public struct deleteSlideByIndexRequest: Codable {
+public struct DeleteSlideByIndexRequest: Codable {
 
     /** Delete a presentation slide by index. */
     public var name: String
@@ -738,7 +738,7 @@ public struct deleteSlideByIndexRequest: Codable {
     }
 }
 
-public struct deleteSlideShapeRequest: Codable {
+public struct DeleteSlideShapeRequest: Codable {
 
     /** Remove a shape. */
     public var name: String
@@ -772,7 +772,7 @@ public struct deleteSlideShapeRequest: Codable {
     }
 }
 
-public struct deleteSlideShapesRequest: Codable {
+public struct DeleteSlideShapesRequest: Codable {
 
     /** Remove a range of shapes. */
     public var name: String
@@ -806,7 +806,7 @@ public struct deleteSlideShapesRequest: Codable {
     }
 }
 
-public struct deleteSlidesCleanSlidesListRequest: Codable {
+public struct DeleteSlidesCleanSlidesListRequest: Codable {
 
     /** Delete presentation slides. */
     public var name: String
@@ -832,7 +832,7 @@ public struct deleteSlidesCleanSlidesListRequest: Codable {
     }
 }
 
-public struct deleteSlidesDocumentPropertiesRequest: Codable {
+public struct DeleteSlidesDocumentPropertiesRequest: Codable {
 
     /** Clean document properties. */
     public var name: String
@@ -854,7 +854,7 @@ public struct deleteSlidesDocumentPropertiesRequest: Codable {
     }
 }
 
-public struct deleteSlidesDocumentPropertyRequest: Codable {
+public struct DeleteSlidesDocumentPropertyRequest: Codable {
 
     /** Delete document property. */
     public var name: String
@@ -880,7 +880,7 @@ public struct deleteSlidesDocumentPropertyRequest: Codable {
     }
 }
 
-public struct deleteSlidesSlideBackgroundRequest: Codable {
+public struct DeleteSlidesSlideBackgroundRequest: Codable {
 
     /** Remove background from a slide. */
     public var name: String
@@ -906,7 +906,7 @@ public struct deleteSlidesSlideBackgroundRequest: Codable {
     }
 }
 
-public struct downloadFileRequest: Codable {
+public struct DownloadFileRequest: Codable {
 
     /** Download file */
     public var path: String
@@ -924,7 +924,7 @@ public struct downloadFileRequest: Codable {
     }
 }
 
-public struct getDiscUsageRequest: Codable {
+public struct GetDiscUsageRequest: Codable {
 
     /** Get disc usage */
     public var storageName: String
@@ -934,7 +934,7 @@ public struct getDiscUsageRequest: Codable {
     }
 }
 
-public struct getFileVersionsRequest: Codable {
+public struct GetFileVersionsRequest: Codable {
 
     /** Get file versions */
     public var path: String
@@ -948,7 +948,7 @@ public struct getFileVersionsRequest: Codable {
     }
 }
 
-public struct getFilesListRequest: Codable {
+public struct GetFilesListRequest: Codable {
 
     /** Get all files and folders within a folder */
     public var path: String
@@ -962,7 +962,7 @@ public struct getFilesListRequest: Codable {
     }
 }
 
-public struct getLayoutSlideRequest: Codable {
+public struct GetLayoutSlideRequest: Codable {
 
     /** Read presentation layoutSlide info. */
     public var name: String
@@ -988,7 +988,7 @@ public struct getLayoutSlideRequest: Codable {
     }
 }
 
-public struct getLayoutSlidesListRequest: Codable {
+public struct GetLayoutSlidesListRequest: Codable {
 
     /** Read presentation layoutSlides info. */
     public var name: String
@@ -1010,7 +1010,7 @@ public struct getLayoutSlidesListRequest: Codable {
     }
 }
 
-public struct getMasterSlideRequest: Codable {
+public struct GetMasterSlideRequest: Codable {
 
     /** Read presentation masterSlide info. */
     public var name: String
@@ -1036,7 +1036,7 @@ public struct getMasterSlideRequest: Codable {
     }
 }
 
-public struct getMasterSlidesListRequest: Codable {
+public struct GetMasterSlidesListRequest: Codable {
 
     /** Read presentation masterSlides info. */
     public var name: String
@@ -1058,7 +1058,7 @@ public struct getMasterSlidesListRequest: Codable {
     }
 }
 
-public struct getNotesSlideRequest: Codable {
+public struct GetNotesSlideRequest: Codable {
 
     /** Read notes slide info. */
     public var name: String
@@ -1084,7 +1084,7 @@ public struct getNotesSlideRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapeRequest: Codable {
+public struct GetNotesSlideShapeRequest: Codable {
 
     /** Read slide shape info. */
     public var name: String
@@ -1118,7 +1118,7 @@ public struct getNotesSlideShapeRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapeParagraphRequest: Codable {
+public struct GetNotesSlideShapeParagraphRequest: Codable {
 
     /** Read shape paragraph info. */
     public var name: String
@@ -1156,7 +1156,7 @@ public struct getNotesSlideShapeParagraphRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapeParagraphsRequest: Codable {
+public struct GetNotesSlideShapeParagraphsRequest: Codable {
 
     /** Read shape paragraphs info. */
     public var name: String
@@ -1190,7 +1190,7 @@ public struct getNotesSlideShapeParagraphsRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapePortionRequest: Codable {
+public struct GetNotesSlideShapePortionRequest: Codable {
 
     /** Read paragraph portion info. */
     public var name: String
@@ -1232,7 +1232,7 @@ public struct getNotesSlideShapePortionRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapePortionsRequest: Codable {
+public struct GetNotesSlideShapePortionsRequest: Codable {
 
     /** Read paragraph portions info. */
     public var name: String
@@ -1270,7 +1270,7 @@ public struct getNotesSlideShapePortionsRequest: Codable {
     }
 }
 
-public struct getNotesSlideShapesRequest: Codable {
+public struct GetNotesSlideShapesRequest: Codable {
 
     /** Read slide shapes info. */
     public var name: String
@@ -1300,7 +1300,7 @@ public struct getNotesSlideShapesRequest: Codable {
     }
 }
 
-public struct getNotesSlideWithFormatRequest: Codable {
+public struct GetNotesSlideWithFormatRequest: Codable {
 
     /** Convert notes slide to the specified image format. */
     public var name: String
@@ -1342,7 +1342,7 @@ public struct getNotesSlideWithFormatRequest: Codable {
     }
 }
 
-public struct getParagraphPortionRequest: Codable {
+public struct GetParagraphPortionRequest: Codable {
 
     /** Read paragraph portion info. */
     public var name: String
@@ -1384,7 +1384,7 @@ public struct getParagraphPortionRequest: Codable {
     }
 }
 
-public struct getParagraphPortionsRequest: Codable {
+public struct GetParagraphPortionsRequest: Codable {
 
     /** Read paragraph portions info. */
     public var name: String
@@ -1422,7 +1422,7 @@ public struct getParagraphPortionsRequest: Codable {
     }
 }
 
-public struct getSlideAnimationRequest: Codable {
+public struct GetSlideAnimationRequest: Codable {
 
     /** Read slide animation effects. */
     public var name: String
@@ -1452,7 +1452,7 @@ public struct getSlideAnimationRequest: Codable {
     }
 }
 
-public struct getSlideShapeRequest: Codable {
+public struct GetSlideShapeRequest: Codable {
 
     /** Read slide shape info. */
     public var name: String
@@ -1486,7 +1486,7 @@ public struct getSlideShapeRequest: Codable {
     }
 }
 
-public struct getSlideShapeParagraphRequest: Codable {
+public struct GetSlideShapeParagraphRequest: Codable {
 
     /** Read shape paragraph info. */
     public var name: String
@@ -1524,7 +1524,7 @@ public struct getSlideShapeParagraphRequest: Codable {
     }
 }
 
-public struct getSlideShapeParagraphsRequest: Codable {
+public struct GetSlideShapeParagraphsRequest: Codable {
 
     /** Read shape paragraphs info. */
     public var name: String
@@ -1558,7 +1558,7 @@ public struct getSlideShapeParagraphsRequest: Codable {
     }
 }
 
-public struct getSlideShapesRequest: Codable {
+public struct GetSlideShapesRequest: Codable {
 
     /** Read slide shapes info. */
     public var name: String
@@ -1588,13 +1588,13 @@ public struct getSlideShapesRequest: Codable {
     }
 }
 
-public struct getSlidesApiInfoRequest: Codable {
+public struct GetSlidesApiInfoRequest: Codable {
 
     public init() {
     }
 }
 
-public struct getSlidesDocumentRequest: Codable {
+public struct GetSlidesDocumentRequest: Codable {
 
     /** Read presentation info. */
     public var name: String
@@ -1616,7 +1616,7 @@ public struct getSlidesDocumentRequest: Codable {
     }
 }
 
-public struct getSlidesDocumentPropertiesRequest: Codable {
+public struct GetSlidesDocumentPropertiesRequest: Codable {
 
     /** Read presentation document properties. */
     public var name: String
@@ -1638,7 +1638,7 @@ public struct getSlidesDocumentPropertiesRequest: Codable {
     }
 }
 
-public struct getSlidesDocumentPropertyRequest: Codable {
+public struct GetSlidesDocumentPropertyRequest: Codable {
 
     /** Read presentation document property. */
     public var name: String
@@ -1664,7 +1664,7 @@ public struct getSlidesDocumentPropertyRequest: Codable {
     }
 }
 
-public struct getSlidesImageWithDefaultFormatRequest: Codable {
+public struct GetSlidesImageWithDefaultFormatRequest: Codable {
 
     /** Get image binary data. */
     public var name: String
@@ -1690,7 +1690,7 @@ public struct getSlidesImageWithDefaultFormatRequest: Codable {
     }
 }
 
-public struct getSlidesImageWithFormatRequest: Codable {
+public struct GetSlidesImageWithFormatRequest: Codable {
 
     /** Get image in specified format. */
     public var name: String
@@ -1720,7 +1720,7 @@ public struct getSlidesImageWithFormatRequest: Codable {
     }
 }
 
-public struct getSlidesImagesRequest: Codable {
+public struct GetSlidesImagesRequest: Codable {
 
     /** Read presentation images info. */
     public var name: String
@@ -1742,7 +1742,7 @@ public struct getSlidesImagesRequest: Codable {
     }
 }
 
-public struct getSlidesPlaceholderRequest: Codable {
+public struct GetSlidesPlaceholderRequest: Codable {
 
     /** Read slide placeholder info. */
     public var name: String
@@ -1772,7 +1772,7 @@ public struct getSlidesPlaceholderRequest: Codable {
     }
 }
 
-public struct getSlidesPlaceholdersRequest: Codable {
+public struct GetSlidesPlaceholdersRequest: Codable {
 
     /** Read slide placeholders info. */
     public var name: String
@@ -1798,7 +1798,7 @@ public struct getSlidesPlaceholdersRequest: Codable {
     }
 }
 
-public struct getSlidesPresentationTextItemsRequest: Codable {
+public struct GetSlidesPresentationTextItemsRequest: Codable {
 
     /** Extract presentation text items. */
     public var name: String
@@ -1824,7 +1824,7 @@ public struct getSlidesPresentationTextItemsRequest: Codable {
     }
 }
 
-public struct getSlidesSlideRequest: Codable {
+public struct GetSlidesSlideRequest: Codable {
 
     /** Read presentation slide info. */
     public var name: String
@@ -1850,7 +1850,7 @@ public struct getSlidesSlideRequest: Codable {
     }
 }
 
-public struct getSlidesSlideBackgroundRequest: Codable {
+public struct GetSlidesSlideBackgroundRequest: Codable {
 
     /** Read slide background info. */
     public var name: String
@@ -1876,7 +1876,7 @@ public struct getSlidesSlideBackgroundRequest: Codable {
     }
 }
 
-public struct getSlidesSlideCommentsRequest: Codable {
+public struct GetSlidesSlideCommentsRequest: Codable {
 
     /** Read presentation slide comments. */
     public var name: String
@@ -1902,7 +1902,7 @@ public struct getSlidesSlideCommentsRequest: Codable {
     }
 }
 
-public struct getSlidesSlideImagesRequest: Codable {
+public struct GetSlidesSlideImagesRequest: Codable {
 
     /** Read slide images info. */
     public var name: String
@@ -1928,7 +1928,7 @@ public struct getSlidesSlideImagesRequest: Codable {
     }
 }
 
-public struct getSlidesSlideTextItemsRequest: Codable {
+public struct GetSlidesSlideTextItemsRequest: Codable {
 
     /** Extract slide text items. */
     public var name: String
@@ -1958,7 +1958,7 @@ public struct getSlidesSlideTextItemsRequest: Codable {
     }
 }
 
-public struct getSlidesSlidesListRequest: Codable {
+public struct GetSlidesSlidesListRequest: Codable {
 
     /** Read presentation slides info. */
     public var name: String
@@ -1980,7 +1980,7 @@ public struct getSlidesSlidesListRequest: Codable {
     }
 }
 
-public struct getSlidesThemeRequest: Codable {
+public struct GetSlidesThemeRequest: Codable {
 
     /** Read slide theme info. */
     public var name: String
@@ -2006,7 +2006,7 @@ public struct getSlidesThemeRequest: Codable {
     }
 }
 
-public struct getSlidesThemeColorSchemeRequest: Codable {
+public struct GetSlidesThemeColorSchemeRequest: Codable {
 
     /** Read slide theme color scheme info. */
     public var name: String
@@ -2032,7 +2032,7 @@ public struct getSlidesThemeColorSchemeRequest: Codable {
     }
 }
 
-public struct getSlidesThemeFontSchemeRequest: Codable {
+public struct GetSlidesThemeFontSchemeRequest: Codable {
 
     /** Read slide theme font scheme info. */
     public var name: String
@@ -2058,7 +2058,7 @@ public struct getSlidesThemeFontSchemeRequest: Codable {
     }
 }
 
-public struct getSlidesThemeFormatSchemeRequest: Codable {
+public struct GetSlidesThemeFormatSchemeRequest: Codable {
 
     /** Read slide theme format scheme info. */
     public var name: String
@@ -2084,7 +2084,7 @@ public struct getSlidesThemeFormatSchemeRequest: Codable {
     }
 }
 
-public struct getSlidesViewPropertiesRequest: Codable {
+public struct GetSlidesViewPropertiesRequest: Codable {
 
     /** Read presentation document properties. */
     public var name: String
@@ -2106,7 +2106,7 @@ public struct getSlidesViewPropertiesRequest: Codable {
     }
 }
 
-public struct moveFileRequest: Codable {
+public struct MoveFileRequest: Codable {
 
     /** Move file */
     public var srcPath: String
@@ -2132,7 +2132,7 @@ public struct moveFileRequest: Codable {
     }
 }
 
-public struct moveFolderRequest: Codable {
+public struct MoveFolderRequest: Codable {
 
     /** Move folder */
     public var srcPath: String
@@ -2154,7 +2154,7 @@ public struct moveFolderRequest: Codable {
     }
 }
 
-public struct objectExistsRequest: Codable {
+public struct ObjectExistsRequest: Codable {
 
     /** Check if file or folder exists */
     public var path: String
@@ -2172,7 +2172,7 @@ public struct objectExistsRequest: Codable {
     }
 }
 
-public struct postAddNewParagraphRequest: Codable {
+public struct PostAddNewParagraphRequest: Codable {
 
     /** Creates new paragraph. */
     public var name: String
@@ -2214,7 +2214,7 @@ public struct postAddNewParagraphRequest: Codable {
     }
 }
 
-public struct postAddNewPortionRequest: Codable {
+public struct PostAddNewPortionRequest: Codable {
 
     /** Creates new portion. */
     public var name: String
@@ -2260,7 +2260,7 @@ public struct postAddNewPortionRequest: Codable {
     }
 }
 
-public struct postAddNewShapeRequest: Codable {
+public struct PostAddNewShapeRequest: Codable {
 
     /** Create new shape. */
     public var name: String
@@ -2302,7 +2302,7 @@ public struct postAddNewShapeRequest: Codable {
     }
 }
 
-public struct postAddNotesSlideRequest: Codable {
+public struct PostAddNotesSlideRequest: Codable {
 
     /** Add new notes slide. */
     public var name: String
@@ -2332,7 +2332,7 @@ public struct postAddNotesSlideRequest: Codable {
     }
 }
 
-public struct postCopyLayoutSlideFromSourcePresentationRequest: Codable {
+public struct PostCopyLayoutSlideFromSourcePresentationRequest: Codable {
 
     /** Copy layoutSlide from source presentation. */
     public var name: String
@@ -2370,7 +2370,7 @@ public struct postCopyLayoutSlideFromSourcePresentationRequest: Codable {
     }
 }
 
-public struct postCopyMasterSlideFromSourcePresentationRequest: Codable {
+public struct PostCopyMasterSlideFromSourcePresentationRequest: Codable {
 
     /** Copy masterSlide from source presentation. */
     public var name: String
@@ -2412,7 +2412,59 @@ public struct postCopyMasterSlideFromSourcePresentationRequest: Codable {
     }
 }
 
-public struct postNotesSlideAddNewParagraphRequest: Codable {
+public struct PostGetNotesSlideRequest: Codable {
+
+    /** Read notes slide info. */
+    public var slideIndex: Int
+
+    /** Read notes slide info. */
+    public var document: Data
+
+    /** Read notes slide info. */
+    public var password: String
+
+    public init(slideIndex: Int, document: Data, password: String) {
+        self.slideIndex = slideIndex
+        self.document = document
+        self.password = password
+    }
+}
+
+public struct PostGetNotesSlideWithFormatRequest: Codable {
+
+    /** Convert notes slide to the specified image format. */
+    public var slideIndex: Int
+
+    /** Convert notes slide to the specified image format. */
+    public var format: String
+
+    /** Convert notes slide to the specified image format. */
+    public var document: Data
+
+    /** Convert notes slide to the specified image format. */
+    public var width: Int?
+
+    /** Convert notes slide to the specified image format. */
+    public var height: Int?
+
+    /** Convert notes slide to the specified image format. */
+    public var password: String
+
+    /** Convert notes slide to the specified image format. */
+    public var fontsFolder: String
+
+    public init(slideIndex: Int, format: String, document: Data, width: Int, height: Int, password: String, fontsFolder: String) {
+        self.slideIndex = slideIndex
+        self.format = format
+        self.document = document
+        self.width = width
+        self.height = height
+        self.password = password
+        self.fontsFolder = fontsFolder
+    }
+}
+
+public struct PostNotesSlideAddNewParagraphRequest: Codable {
 
     /** Creates new paragraph. */
     public var name: String
@@ -2454,7 +2506,7 @@ public struct postNotesSlideAddNewParagraphRequest: Codable {
     }
 }
 
-public struct postNotesSlideAddNewPortionRequest: Codable {
+public struct PostNotesSlideAddNewPortionRequest: Codable {
 
     /** Creates new portion. */
     public var name: String
@@ -2500,7 +2552,7 @@ public struct postNotesSlideAddNewPortionRequest: Codable {
     }
 }
 
-public struct postNotesSlideAddNewShapeRequest: Codable {
+public struct PostNotesSlideAddNewShapeRequest: Codable {
 
     /** Create new shape. */
     public var name: String
@@ -2542,7 +2594,7 @@ public struct postNotesSlideAddNewShapeRequest: Codable {
     }
 }
 
-public struct postNotesSlideShapeSaveAsRequest: Codable {
+public struct PostNotesSlideShapeSaveAsRequest: Codable {
 
     /** Render shape to specified picture format. */
     public var name: String
@@ -2600,7 +2652,7 @@ public struct postNotesSlideShapeSaveAsRequest: Codable {
     }
 }
 
-public struct postPresentationMergeRequest: Codable {
+public struct PostPresentationMergeRequest: Codable {
 
     /** Merge the presentation with other presentations specified in the request parameter. */
     public var name: String
@@ -2626,7 +2678,7 @@ public struct postPresentationMergeRequest: Codable {
     }
 }
 
-public struct postShapeSaveAsRequest: Codable {
+public struct PostShapeSaveAsRequest: Codable {
 
     /** Render shape to specified picture format. */
     public var name: String
@@ -2684,7 +2736,7 @@ public struct postShapeSaveAsRequest: Codable {
     }
 }
 
-public struct postSlideAnimationEffectRequest: Codable {
+public struct PostSlideAnimationEffectRequest: Codable {
 
     /** Add an effect to slide animation. */
     public var name: String
@@ -2714,7 +2766,7 @@ public struct postSlideAnimationEffectRequest: Codable {
     }
 }
 
-public struct postSlideAnimationInteractiveSequenceRequest: Codable {
+public struct PostSlideAnimationInteractiveSequenceRequest: Codable {
 
     /** Set slide animation. */
     public var name: String
@@ -2744,7 +2796,7 @@ public struct postSlideAnimationInteractiveSequenceRequest: Codable {
     }
 }
 
-public struct postSlideAnimationInteractiveSequenceEffectRequest: Codable {
+public struct PostSlideAnimationInteractiveSequenceEffectRequest: Codable {
 
     /** Add an animation effect to a slide interactive sequence. */
     public var name: String
@@ -2778,7 +2830,7 @@ public struct postSlideAnimationInteractiveSequenceEffectRequest: Codable {
     }
 }
 
-public struct postSlideSaveAsRequest: Codable {
+public struct PostSlideSaveAsRequest: Codable {
 
     /** Save a slide to a specified format. */
     public var name: String
@@ -2824,7 +2876,7 @@ public struct postSlideSaveAsRequest: Codable {
     }
 }
 
-public struct postSlidesAddRequest: Codable {
+public struct PostSlidesAddRequest: Codable {
 
     /** Create a slide. */
     public var name: String
@@ -2854,7 +2906,7 @@ public struct postSlidesAddRequest: Codable {
     }
 }
 
-public struct postSlidesConvertRequest: Codable {
+public struct PostSlidesConvertRequest: Codable {
 
     /** Convert presentation from request content to format specified. */
     public var format: String
@@ -2876,7 +2928,7 @@ public struct postSlidesConvertRequest: Codable {
     }
 }
 
-public struct postSlidesCopyRequest: Codable {
+public struct PostSlidesCopyRequest: Codable {
 
     /** Copy a slide from the current or another presentation. */
     public var name: String
@@ -2918,7 +2970,7 @@ public struct postSlidesCopyRequest: Codable {
     }
 }
 
-public struct postSlidesDocumentRequest: Codable {
+public struct PostSlidesDocumentRequest: Codable {
 
     /** Create a presentation. */
     public var name: String
@@ -2948,7 +3000,7 @@ public struct postSlidesDocumentRequest: Codable {
     }
 }
 
-public struct postSlidesDocumentFromHtmlRequest: Codable {
+public struct PostSlidesDocumentFromHtmlRequest: Codable {
 
     /** Create presentation document from html. */
     public var name: String
@@ -2974,7 +3026,7 @@ public struct postSlidesDocumentFromHtmlRequest: Codable {
     }
 }
 
-public struct postSlidesDocumentFromSourceRequest: Codable {
+public struct PostSlidesDocumentFromSourceRequest: Codable {
 
     /** Create a presentation from an existing source. */
     public var name: String
@@ -3008,7 +3060,7 @@ public struct postSlidesDocumentFromSourceRequest: Codable {
     }
 }
 
-public struct postSlidesDocumentFromTemplateRequest: Codable {
+public struct PostSlidesDocumentFromTemplateRequest: Codable {
 
     /** Create a presentation. */
     public var name: String
@@ -3050,7 +3102,7 @@ public struct postSlidesDocumentFromTemplateRequest: Codable {
     }
 }
 
-public struct postSlidesPipelineRequest: Codable {
+public struct PostSlidesPipelineRequest: Codable {
 
     /** Performs slides pipeline. */
     public var pipeline: Pipeline
@@ -3060,7 +3112,7 @@ public struct postSlidesPipelineRequest: Codable {
     }
 }
 
-public struct postSlidesPresentationReplaceTextRequest: Codable {
+public struct PostSlidesPresentationReplaceTextRequest: Codable {
 
     /** Replace text with a new value. */
     public var name: String
@@ -3094,7 +3146,7 @@ public struct postSlidesPresentationReplaceTextRequest: Codable {
     }
 }
 
-public struct postSlidesReorderRequest: Codable {
+public struct PostSlidesReorderRequest: Codable {
 
     /** Reorder presentation slide position. */
     public var name: String
@@ -3124,7 +3176,7 @@ public struct postSlidesReorderRequest: Codable {
     }
 }
 
-public struct postSlidesReorderManyRequest: Codable {
+public struct PostSlidesReorderManyRequest: Codable {
 
     /** Reorder presentation slides positions. */
     public var name: String
@@ -3154,7 +3206,7 @@ public struct postSlidesReorderManyRequest: Codable {
     }
 }
 
-public struct postSlidesSaveAsRequest: Codable {
+public struct PostSlidesSaveAsRequest: Codable {
 
     /** Save a presentation to a specified format. */
     public var name: String
@@ -3188,7 +3240,7 @@ public struct postSlidesSaveAsRequest: Codable {
     }
 }
 
-public struct postSlidesSetDocumentPropertiesRequest: Codable {
+public struct PostSlidesSetDocumentPropertiesRequest: Codable {
 
     /** Set document properties. */
     public var name: String
@@ -3214,7 +3266,7 @@ public struct postSlidesSetDocumentPropertiesRequest: Codable {
     }
 }
 
-public struct postSlidesSlideReplaceTextRequest: Codable {
+public struct PostSlidesSlideReplaceTextRequest: Codable {
 
     /** Replace text with a new value. */
     public var name: String
@@ -3252,7 +3304,7 @@ public struct postSlidesSlideReplaceTextRequest: Codable {
     }
 }
 
-public struct postSlidesSplitRequest: Codable {
+public struct PostSlidesSplitRequest: Codable {
 
     /** Splitting presentations. Create one image per slide. */
     public var name: String
@@ -3306,7 +3358,7 @@ public struct postSlidesSplitRequest: Codable {
     }
 }
 
-public struct putLayoutSlideRequest: Codable {
+public struct PutLayoutSlideRequest: Codable {
 
     /** Update a layoutSlide. */
     public var name: String
@@ -3336,7 +3388,7 @@ public struct putLayoutSlideRequest: Codable {
     }
 }
 
-public struct putNotesSlideShapeSaveAsRequest: Codable {
+public struct PutNotesSlideShapeSaveAsRequest: Codable {
 
     /** Render shape to specified picture format. */
     public var name: String
@@ -3398,7 +3450,7 @@ public struct putNotesSlideShapeSaveAsRequest: Codable {
     }
 }
 
-public struct putPresentationMergeRequest: Codable {
+public struct PutPresentationMergeRequest: Codable {
 
     /** Merge the presentation with other presentations or some of their slides specified in the request parameter. */
     public var name: String
@@ -3424,7 +3476,7 @@ public struct putPresentationMergeRequest: Codable {
     }
 }
 
-public struct putSetParagraphPortionPropertiesRequest: Codable {
+public struct PutSetParagraphPortionPropertiesRequest: Codable {
 
     /** Update portion properties. */
     public var name: String
@@ -3470,7 +3522,7 @@ public struct putSetParagraphPortionPropertiesRequest: Codable {
     }
 }
 
-public struct putSetParagraphPropertiesRequest: Codable {
+public struct PutSetParagraphPropertiesRequest: Codable {
 
     /** Update paragraph properties. */
     public var name: String
@@ -3512,7 +3564,7 @@ public struct putSetParagraphPropertiesRequest: Codable {
     }
 }
 
-public struct putShapeSaveAsRequest: Codable {
+public struct PutShapeSaveAsRequest: Codable {
 
     /** Render shape to specified picture format. */
     public var name: String
@@ -3574,7 +3626,7 @@ public struct putShapeSaveAsRequest: Codable {
     }
 }
 
-public struct putSlideAnimationRequest: Codable {
+public struct PutSlideAnimationRequest: Codable {
 
     /** Set slide animation. */
     public var name: String
@@ -3604,7 +3656,7 @@ public struct putSlideAnimationRequest: Codable {
     }
 }
 
-public struct putSlideAnimationEffectRequest: Codable {
+public struct PutSlideAnimationEffectRequest: Codable {
 
     /** Modify an animation effect for a slide. */
     public var name: String
@@ -3638,7 +3690,7 @@ public struct putSlideAnimationEffectRequest: Codable {
     }
 }
 
-public struct putSlideAnimationInteractiveSequenceEffectRequest: Codable {
+public struct PutSlideAnimationInteractiveSequenceEffectRequest: Codable {
 
     /** Modify an animation effect for a slide interactive sequence. */
     public var name: String
@@ -3676,7 +3728,7 @@ public struct putSlideAnimationInteractiveSequenceEffectRequest: Codable {
     }
 }
 
-public struct putSlideSaveAsRequest: Codable {
+public struct PutSlideSaveAsRequest: Codable {
 
     /** Save a slide to a specified format. */
     public var name: String
@@ -3726,7 +3778,7 @@ public struct putSlideSaveAsRequest: Codable {
     }
 }
 
-public struct putSlideShapeInfoRequest: Codable {
+public struct PutSlideShapeInfoRequest: Codable {
 
     /** Update shape properties. */
     public var name: String
@@ -3764,7 +3816,7 @@ public struct putSlideShapeInfoRequest: Codable {
     }
 }
 
-public struct putSlidesConvertRequest: Codable {
+public struct PutSlidesConvertRequest: Codable {
 
     /** Convert presentation from request content to format specified. */
     public var format: String
@@ -3790,7 +3842,7 @@ public struct putSlidesConvertRequest: Codable {
     }
 }
 
-public struct putSlidesDocumentFromHtmlRequest: Codable {
+public struct PutSlidesDocumentFromHtmlRequest: Codable {
 
     /** Update presentation document from html. */
     public var name: String
@@ -3816,7 +3868,7 @@ public struct putSlidesDocumentFromHtmlRequest: Codable {
     }
 }
 
-public struct putSlidesSaveAsRequest: Codable {
+public struct PutSlidesSaveAsRequest: Codable {
 
     /** Save a presentation to a specified format. */
     public var name: String
@@ -3854,7 +3906,7 @@ public struct putSlidesSaveAsRequest: Codable {
     }
 }
 
-public struct putSlidesSetDocumentPropertyRequest: Codable {
+public struct PutSlidesSetDocumentPropertyRequest: Codable {
 
     /** Set document property. */
     public var name: String
@@ -3884,7 +3936,7 @@ public struct putSlidesSetDocumentPropertyRequest: Codable {
     }
 }
 
-public struct putSlidesSlideRequest: Codable {
+public struct PutSlidesSlideRequest: Codable {
 
     /** Update a slide. */
     public var name: String
@@ -3914,7 +3966,7 @@ public struct putSlidesSlideRequest: Codable {
     }
 }
 
-public struct putSlidesSlideBackgroundRequest: Codable {
+public struct PutSlidesSlideBackgroundRequest: Codable {
 
     /** Set background for a slide. */
     public var name: String
@@ -3944,7 +3996,7 @@ public struct putSlidesSlideBackgroundRequest: Codable {
     }
 }
 
-public struct putSlidesSlideBackgroundColorRequest: Codable {
+public struct PutSlidesSlideBackgroundColorRequest: Codable {
 
     /** Set background color for a slide. */
     public var name: String
@@ -3974,7 +4026,7 @@ public struct putSlidesSlideBackgroundColorRequest: Codable {
     }
 }
 
-public struct putSlidesSlideSizeRequest: Codable {
+public struct PutSlidesSlideSizeRequest: Codable {
 
     /** Set slide size for a presentation. */
     public var name: String
@@ -4012,7 +4064,7 @@ public struct putSlidesSlideSizeRequest: Codable {
     }
 }
 
-public struct putSlidesViewPropertiesRequest: Codable {
+public struct PutSlidesViewPropertiesRequest: Codable {
 
     /** Update presentation document properties. */
     public var name: String
@@ -4038,7 +4090,7 @@ public struct putSlidesViewPropertiesRequest: Codable {
     }
 }
 
-public struct putUpdateNotesSlideRequest: Codable {
+public struct PutUpdateNotesSlideRequest: Codable {
 
     /** Update notes slide properties. */
     public var name: String
@@ -4068,7 +4120,7 @@ public struct putUpdateNotesSlideRequest: Codable {
     }
 }
 
-public struct putUpdateNotesSlideShapeRequest: Codable {
+public struct PutUpdateNotesSlideShapeRequest: Codable {
 
     /** Update shape properties. */
     public var name: String
@@ -4106,7 +4158,7 @@ public struct putUpdateNotesSlideShapeRequest: Codable {
     }
 }
 
-public struct putUpdateNotesSlideShapeParagraphRequest: Codable {
+public struct PutUpdateNotesSlideShapeParagraphRequest: Codable {
 
     /** Update paragraph properties. */
     public var name: String
@@ -4148,7 +4200,7 @@ public struct putUpdateNotesSlideShapeParagraphRequest: Codable {
     }
 }
 
-public struct putUpdateNotesSlideShapePortionRequest: Codable {
+public struct PutUpdateNotesSlideShapePortionRequest: Codable {
 
     /** Update portion properties. */
     public var name: String
@@ -4194,7 +4246,7 @@ public struct putUpdateNotesSlideShapePortionRequest: Codable {
     }
 }
 
-public struct storageExistsRequest: Codable {
+public struct StorageExistsRequest: Codable {
 
     /** Check if storage exists */
     public var storageName: String
@@ -4204,7 +4256,7 @@ public struct storageExistsRequest: Codable {
     }
 }
 
-public struct uploadFileRequest: Codable {
+public struct UploadFileRequest: Codable {
 
     /** Upload file */
     public var path: String

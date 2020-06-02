@@ -34,7 +34,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     dependencies: [
-        .package(url: "https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift", from: "20.2.0"),
+        .package(url: "https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift", from: "20.5.0"),
     ],
     targets: [
         .target(

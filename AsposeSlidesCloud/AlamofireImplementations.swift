@@ -63,7 +63,6 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
     }
 
     override open func execute(_ completion: @escaping (_ response: Response<T>?, _ error: Error?) -> Void) {
-
         let fileKeys = parameters == nil ? [] : parameters!.filter { $1 is NSURL }
                                                            .map { $0.0 }
         let dataKeys = parameters == nil ? [] : parameters!.filter { $1 is Data }.map { $0.0 }
@@ -387,7 +386,12 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
             print(">>\(r.httpMethod!) \(r)")
             print(r.allHTTPHeaderFields!)
             if r.httpBody != nil {
-                print(String(data: r.httpBody!, encoding: .utf8)!)
+                let s = String(data: r.httpBody!, encoding: .utf8)
+                if s != nil {
+                    print(s!)
+                } else {
+                    print(r.httpBody!)
+                }
             }
         }
         /*request.httpMethod = "POST"
@@ -406,8 +410,13 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
             }*/
             if AsposeSlidesCloudAPI.debug {
                 print("<< \(response!)")
-                if (data != nil) {
-                    print(String(data: data!, encoding: .utf8)!)
+                if data != nil {
+                    let s = String(data: data!, encoding: .utf8)
+                    if s != nil {
+                        print(s!)
+                    } else {
+                        print(data!)
+                    }
                 }
             }
             let dataResponse = response as! HTTPURLResponse

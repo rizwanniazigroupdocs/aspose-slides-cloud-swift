@@ -37,7 +37,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func copyFile(request: copyFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func copyFile(request: CopyFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         copyFileWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -58,7 +58,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func copyFileWithRequestBuilder(request: copyFileRequest) -> RequestBuilder<Void> {
+    open class func copyFileWithRequestBuilder(request: CopyFileRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/file/copy/{srcPath}"
         path = APIHelper.replacePathParameter(path, "srcPath", request.srcPath)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -83,7 +83,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func copyFolder(request: copyFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func copyFolder(request: CopyFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         copyFolderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -104,7 +104,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func copyFolderWithRequestBuilder(request: copyFolderRequest) -> RequestBuilder<Void> {
+    open class func copyFolderWithRequestBuilder(request: CopyFolderRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/folder/copy/{srcPath}"
         path = APIHelper.replacePathParameter(path, "srcPath", request.srcPath)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -128,7 +128,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func createFolder(request: createFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func createFolder(request: CreateFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         createFolderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -149,7 +149,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func createFolderWithRequestBuilder(request: createFolderRequest) -> RequestBuilder<Void> {
+    open class func createFolderWithRequestBuilder(request: CreateFolderRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/folder/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -171,7 +171,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteFile(request: deleteFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func deleteFile(request: DeleteFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         deleteFileWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -192,7 +192,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteFileWithRequestBuilder(request: deleteFileRequest) -> RequestBuilder<Void> {
+    open class func deleteFileWithRequestBuilder(request: DeleteFileRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/file/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -215,7 +215,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteFolder(request: deleteFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func deleteFolder(request: DeleteFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         deleteFolderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -236,7 +236,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteFolderWithRequestBuilder(request: deleteFolderRequest) -> RequestBuilder<Void> {
+    open class func deleteFolderWithRequestBuilder(request: DeleteFolderRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/folder/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -259,7 +259,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlide(request: deleteNotesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlide(request: DeleteNotesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
         deleteNotesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -277,7 +277,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slide> 
      */
-    open class func deleteNotesSlideWithRequestBuilder(request: deleteNotesSlideRequest) -> RequestBuilder<Slide> {
+    open class func deleteNotesSlideWithRequestBuilder(request: DeleteNotesSlideRequest) -> RequestBuilder<Slide> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -302,7 +302,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlideParagraph(request: deleteNotesSlideParagraphRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlideParagraph(request: DeleteNotesSlideParagraphRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         deleteNotesSlideParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -320,7 +320,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func deleteNotesSlideParagraphWithRequestBuilder(request: deleteNotesSlideParagraphRequest) -> RequestBuilder<Paragraphs> {
+    open class func deleteNotesSlideParagraphWithRequestBuilder(request: DeleteNotesSlideParagraphRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -348,7 +348,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlideParagraphs(request: deleteNotesSlideParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlideParagraphs(request: DeleteNotesSlideParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         deleteNotesSlideParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -366,7 +366,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func deleteNotesSlideParagraphsWithRequestBuilder(request: deleteNotesSlideParagraphsRequest) -> RequestBuilder<Paragraphs> {
+    open class func deleteNotesSlideParagraphsWithRequestBuilder(request: DeleteNotesSlideParagraphsRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -394,7 +394,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlidePortion(request: deleteNotesSlidePortionRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlidePortion(request: DeleteNotesSlidePortionRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         deleteNotesSlidePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -412,7 +412,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func deleteNotesSlidePortionWithRequestBuilder(request: deleteNotesSlidePortionRequest) -> RequestBuilder<Portions> {
+    open class func deleteNotesSlidePortionWithRequestBuilder(request: DeleteNotesSlidePortionRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -441,7 +441,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlidePortions(request: deleteNotesSlidePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlidePortions(request: DeleteNotesSlidePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         deleteNotesSlidePortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -459,7 +459,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func deleteNotesSlidePortionsWithRequestBuilder(request: deleteNotesSlidePortionsRequest) -> RequestBuilder<Portions> {
+    open class func deleteNotesSlidePortionsWithRequestBuilder(request: DeleteNotesSlidePortionsRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -488,7 +488,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlideShape(request: deleteNotesSlideShapeRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlideShape(request: DeleteNotesSlideShapeRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         deleteNotesSlideShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -506,7 +506,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func deleteNotesSlideShapeWithRequestBuilder(request: deleteNotesSlideShapeRequest) -> RequestBuilder<Shapes> {
+    open class func deleteNotesSlideShapeWithRequestBuilder(request: DeleteNotesSlideShapeRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -533,7 +533,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteNotesSlideShapes(request: deleteNotesSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func deleteNotesSlideShapes(request: DeleteNotesSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         deleteNotesSlideShapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -551,7 +551,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func deleteNotesSlideShapesWithRequestBuilder(request: deleteNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
+    open class func deleteNotesSlideShapesWithRequestBuilder(request: DeleteNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -578,7 +578,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteParagraph(request: deleteParagraphRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func deleteParagraph(request: DeleteParagraphRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         deleteParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -596,7 +596,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func deleteParagraphWithRequestBuilder(request: deleteParagraphRequest) -> RequestBuilder<Paragraphs> {
+    open class func deleteParagraphWithRequestBuilder(request: DeleteParagraphRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -624,7 +624,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteParagraphs(request: deleteParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func deleteParagraphs(request: DeleteParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         deleteParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -642,7 +642,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func deleteParagraphsWithRequestBuilder(request: deleteParagraphsRequest) -> RequestBuilder<Paragraphs> {
+    open class func deleteParagraphsWithRequestBuilder(request: DeleteParagraphsRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -670,7 +670,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deletePortion(request: deletePortionRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func deletePortion(request: DeletePortionRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         deletePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -688,7 +688,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func deletePortionWithRequestBuilder(request: deletePortionRequest) -> RequestBuilder<Portions> {
+    open class func deletePortionWithRequestBuilder(request: DeletePortionRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -717,7 +717,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deletePortions(request: deletePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func deletePortions(request: DeletePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         deletePortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -735,7 +735,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func deletePortionsWithRequestBuilder(request: deletePortionsRequest) -> RequestBuilder<Portions> {
+    open class func deletePortionsWithRequestBuilder(request: DeletePortionsRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -764,7 +764,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimation(request: deleteSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimation(request: DeleteSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -782,7 +782,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationWithRequestBuilder(request: deleteSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationWithRequestBuilder(request: DeleteSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -807,7 +807,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimationEffect(request: deleteSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimationEffect(request: DeleteSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -825,7 +825,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationEffectWithRequestBuilder(request: deleteSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationEffectWithRequestBuilder(request: DeleteSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/mainSequence/{effectIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -851,7 +851,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimationInteractiveSequence(request: deleteSlideAnimationInteractiveSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimationInteractiveSequence(request: DeleteSlideAnimationInteractiveSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationInteractiveSequenceWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -869,7 +869,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationInteractiveSequenceWithRequestBuilder(request: deleteSlideAnimationInteractiveSequenceRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationInteractiveSequenceWithRequestBuilder(request: DeleteSlideAnimationInteractiveSequenceRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences/{sequenceIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -895,7 +895,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimationInteractiveSequenceEffect(request: deleteSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimationInteractiveSequenceEffect(request: DeleteSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -913,7 +913,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: deleteSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: DeleteSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences/{sequenceIndex}/{effectIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -940,7 +940,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimationInteractiveSequences(request: deleteSlideAnimationInteractiveSequencesRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimationInteractiveSequences(request: DeleteSlideAnimationInteractiveSequencesRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationInteractiveSequencesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -958,7 +958,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationInteractiveSequencesWithRequestBuilder(request: deleteSlideAnimationInteractiveSequencesRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationInteractiveSequencesWithRequestBuilder(request: DeleteSlideAnimationInteractiveSequencesRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -983,7 +983,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideAnimationMainSequence(request: deleteSlideAnimationMainSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func deleteSlideAnimationMainSequence(request: DeleteSlideAnimationMainSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         deleteSlideAnimationMainSequenceWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1001,7 +1001,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func deleteSlideAnimationMainSequenceWithRequestBuilder(request: deleteSlideAnimationMainSequenceRequest) -> RequestBuilder<SlideAnimation> {
+    open class func deleteSlideAnimationMainSequenceWithRequestBuilder(request: DeleteSlideAnimationMainSequenceRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/mainSequence"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1026,7 +1026,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideByIndex(request: deleteSlideByIndexRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func deleteSlideByIndex(request: DeleteSlideByIndexRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         deleteSlideByIndexWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1044,7 +1044,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func deleteSlideByIndexWithRequestBuilder(request: deleteSlideByIndexRequest) -> RequestBuilder<Slides> {
+    open class func deleteSlideByIndexWithRequestBuilder(request: DeleteSlideByIndexRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1069,7 +1069,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideShape(request: deleteSlideShapeRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func deleteSlideShape(request: DeleteSlideShapeRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         deleteSlideShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1087,7 +1087,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func deleteSlideShapeWithRequestBuilder(request: deleteSlideShapeRequest) -> RequestBuilder<Shapes> {
+    open class func deleteSlideShapeWithRequestBuilder(request: DeleteSlideShapeRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1114,7 +1114,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlideShapes(request: deleteSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func deleteSlideShapes(request: DeleteSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         deleteSlideShapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1132,7 +1132,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func deleteSlideShapesWithRequestBuilder(request: deleteSlideShapesRequest) -> RequestBuilder<Shapes> {
+    open class func deleteSlideShapesWithRequestBuilder(request: DeleteSlideShapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1159,7 +1159,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlidesCleanSlidesList(request: deleteSlidesCleanSlidesListRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func deleteSlidesCleanSlidesList(request: DeleteSlidesCleanSlidesListRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         deleteSlidesCleanSlidesListWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1177,7 +1177,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func deleteSlidesCleanSlidesListWithRequestBuilder(request: deleteSlidesCleanSlidesListRequest) -> RequestBuilder<Slides> {
+    open class func deleteSlidesCleanSlidesListWithRequestBuilder(request: DeleteSlidesCleanSlidesListRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1202,7 +1202,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlidesDocumentProperties(request: deleteSlidesDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
+    open class func deleteSlidesDocumentProperties(request: DeleteSlidesDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
         deleteSlidesDocumentPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1220,7 +1220,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperties> 
      */
-    open class func deleteSlidesDocumentPropertiesWithRequestBuilder(request: deleteSlidesDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
+    open class func deleteSlidesDocumentPropertiesWithRequestBuilder(request: DeleteSlidesDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
         var path = "/slides/{name}/documentproperties"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1244,7 +1244,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlidesDocumentProperty(request: deleteSlidesDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
+    open class func deleteSlidesDocumentProperty(request: DeleteSlidesDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
         deleteSlidesDocumentPropertyWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1262,7 +1262,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperties> 
      */
-    open class func deleteSlidesDocumentPropertyWithRequestBuilder(request: deleteSlidesDocumentPropertyRequest) -> RequestBuilder<DocumentProperties> {
+    open class func deleteSlidesDocumentPropertyWithRequestBuilder(request: DeleteSlidesDocumentPropertyRequest) -> RequestBuilder<DocumentProperties> {
         var path = "/slides/{name}/documentproperties/{propertyName}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "propertyName", request.propertyName)
@@ -1287,7 +1287,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func deleteSlidesSlideBackground(request: deleteSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
+    open class func deleteSlidesSlideBackground(request: DeleteSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
         deleteSlidesSlideBackgroundWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1305,7 +1305,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideBackground> 
      */
-    open class func deleteSlidesSlideBackgroundWithRequestBuilder(request: deleteSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
+    open class func deleteSlidesSlideBackgroundWithRequestBuilder(request: DeleteSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
         var path = "/slides/{name}/slides/{slideIndex}/background"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1330,7 +1330,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func downloadFile(request: downloadFileRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func downloadFile(request: DownloadFileRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         downloadFileWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1348,7 +1348,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func downloadFileWithRequestBuilder(request: downloadFileRequest) -> RequestBuilder<Data> {
+    open class func downloadFileWithRequestBuilder(request: DownloadFileRequest) -> RequestBuilder<Data> {
         var path = "/slides/storage/file/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1371,7 +1371,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getDiscUsage(request: getDiscUsageRequest, completion: @escaping ((_ data: DiscUsage?,_ error: Error?) -> Void)) {
+    open class func getDiscUsage(request: GetDiscUsageRequest, completion: @escaping ((_ data: DiscUsage?,_ error: Error?) -> Void)) {
         getDiscUsageWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1392,7 +1392,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DiscUsage> 
      */
-    open class func getDiscUsageWithRequestBuilder(request: getDiscUsageRequest) -> RequestBuilder<DiscUsage> {
+    open class func getDiscUsageWithRequestBuilder(request: GetDiscUsageRequest) -> RequestBuilder<DiscUsage> {
         let path = "/slides/storage/disc"
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -1413,7 +1413,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getFileVersions(request: getFileVersionsRequest, completion: @escaping ((_ data: FileVersions?,_ error: Error?) -> Void)) {
+    open class func getFileVersions(request: GetFileVersionsRequest, completion: @escaping ((_ data: FileVersions?,_ error: Error?) -> Void)) {
         getFileVersionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1433,7 +1433,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<FileVersions> 
      */
-    open class func getFileVersionsWithRequestBuilder(request: getFileVersionsRequest) -> RequestBuilder<FileVersions> {
+    open class func getFileVersionsWithRequestBuilder(request: GetFileVersionsRequest) -> RequestBuilder<FileVersions> {
         var path = "/slides/storage/version/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1455,7 +1455,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getFilesList(request: getFilesListRequest, completion: @escaping ((_ data: FilesList?,_ error: Error?) -> Void)) {
+    open class func getFilesList(request: GetFilesListRequest, completion: @escaping ((_ data: FilesList?,_ error: Error?) -> Void)) {
         getFilesListWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1487,7 +1487,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<FilesList> 
      */
-    open class func getFilesListWithRequestBuilder(request: getFilesListRequest) -> RequestBuilder<FilesList> {
+    open class func getFilesListWithRequestBuilder(request: GetFilesListRequest) -> RequestBuilder<FilesList> {
         var path = "/slides/storage/folder/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1509,7 +1509,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getLayoutSlide(request: getLayoutSlideRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
+    open class func getLayoutSlide(request: GetLayoutSlideRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
         getLayoutSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1527,7 +1527,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<LayoutSlide> 
      */
-    open class func getLayoutSlideWithRequestBuilder(request: getLayoutSlideRequest) -> RequestBuilder<LayoutSlide> {
+    open class func getLayoutSlideWithRequestBuilder(request: GetLayoutSlideRequest) -> RequestBuilder<LayoutSlide> {
         var path = "/slides/{name}/layoutSlides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1552,7 +1552,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getLayoutSlidesList(request: getLayoutSlidesListRequest, completion: @escaping ((_ data: LayoutSlides?,_ error: Error?) -> Void)) {
+    open class func getLayoutSlidesList(request: GetLayoutSlidesListRequest, completion: @escaping ((_ data: LayoutSlides?,_ error: Error?) -> Void)) {
         getLayoutSlidesListWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1570,7 +1570,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<LayoutSlides> 
      */
-    open class func getLayoutSlidesListWithRequestBuilder(request: getLayoutSlidesListRequest) -> RequestBuilder<LayoutSlides> {
+    open class func getLayoutSlidesListWithRequestBuilder(request: GetLayoutSlidesListRequest) -> RequestBuilder<LayoutSlides> {
         var path = "/slides/{name}/layoutSlides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1594,7 +1594,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getMasterSlide(request: getMasterSlideRequest, completion: @escaping ((_ data: MasterSlide?,_ error: Error?) -> Void)) {
+    open class func getMasterSlide(request: GetMasterSlideRequest, completion: @escaping ((_ data: MasterSlide?,_ error: Error?) -> Void)) {
         getMasterSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1612,7 +1612,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<MasterSlide> 
      */
-    open class func getMasterSlideWithRequestBuilder(request: getMasterSlideRequest) -> RequestBuilder<MasterSlide> {
+    open class func getMasterSlideWithRequestBuilder(request: GetMasterSlideRequest) -> RequestBuilder<MasterSlide> {
         var path = "/slides/{name}/masterSlides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1637,7 +1637,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getMasterSlidesList(request: getMasterSlidesListRequest, completion: @escaping ((_ data: MasterSlides?,_ error: Error?) -> Void)) {
+    open class func getMasterSlidesList(request: GetMasterSlidesListRequest, completion: @escaping ((_ data: MasterSlides?,_ error: Error?) -> Void)) {
         getMasterSlidesListWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1655,7 +1655,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<MasterSlides> 
      */
-    open class func getMasterSlidesListWithRequestBuilder(request: getMasterSlidesListRequest) -> RequestBuilder<MasterSlides> {
+    open class func getMasterSlidesListWithRequestBuilder(request: GetMasterSlidesListRequest) -> RequestBuilder<MasterSlides> {
         var path = "/slides/{name}/masterSlides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1679,7 +1679,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlide(request: getNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
+    open class func getNotesSlide(request: GetNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
         getNotesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1697,7 +1697,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<NotesSlide> 
      */
-    open class func getNotesSlideWithRequestBuilder(request: getNotesSlideRequest) -> RequestBuilder<NotesSlide> {
+    open class func getNotesSlideWithRequestBuilder(request: GetNotesSlideRequest) -> RequestBuilder<NotesSlide> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1722,7 +1722,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShape(request: getNotesSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShape(request: GetNotesSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         getNotesSlideShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1740,7 +1740,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func getNotesSlideShapeWithRequestBuilder(request: getNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
+    open class func getNotesSlideShapeWithRequestBuilder(request: GetNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1767,7 +1767,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShapeParagraph(request: getNotesSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShapeParagraph(request: GetNotesSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         getNotesSlideShapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1785,7 +1785,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func getNotesSlideShapeParagraphWithRequestBuilder(request: getNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
+    open class func getNotesSlideShapeParagraphWithRequestBuilder(request: GetNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1813,7 +1813,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShapeParagraphs(request: getNotesSlideShapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShapeParagraphs(request: GetNotesSlideShapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         getNotesSlideShapeParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1831,7 +1831,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func getNotesSlideShapeParagraphsWithRequestBuilder(request: getNotesSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
+    open class func getNotesSlideShapeParagraphsWithRequestBuilder(request: GetNotesSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1858,7 +1858,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShapePortion(request: getNotesSlideShapePortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShapePortion(request: GetNotesSlideShapePortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         getNotesSlideShapePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1876,7 +1876,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func getNotesSlideShapePortionWithRequestBuilder(request: getNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
+    open class func getNotesSlideShapePortionWithRequestBuilder(request: GetNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1905,7 +1905,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShapePortions(request: getNotesSlideShapePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShapePortions(request: GetNotesSlideShapePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         getNotesSlideShapePortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1923,7 +1923,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func getNotesSlideShapePortionsWithRequestBuilder(request: getNotesSlideShapePortionsRequest) -> RequestBuilder<Portions> {
+    open class func getNotesSlideShapePortionsWithRequestBuilder(request: GetNotesSlideShapePortionsRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1951,7 +1951,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideShapes(request: getNotesSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideShapes(request: GetNotesSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         getNotesSlideShapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -1969,7 +1969,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func getNotesSlideShapesWithRequestBuilder(request: getNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
+    open class func getNotesSlideShapesWithRequestBuilder(request: GetNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2006,7 +2006,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getNotesSlideWithFormat(request: getNotesSlideWithFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func getNotesSlideWithFormat(request: GetNotesSlideWithFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         getNotesSlideWithFormatWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2024,7 +2024,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func getNotesSlideWithFormatWithRequestBuilder(request: getNotesSlideWithFormatRequest) -> RequestBuilder<Data> {
+    open class func getNotesSlideWithFormatWithRequestBuilder(request: GetNotesSlideWithFormatRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2053,7 +2053,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getParagraphPortion(request: getParagraphPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func getParagraphPortion(request: GetParagraphPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         getParagraphPortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2071,7 +2071,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func getParagraphPortionWithRequestBuilder(request: getParagraphPortionRequest) -> RequestBuilder<Portion> {
+    open class func getParagraphPortionWithRequestBuilder(request: GetParagraphPortionRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2100,7 +2100,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getParagraphPortions(request: getParagraphPortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+    open class func getParagraphPortions(request: GetParagraphPortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
         getParagraphPortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2118,7 +2118,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portions> 
      */
-    open class func getParagraphPortionsWithRequestBuilder(request: getParagraphPortionsRequest) -> RequestBuilder<Portions> {
+    open class func getParagraphPortionsWithRequestBuilder(request: GetParagraphPortionsRequest) -> RequestBuilder<Portions> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2146,7 +2146,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlideAnimation(request: getSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func getSlideAnimation(request: GetSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         getSlideAnimationWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2164,7 +2164,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func getSlideAnimationWithRequestBuilder(request: getSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
+    open class func getSlideAnimationWithRequestBuilder(request: GetSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2190,7 +2190,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlideShape(request: getSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func getSlideShape(request: GetSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         getSlideShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2208,7 +2208,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func getSlideShapeWithRequestBuilder(request: getSlideShapeRequest) -> RequestBuilder<ShapeBase> {
+    open class func getSlideShapeWithRequestBuilder(request: GetSlideShapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2235,7 +2235,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlideShapeParagraph(request: getSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func getSlideShapeParagraph(request: GetSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         getSlideShapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2253,7 +2253,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func getSlideShapeParagraphWithRequestBuilder(request: getSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
+    open class func getSlideShapeParagraphWithRequestBuilder(request: GetSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2281,7 +2281,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlideShapeParagraphs(request: getSlideShapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+    open class func getSlideShapeParagraphs(request: GetSlideShapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
         getSlideShapeParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2299,7 +2299,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraphs> 
      */
-    open class func getSlideShapeParagraphsWithRequestBuilder(request: getSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
+    open class func getSlideShapeParagraphsWithRequestBuilder(request: GetSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2326,7 +2326,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlideShapes(request: getSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+    open class func getSlideShapes(request: GetSlideShapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
         getSlideShapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2344,7 +2344,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Shapes> 
      */
-    open class func getSlideShapesWithRequestBuilder(request: getSlideShapesRequest) -> RequestBuilder<Shapes> {
+    open class func getSlideShapesWithRequestBuilder(request: GetSlideShapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2407,7 +2407,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesDocument(request: getSlidesDocumentRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func getSlidesDocument(request: GetSlidesDocumentRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         getSlidesDocumentWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2425,7 +2425,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func getSlidesDocumentWithRequestBuilder(request: getSlidesDocumentRequest) -> RequestBuilder<Document> {
+    open class func getSlidesDocumentWithRequestBuilder(request: GetSlidesDocumentRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2449,7 +2449,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesDocumentProperties(request: getSlidesDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
+    open class func getSlidesDocumentProperties(request: GetSlidesDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
         getSlidesDocumentPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2467,7 +2467,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperties> 
      */
-    open class func getSlidesDocumentPropertiesWithRequestBuilder(request: getSlidesDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
+    open class func getSlidesDocumentPropertiesWithRequestBuilder(request: GetSlidesDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
         var path = "/slides/{name}/documentproperties"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2491,7 +2491,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesDocumentProperty(request: getSlidesDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
+    open class func getSlidesDocumentProperty(request: GetSlidesDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
         getSlidesDocumentPropertyWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2509,7 +2509,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperty> 
      */
-    open class func getSlidesDocumentPropertyWithRequestBuilder(request: getSlidesDocumentPropertyRequest) -> RequestBuilder<DocumentProperty> {
+    open class func getSlidesDocumentPropertyWithRequestBuilder(request: GetSlidesDocumentPropertyRequest) -> RequestBuilder<DocumentProperty> {
         var path = "/slides/{name}/documentproperties/{propertyName}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "propertyName", request.propertyName)
@@ -2534,7 +2534,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesImageWithDefaultFormat(request: getSlidesImageWithDefaultFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func getSlidesImageWithDefaultFormat(request: GetSlidesImageWithDefaultFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         getSlidesImageWithDefaultFormatWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2552,7 +2552,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func getSlidesImageWithDefaultFormatWithRequestBuilder(request: getSlidesImageWithDefaultFormatRequest) -> RequestBuilder<Data> {
+    open class func getSlidesImageWithDefaultFormatWithRequestBuilder(request: GetSlidesImageWithDefaultFormatRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/images/{index}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "index", request.index)
@@ -2588,7 +2588,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesImageWithFormat(request: getSlidesImageWithFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func getSlidesImageWithFormat(request: GetSlidesImageWithFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         getSlidesImageWithFormatWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2606,7 +2606,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func getSlidesImageWithFormatWithRequestBuilder(request: getSlidesImageWithFormatRequest) -> RequestBuilder<Data> {
+    open class func getSlidesImageWithFormatWithRequestBuilder(request: GetSlidesImageWithFormatRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/images/{index}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "index", request.index)
@@ -2632,7 +2632,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesImages(request: getSlidesImagesRequest, completion: @escaping ((_ data: Images?,_ error: Error?) -> Void)) {
+    open class func getSlidesImages(request: GetSlidesImagesRequest, completion: @escaping ((_ data: Images?,_ error: Error?) -> Void)) {
         getSlidesImagesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2650,7 +2650,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Images> 
      */
-    open class func getSlidesImagesWithRequestBuilder(request: getSlidesImagesRequest) -> RequestBuilder<Images> {
+    open class func getSlidesImagesWithRequestBuilder(request: GetSlidesImagesRequest) -> RequestBuilder<Images> {
         var path = "/slides/{name}/images"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2674,7 +2674,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesPlaceholder(request: getSlidesPlaceholderRequest, completion: @escaping ((_ data: Placeholder?,_ error: Error?) -> Void)) {
+    open class func getSlidesPlaceholder(request: GetSlidesPlaceholderRequest, completion: @escaping ((_ data: Placeholder?,_ error: Error?) -> Void)) {
         getSlidesPlaceholderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2692,7 +2692,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Placeholder> 
      */
-    open class func getSlidesPlaceholderWithRequestBuilder(request: getSlidesPlaceholderRequest) -> RequestBuilder<Placeholder> {
+    open class func getSlidesPlaceholderWithRequestBuilder(request: GetSlidesPlaceholderRequest) -> RequestBuilder<Placeholder> {
         var path = "/slides/{name}/slides/{slideIndex}/placeholders/{placeholderIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2718,7 +2718,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesPlaceholders(request: getSlidesPlaceholdersRequest, completion: @escaping ((_ data: Placeholders?,_ error: Error?) -> Void)) {
+    open class func getSlidesPlaceholders(request: GetSlidesPlaceholdersRequest, completion: @escaping ((_ data: Placeholders?,_ error: Error?) -> Void)) {
         getSlidesPlaceholdersWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2736,7 +2736,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Placeholders> 
      */
-    open class func getSlidesPlaceholdersWithRequestBuilder(request: getSlidesPlaceholdersRequest) -> RequestBuilder<Placeholders> {
+    open class func getSlidesPlaceholdersWithRequestBuilder(request: GetSlidesPlaceholdersRequest) -> RequestBuilder<Placeholders> {
         var path = "/slides/{name}/slides/{slideIndex}/placeholders"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2761,7 +2761,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesPresentationTextItems(request: getSlidesPresentationTextItemsRequest, completion: @escaping ((_ data: TextItems?,_ error: Error?) -> Void)) {
+    open class func getSlidesPresentationTextItems(request: GetSlidesPresentationTextItemsRequest, completion: @escaping ((_ data: TextItems?,_ error: Error?) -> Void)) {
         getSlidesPresentationTextItemsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2779,7 +2779,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<TextItems> 
      */
-    open class func getSlidesPresentationTextItemsWithRequestBuilder(request: getSlidesPresentationTextItemsRequest) -> RequestBuilder<TextItems> {
+    open class func getSlidesPresentationTextItemsWithRequestBuilder(request: GetSlidesPresentationTextItemsRequest) -> RequestBuilder<TextItems> {
         var path = "/slides/{name}/textItems"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2804,7 +2804,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlide(request: getSlidesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlide(request: GetSlidesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
         getSlidesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2822,7 +2822,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slide> 
      */
-    open class func getSlidesSlideWithRequestBuilder(request: getSlidesSlideRequest) -> RequestBuilder<Slide> {
+    open class func getSlidesSlideWithRequestBuilder(request: GetSlidesSlideRequest) -> RequestBuilder<Slide> {
         var path = "/slides/{name}/slides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2847,7 +2847,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlideBackground(request: getSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlideBackground(request: GetSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
         getSlidesSlideBackgroundWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2865,7 +2865,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideBackground> 
      */
-    open class func getSlidesSlideBackgroundWithRequestBuilder(request: getSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
+    open class func getSlidesSlideBackgroundWithRequestBuilder(request: GetSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
         var path = "/slides/{name}/slides/{slideIndex}/background"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2890,7 +2890,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlideComments(request: getSlidesSlideCommentsRequest, completion: @escaping ((_ data: SlideComments?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlideComments(request: GetSlidesSlideCommentsRequest, completion: @escaping ((_ data: SlideComments?,_ error: Error?) -> Void)) {
         getSlidesSlideCommentsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2908,7 +2908,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideComments> 
      */
-    open class func getSlidesSlideCommentsWithRequestBuilder(request: getSlidesSlideCommentsRequest) -> RequestBuilder<SlideComments> {
+    open class func getSlidesSlideCommentsWithRequestBuilder(request: GetSlidesSlideCommentsRequest) -> RequestBuilder<SlideComments> {
         var path = "/slides/{name}/slides/{slideIndex}/comments"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2933,7 +2933,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlideImages(request: getSlidesSlideImagesRequest, completion: @escaping ((_ data: Images?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlideImages(request: GetSlidesSlideImagesRequest, completion: @escaping ((_ data: Images?,_ error: Error?) -> Void)) {
         getSlidesSlideImagesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2951,7 +2951,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Images> 
      */
-    open class func getSlidesSlideImagesWithRequestBuilder(request: getSlidesSlideImagesRequest) -> RequestBuilder<Images> {
+    open class func getSlidesSlideImagesWithRequestBuilder(request: GetSlidesSlideImagesRequest) -> RequestBuilder<Images> {
         var path = "/slides/{name}/slides/{slideIndex}/images"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -2976,7 +2976,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlideTextItems(request: getSlidesSlideTextItemsRequest, completion: @escaping ((_ data: TextItems?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlideTextItems(request: GetSlidesSlideTextItemsRequest, completion: @escaping ((_ data: TextItems?,_ error: Error?) -> Void)) {
         getSlidesSlideTextItemsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -2994,7 +2994,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<TextItems> 
      */
-    open class func getSlidesSlideTextItemsWithRequestBuilder(request: getSlidesSlideTextItemsRequest) -> RequestBuilder<TextItems> {
+    open class func getSlidesSlideTextItemsWithRequestBuilder(request: GetSlidesSlideTextItemsRequest) -> RequestBuilder<TextItems> {
         var path = "/slides/{name}/slides/{slideIndex}/textItems"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3020,7 +3020,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesSlidesList(request: getSlidesSlidesListRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func getSlidesSlidesList(request: GetSlidesSlidesListRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         getSlidesSlidesListWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3038,7 +3038,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func getSlidesSlidesListWithRequestBuilder(request: getSlidesSlidesListRequest) -> RequestBuilder<Slides> {
+    open class func getSlidesSlidesListWithRequestBuilder(request: GetSlidesSlidesListRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3062,7 +3062,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesTheme(request: getSlidesThemeRequest, completion: @escaping ((_ data: Theme?,_ error: Error?) -> Void)) {
+    open class func getSlidesTheme(request: GetSlidesThemeRequest, completion: @escaping ((_ data: Theme?,_ error: Error?) -> Void)) {
         getSlidesThemeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3080,7 +3080,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Theme> 
      */
-    open class func getSlidesThemeWithRequestBuilder(request: getSlidesThemeRequest) -> RequestBuilder<Theme> {
+    open class func getSlidesThemeWithRequestBuilder(request: GetSlidesThemeRequest) -> RequestBuilder<Theme> {
         var path = "/slides/{name}/slides/{slideIndex}/theme"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3105,7 +3105,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesThemeColorScheme(request: getSlidesThemeColorSchemeRequest, completion: @escaping ((_ data: ColorScheme?,_ error: Error?) -> Void)) {
+    open class func getSlidesThemeColorScheme(request: GetSlidesThemeColorSchemeRequest, completion: @escaping ((_ data: ColorScheme?,_ error: Error?) -> Void)) {
         getSlidesThemeColorSchemeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3123,7 +3123,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ColorScheme> 
      */
-    open class func getSlidesThemeColorSchemeWithRequestBuilder(request: getSlidesThemeColorSchemeRequest) -> RequestBuilder<ColorScheme> {
+    open class func getSlidesThemeColorSchemeWithRequestBuilder(request: GetSlidesThemeColorSchemeRequest) -> RequestBuilder<ColorScheme> {
         var path = "/slides/{name}/slides/{slideIndex}/theme/colorScheme"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3148,7 +3148,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesThemeFontScheme(request: getSlidesThemeFontSchemeRequest, completion: @escaping ((_ data: FontScheme?,_ error: Error?) -> Void)) {
+    open class func getSlidesThemeFontScheme(request: GetSlidesThemeFontSchemeRequest, completion: @escaping ((_ data: FontScheme?,_ error: Error?) -> Void)) {
         getSlidesThemeFontSchemeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3166,7 +3166,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<FontScheme> 
      */
-    open class func getSlidesThemeFontSchemeWithRequestBuilder(request: getSlidesThemeFontSchemeRequest) -> RequestBuilder<FontScheme> {
+    open class func getSlidesThemeFontSchemeWithRequestBuilder(request: GetSlidesThemeFontSchemeRequest) -> RequestBuilder<FontScheme> {
         var path = "/slides/{name}/slides/{slideIndex}/theme/fontScheme"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3191,7 +3191,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesThemeFormatScheme(request: getSlidesThemeFormatSchemeRequest, completion: @escaping ((_ data: FormatScheme?,_ error: Error?) -> Void)) {
+    open class func getSlidesThemeFormatScheme(request: GetSlidesThemeFormatSchemeRequest, completion: @escaping ((_ data: FormatScheme?,_ error: Error?) -> Void)) {
         getSlidesThemeFormatSchemeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3209,7 +3209,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<FormatScheme> 
      */
-    open class func getSlidesThemeFormatSchemeWithRequestBuilder(request: getSlidesThemeFormatSchemeRequest) -> RequestBuilder<FormatScheme> {
+    open class func getSlidesThemeFormatSchemeWithRequestBuilder(request: GetSlidesThemeFormatSchemeRequest) -> RequestBuilder<FormatScheme> {
         var path = "/slides/{name}/slides/{slideIndex}/theme/formatScheme"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3234,7 +3234,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getSlidesViewProperties(request: getSlidesViewPropertiesRequest, completion: @escaping ((_ data: ViewProperties?,_ error: Error?) -> Void)) {
+    open class func getSlidesViewProperties(request: GetSlidesViewPropertiesRequest, completion: @escaping ((_ data: ViewProperties?,_ error: Error?) -> Void)) {
         getSlidesViewPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3252,7 +3252,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ViewProperties> 
      */
-    open class func getSlidesViewPropertiesWithRequestBuilder(request: getSlidesViewPropertiesRequest) -> RequestBuilder<ViewProperties> {
+    open class func getSlidesViewPropertiesWithRequestBuilder(request: GetSlidesViewPropertiesRequest) -> RequestBuilder<ViewProperties> {
         var path = "/slides/{name}/viewProperties"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3276,7 +3276,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func moveFile(request: moveFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func moveFile(request: MoveFileRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         moveFileWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -3297,7 +3297,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func moveFileWithRequestBuilder(request: moveFileRequest) -> RequestBuilder<Void> {
+    open class func moveFileWithRequestBuilder(request: MoveFileRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/file/move/{srcPath}"
         path = APIHelper.replacePathParameter(path, "srcPath", request.srcPath)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3322,7 +3322,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func moveFolder(request: moveFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func moveFolder(request: MoveFolderRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         moveFolderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -3343,7 +3343,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func moveFolderWithRequestBuilder(request: moveFolderRequest) -> RequestBuilder<Void> {
+    open class func moveFolderWithRequestBuilder(request: MoveFolderRequest) -> RequestBuilder<Void> {
         var path = "/slides/storage/folder/move/{srcPath}"
         path = APIHelper.replacePathParameter(path, "srcPath", request.srcPath)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3367,7 +3367,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func objectExists(request: objectExistsRequest, completion: @escaping ((_ data: ObjectExist?,_ error: Error?) -> Void)) {
+    open class func objectExists(request: ObjectExistsRequest, completion: @escaping ((_ data: ObjectExist?,_ error: Error?) -> Void)) {
         objectExistsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3388,7 +3388,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ObjectExist> 
      */
-    open class func objectExistsWithRequestBuilder(request: objectExistsRequest) -> RequestBuilder<ObjectExist> {
+    open class func objectExistsWithRequestBuilder(request: ObjectExistsRequest) -> RequestBuilder<ObjectExist> {
         var path = "/slides/storage/exist/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3411,7 +3411,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postAddNewParagraph(request: postAddNewParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func postAddNewParagraph(request: PostAddNewParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         postAddNewParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3429,7 +3429,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func postAddNewParagraphWithRequestBuilder(request: postAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
+    open class func postAddNewParagraphWithRequestBuilder(request: PostAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3457,7 +3457,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postAddNewPortion(request: postAddNewPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func postAddNewPortion(request: PostAddNewPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         postAddNewPortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3475,7 +3475,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func postAddNewPortionWithRequestBuilder(request: postAddNewPortionRequest) -> RequestBuilder<Portion> {
+    open class func postAddNewPortionWithRequestBuilder(request: PostAddNewPortionRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3504,7 +3504,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postAddNewShape(request: postAddNewShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func postAddNewShape(request: PostAddNewShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         postAddNewShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3522,7 +3522,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func postAddNewShapeWithRequestBuilder(request: postAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
+    open class func postAddNewShapeWithRequestBuilder(request: PostAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3550,7 +3550,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postAddNotesSlide(request: postAddNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
+    open class func postAddNotesSlide(request: PostAddNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
         postAddNotesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3568,7 +3568,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<NotesSlide> 
      */
-    open class func postAddNotesSlideWithRequestBuilder(request: postAddNotesSlideRequest) -> RequestBuilder<NotesSlide> {
+    open class func postAddNotesSlideWithRequestBuilder(request: PostAddNotesSlideRequest) -> RequestBuilder<NotesSlide> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3593,7 +3593,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postCopyLayoutSlideFromSourcePresentation(request: postCopyLayoutSlideFromSourcePresentationRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
+    open class func postCopyLayoutSlideFromSourcePresentation(request: PostCopyLayoutSlideFromSourcePresentationRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
         postCopyLayoutSlideFromSourcePresentationWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3611,7 +3611,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<LayoutSlide> 
      */
-    open class func postCopyLayoutSlideFromSourcePresentationWithRequestBuilder(request: postCopyLayoutSlideFromSourcePresentationRequest) -> RequestBuilder<LayoutSlide> {
+    open class func postCopyLayoutSlideFromSourcePresentationWithRequestBuilder(request: PostCopyLayoutSlideFromSourcePresentationRequest) -> RequestBuilder<LayoutSlide> {
         var path = "/slides/{name}/layoutSlides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3639,7 +3639,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postCopyMasterSlideFromSourcePresentation(request: postCopyMasterSlideFromSourcePresentationRequest, completion: @escaping ((_ data: MasterSlide?,_ error: Error?) -> Void)) {
+    open class func postCopyMasterSlideFromSourcePresentation(request: PostCopyMasterSlideFromSourcePresentationRequest, completion: @escaping ((_ data: MasterSlide?,_ error: Error?) -> Void)) {
         postCopyMasterSlideFromSourcePresentationWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3657,7 +3657,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<MasterSlide> 
      */
-    open class func postCopyMasterSlideFromSourcePresentationWithRequestBuilder(request: postCopyMasterSlideFromSourcePresentationRequest) -> RequestBuilder<MasterSlide> {
+    open class func postCopyMasterSlideFromSourcePresentationWithRequestBuilder(request: PostCopyMasterSlideFromSourcePresentationRequest) -> RequestBuilder<MasterSlide> {
         var path = "/slides/{name}/masterSlides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3681,12 +3681,107 @@ open class SlidesAPI {
     }
 
     /**
+     Read notes slide info.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postGetNotesSlide(request: PostGetNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
+        postGetNotesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read notes slide info.
+     - POST /slides/slides/{slideIndex}/notesSlide
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<NotesSlide> 
+     */
+    open class func postGetNotesSlideWithRequestBuilder(request: PostGetNotesSlideRequest) -> RequestBuilder<NotesSlide> {
+        var path = "/slides/slides/{slideIndex}/notesSlide"
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password
+        ])
+
+        let requestBuilder: RequestBuilder<NotesSlide>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     * enum for parameter format
+     */
+    public enum Format_postGetNotesSlideWithFormat: String { 
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case tiff = "Tiff"
+    }
+
+    /**
+     Convert notes slide to the specified image format.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postGetNotesSlideWithFormat(request: PostGetNotesSlideWithFormatRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        postGetNotesSlideWithFormatWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Convert notes slide to the specified image format.
+     - POST /slides/slides/{slideIndex}/notesSlide/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Data> 
+     */
+    open class func postGetNotesSlideWithFormatWithRequestBuilder(request: PostGetNotesSlideWithFormatRequest) -> RequestBuilder<Data> {
+        var path = "/slides/slides/{slideIndex}/notesSlide/{format}"
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "format", request.format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "width": request.width?.encodeToJSON(), 
+            "height": request.height?.encodeToJSON(), 
+            "password": request.password, 
+            "fontsFolder": request.fontsFolder
+        ])
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Creates new paragraph.
      
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postNotesSlideAddNewParagraph(request: postNotesSlideAddNewParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func postNotesSlideAddNewParagraph(request: PostNotesSlideAddNewParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         postNotesSlideAddNewParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3704,7 +3799,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func postNotesSlideAddNewParagraphWithRequestBuilder(request: postNotesSlideAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
+    open class func postNotesSlideAddNewParagraphWithRequestBuilder(request: PostNotesSlideAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3732,7 +3827,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postNotesSlideAddNewPortion(request: postNotesSlideAddNewPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func postNotesSlideAddNewPortion(request: PostNotesSlideAddNewPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         postNotesSlideAddNewPortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3750,7 +3845,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func postNotesSlideAddNewPortionWithRequestBuilder(request: postNotesSlideAddNewPortionRequest) -> RequestBuilder<Portion> {
+    open class func postNotesSlideAddNewPortionWithRequestBuilder(request: PostNotesSlideAddNewPortionRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3779,7 +3874,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postNotesSlideAddNewShape(request: postNotesSlideAddNewShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func postNotesSlideAddNewShape(request: PostNotesSlideAddNewShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         postNotesSlideAddNewShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3797,7 +3892,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func postNotesSlideAddNewShapeWithRequestBuilder(request: postNotesSlideAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
+    open class func postNotesSlideAddNewShapeWithRequestBuilder(request: PostNotesSlideAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3846,7 +3941,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postNotesSlideShapeSaveAs(request: postNotesSlideShapeSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postNotesSlideShapeSaveAs(request: PostNotesSlideShapeSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postNotesSlideShapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3864,7 +3959,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postNotesSlideShapeSaveAsWithRequestBuilder(request: postNotesSlideShapeSaveAsRequest) -> RequestBuilder<Data> {
+    open class func postNotesSlideShapeSaveAsWithRequestBuilder(request: PostNotesSlideShapeSaveAsRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3896,7 +3991,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postPresentationMerge(request: postPresentationMergeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func postPresentationMerge(request: PostPresentationMergeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         postPresentationMergeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3914,7 +4009,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func postPresentationMergeWithRequestBuilder(request: postPresentationMergeRequest) -> RequestBuilder<Document> {
+    open class func postPresentationMergeWithRequestBuilder(request: PostPresentationMergeRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/merge"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3959,7 +4054,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postShapeSaveAs(request: postShapeSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postShapeSaveAs(request: PostShapeSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postShapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -3977,7 +4072,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postShapeSaveAsWithRequestBuilder(request: postShapeSaveAsRequest) -> RequestBuilder<Data> {
+    open class func postShapeSaveAsWithRequestBuilder(request: PostShapeSaveAsRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4009,7 +4104,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlideAnimationEffect(request: postSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func postSlideAnimationEffect(request: PostSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         postSlideAnimationEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4027,7 +4122,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func postSlideAnimationEffectWithRequestBuilder(request: postSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func postSlideAnimationEffectWithRequestBuilder(request: PostSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/mainSequence"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4052,7 +4147,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlideAnimationInteractiveSequence(request: postSlideAnimationInteractiveSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func postSlideAnimationInteractiveSequence(request: PostSlideAnimationInteractiveSequenceRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         postSlideAnimationInteractiveSequenceWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4070,7 +4165,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func postSlideAnimationInteractiveSequenceWithRequestBuilder(request: postSlideAnimationInteractiveSequenceRequest) -> RequestBuilder<SlideAnimation> {
+    open class func postSlideAnimationInteractiveSequenceWithRequestBuilder(request: PostSlideAnimationInteractiveSequenceRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4095,7 +4190,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlideAnimationInteractiveSequenceEffect(request: postSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func postSlideAnimationInteractiveSequenceEffect(request: PostSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         postSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4113,7 +4208,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func postSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: postSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func postSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: PostSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences/{sequenceIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4165,7 +4260,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlideSaveAs(request: postSlideSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postSlideSaveAs(request: PostSlideSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postSlideSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4183,7 +4278,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postSlideSaveAsWithRequestBuilder(request: postSlideSaveAsRequest) -> RequestBuilder<Data> {
+    open class func postSlideSaveAsWithRequestBuilder(request: PostSlideSaveAsRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/slides/{slideIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4212,7 +4307,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesAdd(request: postSlidesAddRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func postSlidesAdd(request: PostSlidesAddRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         postSlidesAddWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4230,7 +4325,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func postSlidesAddWithRequestBuilder(request: postSlidesAddRequest) -> RequestBuilder<Slides> {
+    open class func postSlidesAddWithRequestBuilder(request: PostSlidesAddRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4283,7 +4378,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesConvert(request: postSlidesConvertRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postSlidesConvert(request: PostSlidesConvertRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postSlidesConvertWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4301,7 +4396,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postSlidesConvertWithRequestBuilder(request: postSlidesConvertRequest) -> RequestBuilder<Data> {
+    open class func postSlidesConvertWithRequestBuilder(request: PostSlidesConvertRequest) -> RequestBuilder<Data> {
         var path = "/slides/convert/{format}"
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4324,7 +4419,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesCopy(request: postSlidesCopyRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func postSlidesCopy(request: PostSlidesCopyRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         postSlidesCopyWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4342,7 +4437,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func postSlidesCopyWithRequestBuilder(request: postSlidesCopyRequest) -> RequestBuilder<Slides> {
+    open class func postSlidesCopyWithRequestBuilder(request: PostSlidesCopyRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides/copy"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4371,7 +4466,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesDocument(request: postSlidesDocumentRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func postSlidesDocument(request: PostSlidesDocumentRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         postSlidesDocumentWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4389,7 +4484,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func postSlidesDocumentWithRequestBuilder(request: postSlidesDocumentRequest) -> RequestBuilder<Document> {
+    open class func postSlidesDocumentWithRequestBuilder(request: PostSlidesDocumentRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4414,7 +4509,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesDocumentFromHtml(request: postSlidesDocumentFromHtmlRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func postSlidesDocumentFromHtml(request: PostSlidesDocumentFromHtmlRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         postSlidesDocumentFromHtmlWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4432,7 +4527,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func postSlidesDocumentFromHtmlWithRequestBuilder(request: postSlidesDocumentFromHtmlRequest) -> RequestBuilder<Document> {
+    open class func postSlidesDocumentFromHtmlWithRequestBuilder(request: PostSlidesDocumentFromHtmlRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/fromHtml"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4456,7 +4551,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesDocumentFromSource(request: postSlidesDocumentFromSourceRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func postSlidesDocumentFromSource(request: PostSlidesDocumentFromSourceRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         postSlidesDocumentFromSourceWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4474,7 +4569,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func postSlidesDocumentFromSourceWithRequestBuilder(request: postSlidesDocumentFromSourceRequest) -> RequestBuilder<Document> {
+    open class func postSlidesDocumentFromSourceWithRequestBuilder(request: PostSlidesDocumentFromSourceRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/fromSource"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4501,7 +4596,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesDocumentFromTemplate(request: postSlidesDocumentFromTemplateRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func postSlidesDocumentFromTemplate(request: PostSlidesDocumentFromTemplateRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         postSlidesDocumentFromTemplateWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4519,7 +4614,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func postSlidesDocumentFromTemplateWithRequestBuilder(request: postSlidesDocumentFromTemplateRequest) -> RequestBuilder<Document> {
+    open class func postSlidesDocumentFromTemplateWithRequestBuilder(request: PostSlidesDocumentFromTemplateRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/fromTemplate"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4547,7 +4642,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesPipeline(request: postSlidesPipelineRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postSlidesPipeline(request: PostSlidesPipelineRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postSlidesPipelineWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4565,7 +4660,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postSlidesPipelineWithRequestBuilder(request: postSlidesPipelineRequest) -> RequestBuilder<Data> {
+    open class func postSlidesPipelineWithRequestBuilder(request: PostSlidesPipelineRequest) -> RequestBuilder<Data> {
         let path = "/slides/pipeline"
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.pipeline)
@@ -4583,7 +4678,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesPresentationReplaceText(request: postSlidesPresentationReplaceTextRequest, completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
+    open class func postSlidesPresentationReplaceText(request: PostSlidesPresentationReplaceTextRequest, completion: @escaping ((_ data: DocumentReplaceResult?,_ error: Error?) -> Void)) {
         postSlidesPresentationReplaceTextWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4601,7 +4696,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentReplaceResult> 
      */
-    open class func postSlidesPresentationReplaceTextWithRequestBuilder(request: postSlidesPresentationReplaceTextRequest) -> RequestBuilder<DocumentReplaceResult> {
+    open class func postSlidesPresentationReplaceTextWithRequestBuilder(request: PostSlidesPresentationReplaceTextRequest) -> RequestBuilder<DocumentReplaceResult> {
         var path = "/slides/{name}/replaceText"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4628,7 +4723,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesReorder(request: postSlidesReorderRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func postSlidesReorder(request: PostSlidesReorderRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         postSlidesReorderWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4646,7 +4741,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func postSlidesReorderWithRequestBuilder(request: postSlidesReorderRequest) -> RequestBuilder<Slides> {
+    open class func postSlidesReorderWithRequestBuilder(request: PostSlidesReorderRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides/{slideIndex}/move"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4672,7 +4767,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesReorderMany(request: postSlidesReorderManyRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
+    open class func postSlidesReorderMany(request: PostSlidesReorderManyRequest, completion: @escaping ((_ data: Slides?,_ error: Error?) -> Void)) {
         postSlidesReorderManyWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4690,7 +4785,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slides> 
      */
-    open class func postSlidesReorderManyWithRequestBuilder(request: postSlidesReorderManyRequest) -> RequestBuilder<Slides> {
+    open class func postSlidesReorderManyWithRequestBuilder(request: PostSlidesReorderManyRequest) -> RequestBuilder<Slides> {
         var path = "/slides/{name}/slides/reorder"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4743,7 +4838,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesSaveAs(request: postSlidesSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+    open class func postSlidesSaveAs(request: PostSlidesSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
         postSlidesSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4761,7 +4856,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Data> 
      */
-    open class func postSlidesSaveAsWithRequestBuilder(request: postSlidesSaveAsRequest) -> RequestBuilder<Data> {
+    open class func postSlidesSaveAsWithRequestBuilder(request: PostSlidesSaveAsRequest) -> RequestBuilder<Data> {
         var path = "/slides/{name}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "format", request.format)
@@ -4787,7 +4882,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesSetDocumentProperties(request: postSlidesSetDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
+    open class func postSlidesSetDocumentProperties(request: PostSlidesSetDocumentPropertiesRequest, completion: @escaping ((_ data: DocumentProperties?,_ error: Error?) -> Void)) {
         postSlidesSetDocumentPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4805,7 +4900,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperties> 
      */
-    open class func postSlidesSetDocumentPropertiesWithRequestBuilder(request: postSlidesSetDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
+    open class func postSlidesSetDocumentPropertiesWithRequestBuilder(request: PostSlidesSetDocumentPropertiesRequest) -> RequestBuilder<DocumentProperties> {
         var path = "/slides/{name}/documentproperties"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4829,7 +4924,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesSlideReplaceText(request: postSlidesSlideReplaceTextRequest, completion: @escaping ((_ data: SlideReplaceResult?,_ error: Error?) -> Void)) {
+    open class func postSlidesSlideReplaceText(request: PostSlidesSlideReplaceTextRequest, completion: @escaping ((_ data: SlideReplaceResult?,_ error: Error?) -> Void)) {
         postSlidesSlideReplaceTextWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4847,7 +4942,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideReplaceResult> 
      */
-    open class func postSlidesSlideReplaceTextWithRequestBuilder(request: postSlidesSlideReplaceTextRequest) -> RequestBuilder<SlideReplaceResult> {
+    open class func postSlidesSlideReplaceTextWithRequestBuilder(request: PostSlidesSlideReplaceTextRequest) -> RequestBuilder<SlideReplaceResult> {
         var path = "/slides/{name}/slides/{slideIndex}/replaceText"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -4901,7 +4996,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postSlidesSplit(request: postSlidesSplitRequest, completion: @escaping ((_ data: SplitDocumentResult?,_ error: Error?) -> Void)) {
+    open class func postSlidesSplit(request: PostSlidesSplitRequest, completion: @escaping ((_ data: SplitDocumentResult?,_ error: Error?) -> Void)) {
         postSlidesSplitWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4919,7 +5014,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SplitDocumentResult> 
      */
-    open class func postSlidesSplitWithRequestBuilder(request: postSlidesSplitRequest) -> RequestBuilder<SplitDocumentResult> {
+    open class func postSlidesSplitWithRequestBuilder(request: PostSlidesSplitRequest) -> RequestBuilder<SplitDocumentResult> {
         var path = "/slides/{name}/split"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4950,7 +5045,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putLayoutSlide(request: putLayoutSlideRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
+    open class func putLayoutSlide(request: PutLayoutSlideRequest, completion: @escaping ((_ data: LayoutSlide?,_ error: Error?) -> Void)) {
         putLayoutSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -4968,7 +5063,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<LayoutSlide> 
      */
-    open class func putLayoutSlideWithRequestBuilder(request: putLayoutSlideRequest) -> RequestBuilder<LayoutSlide> {
+    open class func putLayoutSlideWithRequestBuilder(request: PutLayoutSlideRequest) -> RequestBuilder<LayoutSlide> {
         var path = "/slides/{name}/layoutSlides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5014,7 +5109,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putNotesSlideShapeSaveAs(request: putNotesSlideShapeSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func putNotesSlideShapeSaveAs(request: PutNotesSlideShapeSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         putNotesSlideShapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -5035,7 +5130,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func putNotesSlideShapeSaveAsWithRequestBuilder(request: putNotesSlideShapeSaveAsRequest) -> RequestBuilder<Void> {
+    open class func putNotesSlideShapeSaveAsWithRequestBuilder(request: PutNotesSlideShapeSaveAsRequest) -> RequestBuilder<Void> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5068,7 +5163,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putPresentationMerge(request: putPresentationMergeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func putPresentationMerge(request: PutPresentationMergeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         putPresentationMergeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5086,7 +5181,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func putPresentationMergeWithRequestBuilder(request: putPresentationMergeRequest) -> RequestBuilder<Document> {
+    open class func putPresentationMergeWithRequestBuilder(request: PutPresentationMergeRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/merge"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5110,7 +5205,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSetParagraphPortionProperties(request: putSetParagraphPortionPropertiesRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func putSetParagraphPortionProperties(request: PutSetParagraphPortionPropertiesRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         putSetParagraphPortionPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5128,7 +5223,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func putSetParagraphPortionPropertiesWithRequestBuilder(request: putSetParagraphPortionPropertiesRequest) -> RequestBuilder<Portion> {
+    open class func putSetParagraphPortionPropertiesWithRequestBuilder(request: PutSetParagraphPortionPropertiesRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5157,7 +5252,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSetParagraphProperties(request: putSetParagraphPropertiesRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func putSetParagraphProperties(request: PutSetParagraphPropertiesRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         putSetParagraphPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5175,7 +5270,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func putSetParagraphPropertiesWithRequestBuilder(request: putSetParagraphPropertiesRequest) -> RequestBuilder<Paragraph> {
+    open class func putSetParagraphPropertiesWithRequestBuilder(request: PutSetParagraphPropertiesRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5224,7 +5319,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putShapeSaveAs(request: putShapeSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func putShapeSaveAs(request: PutShapeSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         putShapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -5245,7 +5340,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func putShapeSaveAsWithRequestBuilder(request: putShapeSaveAsRequest) -> RequestBuilder<Void> {
+    open class func putShapeSaveAsWithRequestBuilder(request: PutShapeSaveAsRequest) -> RequestBuilder<Void> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5278,7 +5373,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlideAnimation(request: putSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func putSlideAnimation(request: PutSlideAnimationRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         putSlideAnimationWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5296,7 +5391,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func putSlideAnimationWithRequestBuilder(request: putSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
+    open class func putSlideAnimationWithRequestBuilder(request: PutSlideAnimationRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5321,7 +5416,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlideAnimationEffect(request: putSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func putSlideAnimationEffect(request: PutSlideAnimationEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         putSlideAnimationEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5339,7 +5434,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func putSlideAnimationEffectWithRequestBuilder(request: putSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func putSlideAnimationEffectWithRequestBuilder(request: PutSlideAnimationEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/mainSequence/{effectIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5365,7 +5460,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlideAnimationInteractiveSequenceEffect(request: putSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
+    open class func putSlideAnimationInteractiveSequenceEffect(request: PutSlideAnimationInteractiveSequenceEffectRequest, completion: @escaping ((_ data: SlideAnimation?,_ error: Error?) -> Void)) {
         putSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5383,7 +5478,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideAnimation> 
      */
-    open class func putSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: putSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
+    open class func putSlideAnimationInteractiveSequenceEffectWithRequestBuilder(request: PutSlideAnimationInteractiveSequenceEffectRequest) -> RequestBuilder<SlideAnimation> {
         var path = "/slides/{name}/slides/{slideIndex}/animation/interactiveSequences/{sequenceIndex}/{effectIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5436,7 +5531,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlideSaveAs(request: putSlideSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func putSlideSaveAs(request: PutSlideSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         putSlideSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -5457,7 +5552,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func putSlideSaveAsWithRequestBuilder(request: putSlideSaveAsRequest) -> RequestBuilder<Void> {
+    open class func putSlideSaveAsWithRequestBuilder(request: PutSlideSaveAsRequest) -> RequestBuilder<Void> {
         var path = "/slides/{name}/slides/{slideIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5487,7 +5582,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlideShapeInfo(request: putSlideShapeInfoRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func putSlideShapeInfo(request: PutSlideShapeInfoRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         putSlideShapeInfoWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5505,7 +5600,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func putSlideShapeInfoWithRequestBuilder(request: putSlideShapeInfoRequest) -> RequestBuilder<ShapeBase> {
+    open class func putSlideShapeInfoWithRequestBuilder(request: PutSlideShapeInfoRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5559,7 +5654,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesConvert(request: putSlidesConvertRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func putSlidesConvert(request: PutSlidesConvertRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         putSlidesConvertWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -5580,7 +5675,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func putSlidesConvertWithRequestBuilder(request: putSlidesConvertRequest) -> RequestBuilder<Void> {
+    open class func putSlidesConvertWithRequestBuilder(request: PutSlidesConvertRequest) -> RequestBuilder<Void> {
         var path = "/slides/convert/{format}"
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5604,7 +5699,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesDocumentFromHtml(request: putSlidesDocumentFromHtmlRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func putSlidesDocumentFromHtml(request: PutSlidesDocumentFromHtmlRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         putSlidesDocumentFromHtmlWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5622,7 +5717,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func putSlidesDocumentFromHtmlWithRequestBuilder(request: putSlidesDocumentFromHtmlRequest) -> RequestBuilder<Document> {
+    open class func putSlidesDocumentFromHtmlWithRequestBuilder(request: PutSlidesDocumentFromHtmlRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/fromHtml"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5673,7 +5768,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSaveAs(request: putSlidesSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+    open class func putSlidesSaveAs(request: PutSlidesSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
         putSlidesSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             if error == nil {
                 completion((), error)
@@ -5694,7 +5789,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Void> 
      */
-    open class func putSlidesSaveAsWithRequestBuilder(request: putSlidesSaveAsRequest) -> RequestBuilder<Void> {
+    open class func putSlidesSaveAsWithRequestBuilder(request: PutSlidesSaveAsRequest) -> RequestBuilder<Void> {
         var path = "/slides/{name}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "format", request.format)
@@ -5721,7 +5816,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSetDocumentProperty(request: putSlidesSetDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
+    open class func putSlidesSetDocumentProperty(request: PutSlidesSetDocumentPropertyRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
         putSlidesSetDocumentPropertyWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5739,7 +5834,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<DocumentProperty> 
      */
-    open class func putSlidesSetDocumentPropertyWithRequestBuilder(request: putSlidesSetDocumentPropertyRequest) -> RequestBuilder<DocumentProperty> {
+    open class func putSlidesSetDocumentPropertyWithRequestBuilder(request: PutSlidesSetDocumentPropertyRequest) -> RequestBuilder<DocumentProperty> {
         var path = "/slides/{name}/documentproperties/{propertyName}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "propertyName", request.propertyName)
@@ -5764,7 +5859,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSlide(request: putSlidesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
+    open class func putSlidesSlide(request: PutSlidesSlideRequest, completion: @escaping ((_ data: Slide?,_ error: Error?) -> Void)) {
         putSlidesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5782,7 +5877,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Slide> 
      */
-    open class func putSlidesSlideWithRequestBuilder(request: putSlidesSlideRequest) -> RequestBuilder<Slide> {
+    open class func putSlidesSlideWithRequestBuilder(request: PutSlidesSlideRequest) -> RequestBuilder<Slide> {
         var path = "/slides/{name}/slides/{slideIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5807,7 +5902,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSlideBackground(request: putSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
+    open class func putSlidesSlideBackground(request: PutSlidesSlideBackgroundRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
         putSlidesSlideBackgroundWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5825,7 +5920,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideBackground> 
      */
-    open class func putSlidesSlideBackgroundWithRequestBuilder(request: putSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
+    open class func putSlidesSlideBackgroundWithRequestBuilder(request: PutSlidesSlideBackgroundRequest) -> RequestBuilder<SlideBackground> {
         var path = "/slides/{name}/slides/{slideIndex}/background"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5850,7 +5945,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSlideBackgroundColor(request: putSlidesSlideBackgroundColorRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
+    open class func putSlidesSlideBackgroundColor(request: PutSlidesSlideBackgroundColorRequest, completion: @escaping ((_ data: SlideBackground?,_ error: Error?) -> Void)) {
         putSlidesSlideBackgroundColorWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5868,7 +5963,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<SlideBackground> 
      */
-    open class func putSlidesSlideBackgroundColorWithRequestBuilder(request: putSlidesSlideBackgroundColorRequest) -> RequestBuilder<SlideBackground> {
+    open class func putSlidesSlideBackgroundColorWithRequestBuilder(request: PutSlidesSlideBackgroundColorRequest) -> RequestBuilder<SlideBackground> {
         var path = "/slides/{name}/slides/{slideIndex}/backgroundColor"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5926,7 +6021,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesSlideSize(request: putSlidesSlideSizeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+    open class func putSlidesSlideSize(request: PutSlidesSlideSizeRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
         putSlidesSlideSizeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5944,7 +6039,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Document> 
      */
-    open class func putSlidesSlideSizeWithRequestBuilder(request: putSlidesSlideSizeRequest) -> RequestBuilder<Document> {
+    open class func putSlidesSlideSizeWithRequestBuilder(request: PutSlidesSlideSizeRequest) -> RequestBuilder<Document> {
         var path = "/slides/{name}/slideSize"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5972,7 +6067,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putSlidesViewProperties(request: putSlidesViewPropertiesRequest, completion: @escaping ((_ data: DocumentProperty?,_ error: Error?) -> Void)) {
+    open class func putSlidesViewProperties(request: PutSlidesViewPropertiesRequest, completion: @escaping ((_ data: ViewProperties?,_ error: Error?) -> Void)) {
         putSlidesViewPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -5988,9 +6083,9 @@ open class SlidesAPI {
      - examples: [{contentType=application/json, example=""}]
      - parameter request: object containing request parameters
 
-     - returns: RequestBuilder<DocumentProperty> 
+     - returns: RequestBuilder<ViewProperties> 
      */
-    open class func putSlidesViewPropertiesWithRequestBuilder(request: putSlidesViewPropertiesRequest) -> RequestBuilder<DocumentProperty> {
+    open class func putSlidesViewPropertiesWithRequestBuilder(request: PutSlidesViewPropertiesRequest) -> RequestBuilder<ViewProperties> {
         var path = "/slides/{name}/viewProperties"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -6003,7 +6098,7 @@ open class SlidesAPI {
             "storage": request.storage
         ])
 
-        let requestBuilder: RequestBuilder<DocumentProperty>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ViewProperties>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -6014,7 +6109,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putUpdateNotesSlide(request: putUpdateNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
+    open class func putUpdateNotesSlide(request: PutUpdateNotesSlideRequest, completion: @escaping ((_ data: NotesSlide?,_ error: Error?) -> Void)) {
         putUpdateNotesSlideWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6032,7 +6127,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<NotesSlide> 
      */
-    open class func putUpdateNotesSlideWithRequestBuilder(request: putUpdateNotesSlideRequest) -> RequestBuilder<NotesSlide> {
+    open class func putUpdateNotesSlideWithRequestBuilder(request: PutUpdateNotesSlideRequest) -> RequestBuilder<NotesSlide> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -6057,7 +6152,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putUpdateNotesSlideShape(request: putUpdateNotesSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+    open class func putUpdateNotesSlideShape(request: PutUpdateNotesSlideShapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
         putUpdateNotesSlideShapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6075,7 +6170,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<ShapeBase> 
      */
-    open class func putUpdateNotesSlideShapeWithRequestBuilder(request: putUpdateNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
+    open class func putUpdateNotesSlideShapeWithRequestBuilder(request: PutUpdateNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -6102,7 +6197,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putUpdateNotesSlideShapeParagraph(request: putUpdateNotesSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+    open class func putUpdateNotesSlideShapeParagraph(request: PutUpdateNotesSlideShapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
         putUpdateNotesSlideShapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6120,7 +6215,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Paragraph> 
      */
-    open class func putUpdateNotesSlideShapeParagraphWithRequestBuilder(request: putUpdateNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
+    open class func putUpdateNotesSlideShapeParagraphWithRequestBuilder(request: PutUpdateNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -6148,7 +6243,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putUpdateNotesSlideShapePortion(request: putUpdateNotesSlideShapePortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+    open class func putUpdateNotesSlideShapePortion(request: PutUpdateNotesSlideShapePortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
         putUpdateNotesSlideShapePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6166,7 +6261,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<Portion> 
      */
-    open class func putUpdateNotesSlideShapePortionWithRequestBuilder(request: putUpdateNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
+    open class func putUpdateNotesSlideShapePortionWithRequestBuilder(request: PutUpdateNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
         var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -6195,7 +6290,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func storageExists(request: storageExistsRequest, completion: @escaping ((_ data: StorageExist?,_ error: Error?) -> Void)) {
+    open class func storageExists(request: StorageExistsRequest, completion: @escaping ((_ data: StorageExist?,_ error: Error?) -> Void)) {
         storageExistsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6215,7 +6310,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<StorageExist> 
      */
-    open class func storageExistsWithRequestBuilder(request: storageExistsRequest) -> RequestBuilder<StorageExist> {
+    open class func storageExistsWithRequestBuilder(request: StorageExistsRequest) -> RequestBuilder<StorageExist> {
         var path = "/slides/storage/{storageName}/exist"
         path = APIHelper.replacePathParameter(path, "storageName", request.storageName)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -6234,7 +6329,7 @@ open class SlidesAPI {
      - parameter request: object containing request parameters
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func uploadFile(request: uploadFileRequest, completion: @escaping ((_ data: FilesUploadResult?,_ error: Error?) -> Void)) {
+    open class func uploadFile(request: UploadFileRequest, completion: @escaping ((_ data: FilesUploadResult?,_ error: Error?) -> Void)) {
         uploadFileWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -6271,7 +6366,7 @@ open class SlidesAPI {
 
      - returns: RequestBuilder<FilesUploadResult> 
      */
-    open class func uploadFileWithRequestBuilder(request: uploadFileRequest) -> RequestBuilder<FilesUploadResult> {
+    open class func uploadFileWithRequestBuilder(request: UploadFileRequest) -> RequestBuilder<FilesUploadResult> {
         var path = "/slides/storage/file/{path}"
         path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
