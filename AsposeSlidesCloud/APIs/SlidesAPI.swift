@@ -166,6 +166,51 @@ open class SlidesAPI {
     }
 
     /**
+     Delete a series from a chart.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteChartSeries(request: DeleteChartSeriesRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        deleteChartSeriesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Delete a series from a chart.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func deleteChartSeriesWithRequestBuilder(request: DeleteChartSeriesRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "seriesIndex", request.seriesIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Delete file
      
      - parameter request: object containing request parameters
@@ -311,7 +356,7 @@ open class SlidesAPI {
 
     /**
      Remove a paragraph.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -321,10 +366,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func deleteNotesSlideParagraphWithRequestBuilder(request: DeleteNotesSlideParagraphRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -357,7 +401,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of paragraphs.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -367,10 +411,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func deleteNotesSlideParagraphsWithRequestBuilder(request: DeleteNotesSlideParagraphsRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -403,7 +446,7 @@ open class SlidesAPI {
 
     /**
      Remove a portion.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -413,10 +456,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func deleteNotesSlidePortionWithRequestBuilder(request: DeleteNotesSlidePortionRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
@@ -450,7 +492,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of portions.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -460,10 +502,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func deleteNotesSlidePortionsWithRequestBuilder(request: DeleteNotesSlidePortionsRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -497,7 +538,7 @@ open class SlidesAPI {
 
     /**
      Remove a shape.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -507,10 +548,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func deleteNotesSlideShapeWithRequestBuilder(request: DeleteNotesSlideShapeRequest) -> RequestBuilder<Shapes> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -542,7 +582,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of shapes.
-     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}
+     - DELETE /slides/{name}/slides/{slideIndex}/notesSlide/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -552,10 +592,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func deleteNotesSlideShapesWithRequestBuilder(request: DeleteNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
         
@@ -587,7 +626,7 @@ open class SlidesAPI {
 
     /**
      Remove a paragraph.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -597,10 +636,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func deleteParagraphWithRequestBuilder(request: DeleteParagraphRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -633,7 +671,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of paragraphs.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -643,10 +681,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func deleteParagraphsWithRequestBuilder(request: DeleteParagraphsRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -679,7 +716,7 @@ open class SlidesAPI {
 
     /**
      Remove a portion.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -689,10 +726,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func deletePortionWithRequestBuilder(request: DeletePortionRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
@@ -726,7 +762,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of portions.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -736,10 +772,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func deletePortionsWithRequestBuilder(request: DeletePortionsRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1078,7 +1113,7 @@ open class SlidesAPI {
 
     /**
      Remove a shape.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1088,10 +1123,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func deleteSlideShapeWithRequestBuilder(request: DeleteSlideShapeRequest) -> RequestBuilder<Shapes> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -1123,7 +1157,7 @@ open class SlidesAPI {
 
     /**
      Remove a range of shapes.
-     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1133,6 +1167,95 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func deleteSlideShapesWithRequestBuilder(request: DeleteSlideShapesRequest) -> RequestBuilder<Shapes> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "shapes": request.shapes, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Shapes>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a shape (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSlideSubshape(request: DeleteSlideSubshapeRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+        deleteSlideSubshapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a shape (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Shapes> 
+     */
+    open class func deleteSlideSubshapeWithRequestBuilder(request: DeleteSlideSubshapeRequest) -> RequestBuilder<Shapes> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Shapes>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a range of shapes (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSlideSubshapes(request: DeleteSlideSubshapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+        deleteSlideSubshapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a range of shapes (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Shapes> 
+     */
+    open class func deleteSlideSubshapesWithRequestBuilder(request: DeleteSlideSubshapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -1320,6 +1443,192 @@ open class SlidesAPI {
         ])
 
         let requestBuilder: RequestBuilder<SlideBackground>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a paragraph (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSubshapeParagraph(request: DeleteSubshapeParagraphRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+        deleteSubshapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a paragraph (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraphs> 
+     */
+    open class func deleteSubshapeParagraphWithRequestBuilder(request: DeleteSubshapeParagraphRequest) -> RequestBuilder<Paragraphs> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraphs>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a range of paragraphs (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSubshapeParagraphs(request: DeleteSubshapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+        deleteSubshapeParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a range of paragraphs (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraphs> 
+     */
+    open class func deleteSubshapeParagraphsWithRequestBuilder(request: DeleteSubshapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "paragraphs": request.paragraphs, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraphs>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a portion (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSubshapePortion(request: DeleteSubshapePortionRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+        deleteSubshapePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a portion (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portions> 
+     */
+    open class func deleteSubshapePortionWithRequestBuilder(request: DeleteSubshapePortionRequest) -> RequestBuilder<Portions> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Portions>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Remove a range of portions (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSubshapePortions(request: DeleteSubshapePortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+        deleteSubshapePortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Remove a range of portions (for smart art and group shapes).
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portions> 
+     */
+    open class func deleteSubshapePortionsWithRequestBuilder(request: DeleteSubshapePortionsRequest) -> RequestBuilder<Portions> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "portions": request.portions, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Portions>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -1717,6 +2026,51 @@ open class SlidesAPI {
     }
 
     /**
+     Get info whether a notes slide exists.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getNotesSlideExists(request: GetNotesSlideExistsRequest, completion: @escaping ((_ data: EntityExists?,_ error: Error?) -> Void)) {
+        getNotesSlideExistsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Get info whether a notes slide exists.
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/exist
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "Exists" : true
+}}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<EntityExists> 
+     */
+    open class func getNotesSlideExistsWithRequestBuilder(request: GetNotesSlideExistsRequest) -> RequestBuilder<EntityExists> {
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/exist"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<EntityExists>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Read slide shape info.
      
      - parameter request: object containing request parameters
@@ -1731,7 +2085,7 @@ open class SlidesAPI {
 
     /**
      Read slide shape info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1741,10 +2095,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func getNotesSlideShapeWithRequestBuilder(request: GetNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -1776,7 +2129,7 @@ open class SlidesAPI {
 
     /**
      Read shape paragraph info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1786,10 +2139,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func getNotesSlideShapeParagraphWithRequestBuilder(request: GetNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1822,7 +2174,7 @@ open class SlidesAPI {
 
     /**
      Read shape paragraphs info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1832,10 +2184,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func getNotesSlideShapeParagraphsWithRequestBuilder(request: GetNotesSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -1867,7 +2218,7 @@ open class SlidesAPI {
 
     /**
      Read paragraph portion info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1877,10 +2228,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func getNotesSlideShapePortionWithRequestBuilder(request: GetNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
@@ -1914,7 +2264,7 @@ open class SlidesAPI {
 
     /**
      Read paragraph portions info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1924,10 +2274,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func getNotesSlideShapePortionsWithRequestBuilder(request: GetNotesSlideShapePortionsRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -1960,7 +2309,7 @@ open class SlidesAPI {
 
     /**
      Read slide shapes info.
-     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -1970,10 +2319,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func getNotesSlideShapesWithRequestBuilder(request: GetNotesSlideShapesRequest) -> RequestBuilder<Shapes> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
         
@@ -2062,7 +2410,7 @@ open class SlidesAPI {
 
     /**
      Read paragraph portion info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2072,10 +2420,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func getParagraphPortionWithRequestBuilder(request: GetParagraphPortionRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
@@ -2109,7 +2456,7 @@ open class SlidesAPI {
 
     /**
      Read paragraph portions info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2119,10 +2466,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portions> 
      */
     open class func getParagraphPortionsWithRequestBuilder(request: GetParagraphPortionsRequest) -> RequestBuilder<Portions> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2173,7 +2519,7 @@ open class SlidesAPI {
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "shapeIndex": request.shapeIndex.encodeToJSON(), 
+            "shapeIndex": request.shapeIndex?.encodeToJSON(), 
             "password": request.password, 
             "folder": request.folder, 
             "storage": request.storage
@@ -2199,7 +2545,7 @@ open class SlidesAPI {
 
     /**
      Read slide shape info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2209,10 +2555,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func getSlideShapeWithRequestBuilder(request: GetSlideShapeRequest) -> RequestBuilder<ShapeBase> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -2244,7 +2589,7 @@ open class SlidesAPI {
 
     /**
      Read shape paragraph info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2254,10 +2599,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func getSlideShapeParagraphWithRequestBuilder(request: GetSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -2290,7 +2634,7 @@ open class SlidesAPI {
 
     /**
      Read shape paragraphs info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2300,10 +2644,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraphs> 
      */
     open class func getSlideShapeParagraphsWithRequestBuilder(request: GetSlideShapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters: [String:Any]? = nil
@@ -2335,7 +2678,7 @@ open class SlidesAPI {
 
     /**
      Read slide shapes info.
-     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - GET /slides/{name}/slides/{slideIndex}/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -2345,6 +2688,185 @@ open class SlidesAPI {
      - returns: RequestBuilder<Shapes> 
      */
     open class func getSlideShapesWithRequestBuilder(request: GetSlideShapesRequest) -> RequestBuilder<Shapes> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Shapes>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Read slide shape info (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlideSubshape(request: GetSlideSubshapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        getSlideSubshapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read slide shape info (for smart art and group shapes).
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<ShapeBase> 
+     */
+    open class func getSlideSubshapeWithRequestBuilder(request: GetSlideSubshapeRequest) -> RequestBuilder<ShapeBase> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Read shape paragraph info (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlideSubshapeParagraph(request: GetSlideSubshapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+        getSlideSubshapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read shape paragraph info (for smart art and group shapes).
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraph> 
+     */
+    open class func getSlideSubshapeParagraphWithRequestBuilder(request: GetSlideSubshapeParagraphRequest) -> RequestBuilder<Paragraph> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraph>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Read shape paragraphs info (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlideSubshapeParagraphs(request: GetSlideSubshapeParagraphsRequest, completion: @escaping ((_ data: Paragraphs?,_ error: Error?) -> Void)) {
+        getSlideSubshapeParagraphsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read shape paragraphs info (for smart art and group shapes).
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraphs> 
+     */
+    open class func getSlideSubshapeParagraphsWithRequestBuilder(request: GetSlideSubshapeParagraphsRequest) -> RequestBuilder<Paragraphs> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraphs>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Read slide shapes info.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlideSubshapes(request: GetSlideSubshapesRequest, completion: @escaping ((_ data: Shapes?,_ error: Error?) -> Void)) {
+        getSlideSubshapesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read slide shapes info.
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Shapes> 
+     */
+    open class func getSlideSubshapesWithRequestBuilder(request: GetSlideSubshapesRequest) -> RequestBuilder<Shapes> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3271,6 +3793,99 @@ open class SlidesAPI {
     }
 
     /**
+     Read paragraph portion info (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSubshapeParagraphPortion(request: GetSubshapeParagraphPortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+        getSubshapeParagraphPortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read paragraph portion info (for smart art and group shapes).
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portion> 
+     */
+    open class func getSubshapeParagraphPortionWithRequestBuilder(request: GetSubshapeParagraphPortionRequest) -> RequestBuilder<Portion> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Portion>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Read paragraph portions info (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSubshapeParagraphPortions(request: GetSubshapeParagraphPortionsRequest, completion: @escaping ((_ data: Portions?,_ error: Error?) -> Void)) {
+        getSubshapeParagraphPortionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read paragraph portions info (for smart art and group shapes).
+     - GET /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portions> 
+     */
+    open class func getSubshapeParagraphPortionsWithRequestBuilder(request: GetSubshapeParagraphPortionsRequest) -> RequestBuilder<Portions> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Portions>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Move file
      
      - parameter request: object containing request parameters
@@ -3420,7 +4035,7 @@ open class SlidesAPI {
 
     /**
      Creates new paragraph.
-     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3430,10 +4045,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func postAddNewParagraphWithRequestBuilder(request: PostAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
@@ -3466,7 +4080,7 @@ open class SlidesAPI {
 
     /**
      Creates new portion.
-     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3476,10 +4090,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func postAddNewPortionWithRequestBuilder(request: PostAddNewPortionRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3513,7 +4126,7 @@ open class SlidesAPI {
 
     /**
      Create new shape.
-     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - POST /slides/{name}/slides/{slideIndex}/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3523,6 +4136,51 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func postAddNewShapeWithRequestBuilder(request: PostAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage, 
+            "shapeToClone": request.shapeToClone?.encodeToJSON(), 
+            "position": request.position?.encodeToJSON()
+        ])
+
+        let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Create new shape (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postAddNewSubshape(request: PostAddNewSubshapeRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        postAddNewSubshapeWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Create new shape (for smart art and group shapes).
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<ShapeBase> 
+     */
+    open class func postAddNewSubshapeWithRequestBuilder(request: PostAddNewSubshapeRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -3540,6 +4198,99 @@ open class SlidesAPI {
         ])
 
         let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Creates new paragraph (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postAddNewSubshapeParagraph(request: PostAddNewSubshapeParagraphRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+        postAddNewSubshapeParagraphWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Creates new paragraph (for smart art and group shapes).
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraph> 
+     */
+    open class func postAddNewSubshapeParagraphWithRequestBuilder(request: PostAddNewSubshapeParagraphRequest) -> RequestBuilder<Paragraph> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage, 
+            "position": request.position?.encodeToJSON()
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraph>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Creates new portion (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postAddNewSubshapePortion(request: PostAddNewSubshapePortionRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+        postAddNewSubshapePortionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Creates new portion (for smart art and group shapes).
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portion> 
+     */
+    open class func postAddNewSubshapePortionWithRequestBuilder(request: PostAddNewSubshapePortionRequest) -> RequestBuilder<Portion> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage, 
+            "position": request.position?.encodeToJSON()
+        ])
+
+        let requestBuilder: RequestBuilder<Portion>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -3583,6 +4334,50 @@ open class SlidesAPI {
         ])
 
         let requestBuilder: RequestBuilder<NotesSlide>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Add a new series to a chart.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postChartSeries(request: PostChartSeriesRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        postChartSeriesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Add a new series to a chart.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func postChartSeriesWithRequestBuilder(request: PostChartSeriesRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.series)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -3721,6 +4516,48 @@ open class SlidesAPI {
     }
 
     /**
+     Get info whether a notes slide exists.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postGetNotesSlideExists(request: PostGetNotesSlideExistsRequest, completion: @escaping ((_ data: EntityExists?,_ error: Error?) -> Void)) {
+        postGetNotesSlideExistsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Get info whether a notes slide exists.
+     - POST /slides/slides/{slideIndex}/notesSlide/exist
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example={
+  "Exists" : true
+}}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<EntityExists> 
+     */
+    open class func postGetNotesSlideExistsWithRequestBuilder(request: PostGetNotesSlideExistsRequest) -> RequestBuilder<EntityExists> {
+        var path = "/slides/slides/{slideIndex}/notesSlide/exist"
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.document)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password
+        ])
+
+        let requestBuilder: RequestBuilder<EntityExists>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      * enum for parameter format
      */
     public enum Format_postGetNotesSlideWithFormat: String { 
@@ -3790,7 +4627,7 @@ open class SlidesAPI {
 
     /**
      Creates new paragraph.
-     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs
+     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3800,10 +4637,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func postNotesSlideAddNewParagraphWithRequestBuilder(request: PostNotesSlideAddNewParagraphRequest) -> RequestBuilder<Paragraph> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
@@ -3836,7 +4672,7 @@ open class SlidesAPI {
 
     /**
      Creates new portion.
-     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions
+     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3846,10 +4682,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func postNotesSlideAddNewPortionWithRequestBuilder(request: PostNotesSlideAddNewPortionRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -3883,7 +4718,7 @@ open class SlidesAPI {
 
     /**
      Create new shape.
-     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}
+     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3893,10 +4728,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func postNotesSlideAddNewShapeWithRequestBuilder(request: PostNotesSlideAddNewShapeRequest) -> RequestBuilder<ShapeBase> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
 
@@ -3950,7 +4784,7 @@ open class SlidesAPI {
 
     /**
      Render shape to specified picture format.
-     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}
+     - POST /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/{format}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -3960,10 +4794,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Data> 
      */
     open class func postNotesSlideShapeSaveAsWithRequestBuilder(request: PostNotesSlideShapeSaveAsRequest) -> RequestBuilder<Data> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4063,7 +4896,7 @@ open class SlidesAPI {
 
     /**
      Render shape to specified picture format.
-     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/{format}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -4073,10 +4906,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Data> 
      */
     open class func postShapeSaveAsWithRequestBuilder(request: PostShapeSaveAsRequest) -> RequestBuilder<Data> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -4252,6 +5084,7 @@ open class SlidesAPI {
         case pot = "Pot"
         case potm = "Potm"
         case svg = "Svg"
+        case fodp = "Fodp"
     }
 
     /**
@@ -4370,6 +5203,7 @@ open class SlidesAPI {
         case png = "Png"
         case gif = "Gif"
         case bmp = "Bmp"
+        case fodp = "Fodp"
     }
 
     /**
@@ -4830,6 +5664,7 @@ open class SlidesAPI {
         case png = "Png"
         case gif = "Gif"
         case bmp = "Bmp"
+        case fodp = "Fodp"
     }
 
     /**
@@ -4988,6 +5823,7 @@ open class SlidesAPI {
         case pot = "Pot"
         case potm = "Potm"
         case svg = "Svg"
+        case fodp = "Fodp"
     }
 
     /**
@@ -5037,6 +5873,122 @@ open class SlidesAPI {
         let requestBuilder: RequestBuilder<SplitDocumentResult>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     * enum for parameter format
+     */
+    public enum Format_postSubshapeSaveAs: String { 
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case tiff = "Tiff"
+        case svg = "Svg"
+    }
+
+    /**
+     * enum for parameter bounds
+     */
+    public enum Bounds_postSubshapeSaveAs: String { 
+        case slide = "Slide"
+        case shape = "Shape"
+        case appearance = "Appearance"
+    }
+
+    /**
+     Render shape to specified picture format (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postSubshapeSaveAs(request: PostSubshapeSaveAsRequest, completion: @escaping ((_ data: Data?,_ error: Error?) -> Void)) {
+        postSubshapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Render shape to specified picture format (for smart art and group shapes).
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{output=none}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Data> 
+     */
+    open class func postSubshapeSaveAsWithRequestBuilder(request: PostSubshapeSaveAsRequest) -> RequestBuilder<Data> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "format", request.format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.options)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage, 
+            "scaleX": request.scaleX, 
+            "scaleY": request.scaleY, 
+            "bounds": request.bounds, 
+            "fontsFolder": request.fontsFolder
+        ])
+
+        let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update a series in a chart.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putChartSeries(request: PutChartSeriesRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        putChartSeriesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update a series in a chart.
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func putChartSeriesWithRequestBuilder(request: PutChartSeriesRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "seriesIndex", request.seriesIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.series)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
@@ -5122,7 +6074,7 @@ open class SlidesAPI {
 
     /**
      Render shape to specified picture format.
-     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}
+     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/{format}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -5131,10 +6083,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func putNotesSlideShapeSaveAsWithRequestBuilder(request: PutNotesSlideShapeSaveAsRequest) -> RequestBuilder<Void> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/{format}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5214,7 +6165,7 @@ open class SlidesAPI {
 
     /**
      Update portion properties.
-     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -5224,10 +6175,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func putSetParagraphPortionPropertiesWithRequestBuilder(request: PutSetParagraphPortionPropertiesRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
@@ -5261,7 +6211,7 @@ open class SlidesAPI {
 
     /**
      Update paragraph properties.
-     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -5271,6 +6221,98 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func putSetParagraphPropertiesWithRequestBuilder(request: PutSetParagraphPropertiesRequest) -> RequestBuilder<Paragraph> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Paragraph>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update portion properties (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSetSubshapeParagraphPortionProperties(request: PutSetSubshapeParagraphPortionPropertiesRequest, completion: @escaping ((_ data: Portion?,_ error: Error?) -> Void)) {
+        putSetSubshapeParagraphPortionPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update portion properties (for smart art and group shapes).
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Portion> 
+     */
+    open class func putSetSubshapeParagraphPortionPropertiesWithRequestBuilder(request: PutSetSubshapeParagraphPortionPropertiesRequest) -> RequestBuilder<Portion> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
+        path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Portion>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update paragraph properties (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSetSubshapeParagraphProperties(request: PutSetSubshapeParagraphPropertiesRequest, completion: @escaping ((_ data: Paragraph?,_ error: Error?) -> Void)) {
+        putSetSubshapeParagraphPropertiesWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update paragraph properties (for smart art and group shapes).
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Paragraph> 
+     */
+    open class func putSetSubshapeParagraphPropertiesWithRequestBuilder(request: PutSetSubshapeParagraphPropertiesRequest) -> RequestBuilder<Paragraph> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5332,7 +6374,7 @@ open class SlidesAPI {
 
     /**
      Render shape to specified picture format.
-     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/{format}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -5341,10 +6383,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Void> 
      */
     open class func putShapeSaveAsWithRequestBuilder(request: PutShapeSaveAsRequest) -> RequestBuilder<Void> {
-        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/{format}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "format", request.format)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -5523,6 +6564,7 @@ open class SlidesAPI {
         case pot = "Pot"
         case potm = "Potm"
         case svg = "Svg"
+        case fodp = "Fodp"
     }
 
     /**
@@ -5591,7 +6633,7 @@ open class SlidesAPI {
 
     /**
      Update shape properties.
-     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -5601,6 +6643,50 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func putSlideShapeInfoWithRequestBuilder(request: PutSlideShapeInfoRequest) -> RequestBuilder<ShapeBase> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<ShapeBase>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update shape properties (for smart art and group shapes).
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSlideSubshapeInfo(request: PutSlideSubshapeInfoRequest, completion: @escaping ((_ data: ShapeBase?,_ error: Error?) -> Void)) {
+        putSlideSubshapeInfoWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update shape properties (for smart art and group shapes).
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<ShapeBase> 
+     */
+    open class func putSlideSubshapeInfoWithRequestBuilder(request: PutSlideSubshapeInfoRequest) -> RequestBuilder<ShapeBase> {
         var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
@@ -5646,6 +6732,7 @@ open class SlidesAPI {
         case png = "Png"
         case gif = "Gif"
         case bmp = "Bmp"
+        case fodp = "Fodp"
     }
 
     /**
@@ -5760,6 +6847,7 @@ open class SlidesAPI {
         case png = "Png"
         case gif = "Gif"
         case bmp = "Bmp"
+        case fodp = "Fodp"
     }
 
     /**
@@ -6104,6 +7192,81 @@ open class SlidesAPI {
     }
 
     /**
+     * enum for parameter format
+     */
+    public enum Format_putSubshapeSaveAs: String { 
+        case jpeg = "Jpeg"
+        case png = "Png"
+        case gif = "Gif"
+        case bmp = "Bmp"
+        case tiff = "Tiff"
+        case svg = "Svg"
+    }
+
+    /**
+     * enum for parameter bounds
+     */
+    public enum Bounds_putSubshapeSaveAs: String { 
+        case slide = "Slide"
+        case shape = "Shape"
+        case appearance = "Appearance"
+    }
+
+    /**
+     Render shape to specified picture format.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSubshapeSaveAs(request: PutSubshapeSaveAsRequest, completion: @escaping ((_ data: Void?,_ error: Error?) -> Void)) {
+        putSubshapeSaveAsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            if error == nil {
+                completion((), error)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+
+    /**
+     Render shape to specified picture format.
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Void> 
+     */
+    open class func putSubshapeSaveAsWithRequestBuilder(request: PutSubshapeSaveAsRequest) -> RequestBuilder<Void> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{path}/{shapeIndex}/{format}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "path", request.path)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "format", request.format)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.options)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "outPath": request.outPath, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage, 
+            "scaleX": request.scaleX, 
+            "scaleY": request.scaleY, 
+            "bounds": request.bounds, 
+            "fontsFolder": request.fontsFolder
+        ])
+
+        let requestBuilder: RequestBuilder<Void>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Update notes slide properties.
      
      - parameter request: object containing request parameters
@@ -6161,7 +7324,7 @@ open class SlidesAPI {
 
     /**
      Update shape properties.
-     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -6171,10 +7334,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<ShapeBase> 
      */
     open class func putUpdateNotesSlideShapeWithRequestBuilder(request: PutUpdateNotesSlideShapeRequest) -> RequestBuilder<ShapeBase> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
@@ -6206,7 +7368,7 @@ open class SlidesAPI {
 
     /**
      Update paragraph properties.
-     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -6216,10 +7378,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Paragraph> 
      */
     open class func putUpdateNotesSlideShapeParagraphWithRequestBuilder(request: PutUpdateNotesSlideShapeParagraphRequest) -> RequestBuilder<Paragraph> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
@@ -6252,7 +7413,7 @@ open class SlidesAPI {
 
     /**
      Update portion properties.
-     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
+     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}
      - OAuth:
        - type: oauth2
        - name: JWT
@@ -6262,10 +7423,9 @@ open class SlidesAPI {
      - returns: RequestBuilder<Portion> 
      */
     open class func putUpdateNotesSlideShapePortionWithRequestBuilder(request: PutUpdateNotesSlideShapePortionRequest) -> RequestBuilder<Portion> {
-        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{path}/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/shapes/{shapeIndex}/paragraphs/{paragraphIndex}/portions/{portionIndex}"
         path = APIHelper.replacePathParameter(path, "name", request.name)
         path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
-        path = APIHelper.replacePathParameter(path, "path", request.path)
         path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
         path = APIHelper.replacePathParameter(path, "paragraphIndex", request.paragraphIndex)
         path = APIHelper.replacePathParameter(path, "portionIndex", request.portionIndex)

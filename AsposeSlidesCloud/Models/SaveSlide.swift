@@ -54,6 +54,7 @@ public struct SaveSlide: Codable {
         case pot = "Pot"
         case potm = "Potm"
         case svg = "Svg"
+        case fodp = "Fodp"
     }
     /** Output to save the slide to. */
     public var output: OutputFile?

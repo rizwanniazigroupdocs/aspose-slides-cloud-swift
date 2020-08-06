@@ -55,6 +55,7 @@ public struct Save: Codable {
         case png = "Png"
         case gif = "Gif"
         case bmp = "Bmp"
+        case fodp = "Fodp"
     }
     /** Format. */
     public var format: Format?

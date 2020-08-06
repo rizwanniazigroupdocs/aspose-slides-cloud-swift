@@ -164,9 +164,9 @@ public struct Paragraph: Codable {
     /** True if right to left direction is used with the paragraph. */
     public var rightToLeft: RightToLeft?
     /** List of portion links. */
-    public var portionList: [ResourceUriElement]?
+    public var portionList: [Portion]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, marginLeft: Double?, marginRight: Double?, spaceBefore: Double?, spaceAfter: Double?, spaceWithin: Double?, indent: Double?, alignment: Alignment?, fontAlignment: FontAlignment?, defaultTabSize: Double?, depth: Int?, bulletChar: String?, bulletHeight: Double?, bulletType: BulletType?, numberedBulletStartWith: Int?, numberedBulletStyle: NumberedBulletStyle?, hangingPunctuation: HangingPunctuation?, eastAsianLineBreak: EastAsianLineBreak?, latinLineBreak: LatinLineBreak?, rightToLeft: RightToLeft?, portionList: [ResourceUriElement]?) {
+    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, marginLeft: Double?, marginRight: Double?, spaceBefore: Double?, spaceAfter: Double?, spaceWithin: Double?, indent: Double?, alignment: Alignment?, fontAlignment: FontAlignment?, defaultTabSize: Double?, depth: Int?, bulletChar: String?, bulletHeight: Double?, bulletType: BulletType?, numberedBulletStartWith: Int?, numberedBulletStyle: NumberedBulletStyle?, hangingPunctuation: HangingPunctuation?, eastAsianLineBreak: EastAsianLineBreak?, latinLineBreak: LatinLineBreak?, rightToLeft: RightToLeft?, portionList: [Portion]?) {
         self.selfUri = selfUri
         self.alternateLinks = alternateLinks
         self.marginLeft = marginLeft

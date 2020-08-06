@@ -52,5 +52,6 @@ public enum ExportFormat: String, Codable {
     case png = "Png"
     case gif = "Gif"
     case bmp = "Bmp"
+    case fodp = "Fodp"
 
 }

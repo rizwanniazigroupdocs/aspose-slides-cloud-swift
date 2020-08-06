@@ -40,6 +40,8 @@ public struct PdfExportOptions: Codable {
     public enum Compliance: String, Codable { 
         case pdf15 = "Pdf15"
         case pdfA1b = "PdfA1b"
+        case pdfA1a = "PdfA1a"
+        case pdfUa = "PdfUa"
     }
     public enum NotesPosition: String, Codable { 
         case _none = "None"
@@ -50,6 +52,17 @@ public struct PdfExportOptions: Codable {
         case _none = "None"
         case bottom = "Bottom"
         case _right = "Right"
+    }
+    public enum AccessPermissions: String, Codable { 
+        case _none = "None"
+        case printDocument = "PrintDocument"
+        case modifyContent = "ModifyContent"
+        case copyTextAndGraphics = "CopyTextAndGraphics"
+        case addOrModifyFields = "AddOrModifyFields"
+        case fillExistingFields = "FillExistingFields"
+        case extractTextAndGraphics = "ExtractTextAndGraphics"
+        case assembleDocument = "AssembleDocument"
+        case highQualityPrint = "HighQualityPrint"
     }
     /** Export format. */
     public var format: String?
@@ -89,8 +102,10 @@ public struct PdfExportOptions: Codable {
     public var imageTransparentColor: String?
     /** True to apply specified ImageTransparentColor  to an image. */
     public var applyImageTransparent: Bool?
+    /** Access permissions that should be granted when the document is opened with user access.  Default is AccessPermissions.None.              */
+    public var accessPermissions: AccessPermissions?
 
-    public init(format: String?, textCompression: TextCompression?, embedFullFonts: Bool?, compliance: Compliance?, sufficientResolution: Double?, jpegQuality: Int?, drawSlidesFrame: Bool?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, password: String?, embedTrueTypeFontsForASCII: Bool?, additionalCommonFontFamilies: [String]?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?, imageTransparentColor: String?, applyImageTransparent: Bool?) {
+    public init(format: String?, textCompression: TextCompression?, embedFullFonts: Bool?, compliance: Compliance?, sufficientResolution: Double?, jpegQuality: Int?, drawSlidesFrame: Bool?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, password: String?, embedTrueTypeFontsForASCII: Bool?, additionalCommonFontFamilies: [String]?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?, imageTransparentColor: String?, applyImageTransparent: Bool?, accessPermissions: AccessPermissions?) {
         self.format = format
         self.textCompression = textCompression
         self.embedFullFonts = embedFullFonts
@@ -110,6 +125,7 @@ public struct PdfExportOptions: Codable {
         self.showCommentsByNoAuthor = showCommentsByNoAuthor
         self.imageTransparentColor = imageTransparentColor
         self.applyImageTransparent = applyImageTransparent
+        self.accessPermissions = accessPermissions
     }
 
 

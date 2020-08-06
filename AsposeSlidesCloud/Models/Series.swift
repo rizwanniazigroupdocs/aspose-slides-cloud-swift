@@ -116,6 +116,11 @@ public struct Series: Codable {
         case waterfall = "Waterfall"
         case funnel = "Funnel"
     }
+    public enum DataPointType: String, Codable { 
+        case oneValue = "OneValue"
+        case scatter = "Scatter"
+        case bubble = "Bubble"
+    }
     /** Series type. */
     public var type: ModelType?
     /** Series name. */
@@ -150,8 +155,9 @@ public struct Series: Codable {
     public var effectFormat: EffectFormat?
     /** Line properties set for the series. */
     public var lineFormat: LineFormat?
+    public var dataPointType: DataPointType?
 
-    public init(type: ModelType?, name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    public init(type: ModelType?, name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPointType: DataPointType?) {
         self.type = type
         self.name = name
         self.isColorVaried = isColorVaried
@@ -169,6 +175,7 @@ public struct Series: Codable {
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
         self.lineFormat = lineFormat
+        self.dataPointType = dataPointType
     }
 
 

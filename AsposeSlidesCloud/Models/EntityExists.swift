@@ -29,28 +29,17 @@
 import Foundation
 
 
-/** Slide Export Format */
-public enum SlideExportFormat: String, Codable {
-    case jpeg = "Jpeg"
-    case png = "Png"
-    case gif = "Gif"
-    case bmp = "Bmp"
-    case tiff = "Tiff"
-    case html = "Html"
-    case pdf = "Pdf"
-    case xps = "Xps"
-    case pptx = "Pptx"
-    case odp = "Odp"
-    case otp = "Otp"
-    case ppt = "Ppt"
-    case pps = "Pps"
-    case ppsx = "Ppsx"
-    case pptm = "Pptm"
-    case ppsm = "Ppsm"
-    case potx = "Potx"
-    case pot = "Pot"
-    case potm = "Potm"
-    case svg = "Svg"
-    case fodp = "Fodp"
+/** Information about object existence. */
+
+public struct EntityExists: Codable {
+
+    /** True if the object exists. */
+    public var exists: Bool?
+
+    public init(exists: Bool?) {
+        self.exists = exists
+    }
+
 
 }
+

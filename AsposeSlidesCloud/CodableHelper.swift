@@ -51,6 +51,11 @@ open class CodableHelper {
             }
             decoder.dateDecodingStrategy = .formatted(formatter)
         }
+        decoder.nonConformingFloatDecodingStrategy =
+        .convertFromString(
+            positiveInfinity: "+Infinity",
+            negativeInfinity: "-Infinity",
+            nan: "NaN")
         //the following code adds support for capitalized JSON key and is based on the following article
         //https://martiancraft.com/blog/2018/08/Implementing-custom-key-strategy-for-coding-types/
         decoder.keyDecodingStrategy = .custom { keys in

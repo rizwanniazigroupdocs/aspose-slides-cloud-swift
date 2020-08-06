@@ -33,11 +33,6 @@ import Foundation
 
 public struct BubbleSeries: Codable {
 
-    public enum DataPointType: String, Codable { 
-        case oneValue = "OneValue"
-        case scatter = "Scatter"
-        case bubble = "Bubble"
-    }
     /** Series name. */
     public var name: String?
     /** True if each data marker in the series has a different color. */
@@ -70,12 +65,10 @@ public struct BubbleSeries: Codable {
     public var effectFormat: EffectFormat?
     /** Line properties set for the series. */
     public var lineFormat: LineFormat?
-    /** Data point type. */
-    public var dataPointType: DataPointType?
     /** Gets or sets the values. */
     public var dataPoints: [BubbleChartDataPoint]?
 
-    public init(name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPointType: DataPointType?, dataPoints: [BubbleChartDataPoint]?) {
+    public init(name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [BubbleChartDataPoint]?) {
         self.name = name
         self.isColorVaried = isColorVaried
         self.invertedSolidFillColor = invertedSolidFillColor
@@ -92,7 +85,6 @@ public struct BubbleSeries: Codable {
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
         self.lineFormat = lineFormat
-        self.dataPointType = dataPointType
         self.dataPoints = dataPoints
     }
 

@@ -38,12 +38,12 @@ public struct Portions: Codable {
     /** List of alternate links. */
     public var alternateLinks: [ResourceUri]?
     /** List of portion links. */
-    public var portionLinks: [ResourceUriElement]?
+    public var items: [Portion]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, portionLinks: [ResourceUriElement]?) {
+    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, items: [Portion]?) {
         self.selfUri = selfUri
         self.alternateLinks = alternateLinks
-        self.portionLinks = portionLinks
+        self.items = items
     }
 
 
