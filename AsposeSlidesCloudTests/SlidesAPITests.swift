@@ -45,6 +45,23 @@ class SlidesAPITests : XCTestCase {
         ("testCreateFolder", testCreateFolder),
         ("testCreateFolderInvalidPath", testCreateFolderInvalidPath),
         ("testCreateFolderInvalidStorageName", testCreateFolderInvalidStorageName),
+        ("testDeleteChartCategory", testDeleteChartCategory),
+        ("testDeleteChartCategoryInvalidName", testDeleteChartCategoryInvalidName),
+        ("testDeleteChartCategoryInvalidSlideIndex", testDeleteChartCategoryInvalidSlideIndex),
+        ("testDeleteChartCategoryInvalidShapeIndex", testDeleteChartCategoryInvalidShapeIndex),
+        ("testDeleteChartCategoryInvalidCategoryIndex", testDeleteChartCategoryInvalidCategoryIndex),
+        ("testDeleteChartCategoryInvalidPassword", testDeleteChartCategoryInvalidPassword),
+        ("testDeleteChartCategoryInvalidFolder", testDeleteChartCategoryInvalidFolder),
+        ("testDeleteChartCategoryInvalidStorage", testDeleteChartCategoryInvalidStorage),
+        ("testDeleteChartDataPoint", testDeleteChartDataPoint),
+        ("testDeleteChartDataPointInvalidName", testDeleteChartDataPointInvalidName),
+        ("testDeleteChartDataPointInvalidSlideIndex", testDeleteChartDataPointInvalidSlideIndex),
+        ("testDeleteChartDataPointInvalidShapeIndex", testDeleteChartDataPointInvalidShapeIndex),
+        ("testDeleteChartDataPointInvalidSeriesIndex", testDeleteChartDataPointInvalidSeriesIndex),
+        ("testDeleteChartDataPointInvalidPointIndex", testDeleteChartDataPointInvalidPointIndex),
+        ("testDeleteChartDataPointInvalidPassword", testDeleteChartDataPointInvalidPassword),
+        ("testDeleteChartDataPointInvalidFolder", testDeleteChartDataPointInvalidFolder),
+        ("testDeleteChartDataPointInvalidStorage", testDeleteChartDataPointInvalidStorage),
         ("testDeleteChartSeries", testDeleteChartSeries),
         ("testDeleteChartSeriesInvalidName", testDeleteChartSeriesInvalidName),
         ("testDeleteChartSeriesInvalidSlideIndex", testDeleteChartSeriesInvalidSlideIndex),
@@ -690,6 +707,23 @@ class SlidesAPITests : XCTestCase {
         ("testPostAddNotesSlideInvalidPassword", testPostAddNotesSlideInvalidPassword),
         ("testPostAddNotesSlideInvalidFolder", testPostAddNotesSlideInvalidFolder),
         ("testPostAddNotesSlideInvalidStorage", testPostAddNotesSlideInvalidStorage),
+        ("testPostChartCategory", testPostChartCategory),
+        ("testPostChartCategoryInvalidName", testPostChartCategoryInvalidName),
+        ("testPostChartCategoryInvalidSlideIndex", testPostChartCategoryInvalidSlideIndex),
+        ("testPostChartCategoryInvalidShapeIndex", testPostChartCategoryInvalidShapeIndex),
+        ("testPostChartCategoryInvalidCategory", testPostChartCategoryInvalidCategory),
+        ("testPostChartCategoryInvalidPassword", testPostChartCategoryInvalidPassword),
+        ("testPostChartCategoryInvalidFolder", testPostChartCategoryInvalidFolder),
+        ("testPostChartCategoryInvalidStorage", testPostChartCategoryInvalidStorage),
+        ("testPostChartDataPoint", testPostChartDataPoint),
+        ("testPostChartDataPointInvalidName", testPostChartDataPointInvalidName),
+        ("testPostChartDataPointInvalidSlideIndex", testPostChartDataPointInvalidSlideIndex),
+        ("testPostChartDataPointInvalidShapeIndex", testPostChartDataPointInvalidShapeIndex),
+        ("testPostChartDataPointInvalidSeriesIndex", testPostChartDataPointInvalidSeriesIndex),
+        ("testPostChartDataPointInvalidDataPoint", testPostChartDataPointInvalidDataPoint),
+        ("testPostChartDataPointInvalidPassword", testPostChartDataPointInvalidPassword),
+        ("testPostChartDataPointInvalidFolder", testPostChartDataPointInvalidFolder),
+        ("testPostChartDataPointInvalidStorage", testPostChartDataPointInvalidStorage),
         ("testPostChartSeries", testPostChartSeries),
         ("testPostChartSeriesInvalidName", testPostChartSeriesInvalidName),
         ("testPostChartSeriesInvalidSlideIndex", testPostChartSeriesInvalidSlideIndex),
@@ -953,6 +987,25 @@ class SlidesAPITests : XCTestCase {
         ("testPostSubshapeSaveAsInvalidScaleY", testPostSubshapeSaveAsInvalidScaleY),
         ("testPostSubshapeSaveAsInvalidBounds", testPostSubshapeSaveAsInvalidBounds),
         ("testPostSubshapeSaveAsInvalidFontsFolder", testPostSubshapeSaveAsInvalidFontsFolder),
+        ("testPutChartCategory", testPutChartCategory),
+        ("testPutChartCategoryInvalidName", testPutChartCategoryInvalidName),
+        ("testPutChartCategoryInvalidSlideIndex", testPutChartCategoryInvalidSlideIndex),
+        ("testPutChartCategoryInvalidShapeIndex", testPutChartCategoryInvalidShapeIndex),
+        ("testPutChartCategoryInvalidCategoryIndex", testPutChartCategoryInvalidCategoryIndex),
+        ("testPutChartCategoryInvalidCategory", testPutChartCategoryInvalidCategory),
+        ("testPutChartCategoryInvalidPassword", testPutChartCategoryInvalidPassword),
+        ("testPutChartCategoryInvalidFolder", testPutChartCategoryInvalidFolder),
+        ("testPutChartCategoryInvalidStorage", testPutChartCategoryInvalidStorage),
+        ("testPutChartDataPoint", testPutChartDataPoint),
+        ("testPutChartDataPointInvalidName", testPutChartDataPointInvalidName),
+        ("testPutChartDataPointInvalidSlideIndex", testPutChartDataPointInvalidSlideIndex),
+        ("testPutChartDataPointInvalidShapeIndex", testPutChartDataPointInvalidShapeIndex),
+        ("testPutChartDataPointInvalidSeriesIndex", testPutChartDataPointInvalidSeriesIndex),
+        ("testPutChartDataPointInvalidPointIndex", testPutChartDataPointInvalidPointIndex),
+        ("testPutChartDataPointInvalidDataPoint", testPutChartDataPointInvalidDataPoint),
+        ("testPutChartDataPointInvalidPassword", testPutChartDataPointInvalidPassword),
+        ("testPutChartDataPointInvalidFolder", testPutChartDataPointInvalidFolder),
+        ("testPutChartDataPointInvalidStorage", testPutChartDataPointInvalidStorage),
         ("testPutChartSeries", testPutChartSeries),
         ("testPutChartSeriesInvalidName", testPutChartSeriesInvalidName),
         ("testPutChartSeriesInvalidSlideIndex", testPutChartSeriesInvalidSlideIndex),
@@ -1401,6 +1454,225 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("createFolder", "storageName", request.storageName) { (response, error) -> Void in
             SlidesAPI.createFolder(request: request) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "createFolder", parameterName: "storageName", parameterValue: request.storageName as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testDeleteChartCategory() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        let request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        TestUtils.initialize("deleteChartCategory") { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidName() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("deleteChartCategory", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartCategory", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartCategory", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidCategoryIndex() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.categoryIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "categoryIndex", value: request.categoryIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartCategory", "categoryIndex", request.categoryIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "categoryIndex", parameterValue: request.categoryIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidPassword() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("deleteChartCategory", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidFolder() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("deleteChartCategory", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartCategoryInvalidStorage() {
+        let expectation = self.expectation(description: "testdeleteChartCategory")
+        var request = DeleteChartCategoryRequest(name: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "categoryIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartCategory", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "deleteChartCategory", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("deleteChartCategory", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.deleteChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartCategory", parameterName: "storage", parameterValue: request.storage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testDeleteChartDataPoint() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        let request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        TestUtils.initialize("deleteChartDataPoint") { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidName() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("deleteChartDataPoint", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartDataPoint", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartDataPoint", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidSeriesIndex() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.seriesIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", value: request.seriesIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartDataPoint", "seriesIndex", request.seriesIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "seriesIndex", parameterValue: request.seriesIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidPointIndex() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.pointIndex = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", value: request.pointIndex as Any, type: "Int")
+        TestUtils.initialize("deleteChartDataPoint", "pointIndex", request.pointIndex) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "pointIndex", parameterValue: request.pointIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidPassword() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("deleteChartDataPoint", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidFolder() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("deleteChartDataPoint", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testDeleteChartDataPointInvalidStorage() {
+        let expectation = self.expectation(description: "testdeleteChartDataPoint")
+        var request = DeleteChartDataPointRequest(name: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "pointIndex", type: "Int"), password: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "deleteChartDataPoint", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "deleteChartDataPoint", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("deleteChartDataPoint", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.deleteChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "deleteChartDataPoint", parameterName: "storage", parameterValue: request.storage as Any)
                 expectation.fulfill()
             }
         }
@@ -9696,6 +9968,225 @@ class SlidesAPITests : XCTestCase {
         }
         self.waitForExpectations(timeout: testTimeout, handler: nil)
     }
+    func testPostChartCategory() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        let request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        TestUtils.initialize("postChartCategory") { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidName() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("postChartCategory", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("postChartCategory", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("postChartCategory", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidCategory() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.category = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "category", value: request.category as Any, type: "ChartCategory")
+        TestUtils.initialize("postChartCategory", "category", request.category) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "category", parameterValue: request.category as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidPassword() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("postChartCategory", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidFolder() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("postChartCategory", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartCategoryInvalidStorage() {
+        let expectation = self.expectation(description: "testpostChartCategory")
+        var request = PostChartCategoryRequest(name: TestUtils.getTestValue(functionName: "postChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartCategory", name: "shapeIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "postChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "postChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartCategory", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "postChartCategory", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("postChartCategory", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.postChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartCategory", parameterName: "storage", parameterValue: request.storage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testPostChartDataPoint() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        let request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        TestUtils.initialize("postChartDataPoint") { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidName() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("postChartDataPoint", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("postChartDataPoint", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("postChartDataPoint", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidSeriesIndex() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.seriesIndex = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "seriesIndex", value: request.seriesIndex as Any, type: "Int")
+        TestUtils.initialize("postChartDataPoint", "seriesIndex", request.seriesIndex) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "seriesIndex", parameterValue: request.seriesIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidDataPoint() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.dataPoint = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "dataPoint", value: request.dataPoint as Any, type: "DataPoint")
+        TestUtils.initialize("postChartDataPoint", "dataPoint", request.dataPoint) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "dataPoint", parameterValue: request.dataPoint as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidPassword() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("postChartDataPoint", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidFolder() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("postChartDataPoint", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostChartDataPointInvalidStorage() {
+        let expectation = self.expectation(description: "testpostChartDataPoint")
+        var request = PostChartDataPointRequest(name: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "seriesIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartDataPoint", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "postChartDataPoint", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("postChartDataPoint", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.postChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postChartDataPoint", parameterName: "storage", parameterValue: request.storage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
     func testPostChartSeries() {
         let expectation = self.expectation(description: "testpostChartSeries")
         let request = PostChartSeriesRequest(name: TestUtils.getTestValue(functionName: "postChartSeries", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "postChartSeries", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "postChartSeries", name: "shapeIndex", type: "Int"), series: TestUtils.getTestValue(functionName: "postChartSeries", name: "series", type: "Series"), password: TestUtils.getTestValue(functionName: "postChartSeries", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "postChartSeries", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "postChartSeries", name: "storage", type: "String"))
@@ -13078,6 +13569,251 @@ class SlidesAPITests : XCTestCase {
         TestUtils.initialize("postSubshapeSaveAs", "fontsFolder", request.fontsFolder) { (response, error) -> Void in
             SlidesAPI.postSubshapeSaveAs(request: request) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "postSubshapeSaveAs", parameterName: "fontsFolder", parameterValue: request.fontsFolder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testPutChartCategory() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        let request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        TestUtils.initialize("putChartCategory") { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidName() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("putChartCategory", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("putChartCategory", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("putChartCategory", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidCategoryIndex() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.categoryIndex = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "categoryIndex", value: request.categoryIndex as Any, type: "Int")
+        TestUtils.initialize("putChartCategory", "categoryIndex", request.categoryIndex) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "categoryIndex", parameterValue: request.categoryIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidCategory() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.category = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "category", value: request.category as Any, type: "ChartCategory")
+        TestUtils.initialize("putChartCategory", "category", request.category) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "category", parameterValue: request.category as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidPassword() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("putChartCategory", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidFolder() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("putChartCategory", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartCategoryInvalidStorage() {
+        let expectation = self.expectation(description: "testputChartCategory")
+        var request = PutChartCategoryRequest(name: TestUtils.getTestValue(functionName: "putChartCategory", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "shapeIndex", type: "Int"), categoryIndex: TestUtils.getTestValue(functionName: "putChartCategory", name: "categoryIndex", type: "Int"), category: TestUtils.getTestValue(functionName: "putChartCategory", name: "category", type: "ChartCategory"), password: TestUtils.getTestValue(functionName: "putChartCategory", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartCategory", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartCategory", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "putChartCategory", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("putChartCategory", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.putChartCategory(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartCategory", parameterName: "storage", parameterValue: request.storage as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+    func testPutChartDataPoint() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        let request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        TestUtils.initialize("putChartDataPoint") { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                XCTAssertNotNil(response)
+                XCTAssertNil(error)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidName() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.name = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "name", value: request.name as Any, type: "String")
+        TestUtils.initialize("putChartDataPoint", "name", request.name) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "name", parameterValue: request.name as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidSlideIndex() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.slideIndex = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "slideIndex", value: request.slideIndex as Any, type: "Int")
+        TestUtils.initialize("putChartDataPoint", "slideIndex", request.slideIndex) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "slideIndex", parameterValue: request.slideIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidShapeIndex() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.shapeIndex = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "shapeIndex", value: request.shapeIndex as Any, type: "Int")
+        TestUtils.initialize("putChartDataPoint", "shapeIndex", request.shapeIndex) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "shapeIndex", parameterValue: request.shapeIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidSeriesIndex() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.seriesIndex = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "seriesIndex", value: request.seriesIndex as Any, type: "Int")
+        TestUtils.initialize("putChartDataPoint", "seriesIndex", request.seriesIndex) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "seriesIndex", parameterValue: request.seriesIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidPointIndex() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.pointIndex = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "pointIndex", value: request.pointIndex as Any, type: "Int")
+        TestUtils.initialize("putChartDataPoint", "pointIndex", request.pointIndex) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "pointIndex", parameterValue: request.pointIndex as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidDataPoint() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.dataPoint = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "dataPoint", value: request.dataPoint as Any, type: "DataPoint")
+        TestUtils.initialize("putChartDataPoint", "dataPoint", request.dataPoint) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "dataPoint", parameterValue: request.dataPoint as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidPassword() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.password = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "password", value: request.password as Any, type: "String")
+        TestUtils.initialize("putChartDataPoint", "password", request.password) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "password", parameterValue: request.password as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidFolder() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.folder = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "folder", value: request.folder as Any, type: "String")
+        TestUtils.initialize("putChartDataPoint", "folder", request.folder) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "folder", parameterValue: request.folder as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPutChartDataPointInvalidStorage() {
+        let expectation = self.expectation(description: "testputChartDataPoint")
+        var request = PutChartDataPointRequest(name: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "name", type: "String"), slideIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "slideIndex", type: "Int"), shapeIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "shapeIndex", type: "Int"), seriesIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "seriesIndex", type: "Int"), pointIndex: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "pointIndex", type: "Int"), dataPoint: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "dataPoint", type: "DataPoint"), password: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "password", type: "String"), folder: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "folder", type: "String"), storage: TestUtils.getTestValue(functionName: "putChartDataPoint", name: "storage", type: "String"))
+        request.storage = TestUtils.getInvalidTestValue(functionName: "putChartDataPoint", name: "storage", value: request.storage as Any, type: "String")
+        TestUtils.initialize("putChartDataPoint", "storage", request.storage) { (response, error) -> Void in
+            SlidesAPI.putChartDataPoint(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "putChartDataPoint", parameterName: "storage", parameterValue: request.storage as Any)
                 expectation.fulfill()
             }
         }

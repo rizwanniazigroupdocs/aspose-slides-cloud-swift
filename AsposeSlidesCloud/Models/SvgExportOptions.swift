@@ -46,6 +46,8 @@ public struct SvgExportOptions: Codable {
         case embed = "Embed"
         case vectorize = "Vectorize"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Determines whether the text on a slide will be saved as graphics. */
@@ -67,7 +69,8 @@ public struct SvgExportOptions: Codable {
     /** Determines a way of handling externally loaded fonts. */
     public var externalFontsHandling: ExternalFontsHandling?
 
-    public init(format: String?, vectorizeText: Bool?, metafileRasterizationDpi: Int?, disable3DText: Bool?, disableGradientSplit: Bool?, disableLineEndCropping: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, externalFontsHandling: ExternalFontsHandling?) {
+    public init(defaultRegularFont: String?, format: String?, vectorizeText: Bool?, metafileRasterizationDpi: Int?, disable3DText: Bool?, disableGradientSplit: Bool?, disableLineEndCropping: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, externalFontsHandling: ExternalFontsHandling?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.vectorizeText = vectorizeText
         self.metafileRasterizationDpi = metafileRasterizationDpi

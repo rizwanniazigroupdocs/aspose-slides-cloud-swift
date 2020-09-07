@@ -43,13 +43,16 @@ public struct ChartCategory: Codable {
     public var effectFormat: EffectFormat?
     /** Get or sets the line format. */
     public var lineFormat: LineFormat?
+    /** Gets or sets the data points for chart data */
+    public var dataPoints: [OneValueChartDataPoint]?
 
-    public init(categories: [ChartCategory]?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    public init(categories: [ChartCategory]?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [OneValueChartDataPoint]?) {
         self.categories = categories
         self.value = value
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
         self.lineFormat = lineFormat
+        self.dataPoints = dataPoints
     }
 
 

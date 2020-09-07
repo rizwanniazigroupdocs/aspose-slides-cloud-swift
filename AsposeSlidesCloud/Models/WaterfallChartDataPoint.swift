@@ -29,17 +29,15 @@
 import Foundation
 
 
-/** Represents export options for whole presentation. */
+/** One value chart data point. */
 
-public struct ExportOptions: Codable {
+public struct WaterfallChartDataPoint: Codable {
 
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    public var format: String?
+    /** Value. */
+    public var setAsTotal: Bool?
 
-    public init(defaultRegularFont: String?, format: String?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    public init(setAsTotal: Bool?) {
+        self.setAsTotal = setAsTotal
     }
 
 

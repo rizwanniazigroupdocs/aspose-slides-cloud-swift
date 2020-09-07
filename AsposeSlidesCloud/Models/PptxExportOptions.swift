@@ -38,12 +38,15 @@ public struct PptxExportOptions: Codable {
         case iso295002008Transitional = "Iso29500_2008_Transitional"
         case iso295002008Strict = "Iso29500_2008_Strict"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** The conformance class to which the PresentationML document conforms. Read/write Conformance. */
     public var conformance: Conformance?
 
-    public init(format: String?, conformance: Conformance?) {
+    public init(defaultRegularFont: String?, format: String?, conformance: Conformance?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.conformance = conformance
     }

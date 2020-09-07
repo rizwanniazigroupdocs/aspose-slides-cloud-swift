@@ -90,6 +90,78 @@ public struct CreateFolderRequest: Codable {
     }
 }
 
+public struct DeleteChartCategoryRequest: Codable {
+
+    /** Delete a category from a chart. */
+    public var name: String
+
+    /** Delete a category from a chart. */
+    public var slideIndex: Int
+
+    /** Delete a category from a chart. */
+    public var shapeIndex: Int
+
+    /** Delete a category from a chart. */
+    public var categoryIndex: Int
+
+    /** Delete a category from a chart. */
+    public var password: String
+
+    /** Delete a category from a chart. */
+    public var folder: String
+
+    /** Delete a category from a chart. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, categoryIndex: Int, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.categoryIndex = categoryIndex
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
+public struct DeleteChartDataPointRequest: Codable {
+
+    /** Delete a data point from a chart series. */
+    public var name: String
+
+    /** Delete a data point from a chart series. */
+    public var slideIndex: Int
+
+    /** Delete a data point from a chart series. */
+    public var shapeIndex: Int
+
+    /** Delete a data point from a chart series. */
+    public var seriesIndex: Int
+
+    /** Delete a data point from a chart series. */
+    public var pointIndex: Int
+
+    /** Delete a data point from a chart series. */
+    public var password: String
+
+    /** Delete a data point from a chart series. */
+    public var folder: String
+
+    /** Delete a data point from a chart series. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, seriesIndex: Int, pointIndex: Int, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.seriesIndex = seriesIndex
+        self.pointIndex = pointIndex
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
 public struct DeleteChartSeriesRequest: Codable {
 
     /** Delete a series from a chart. */
@@ -2858,6 +2930,78 @@ public struct PostAddNotesSlideRequest: Codable {
     }
 }
 
+public struct PostChartCategoryRequest: Codable {
+
+    /** Add a new category to a chart. */
+    public var name: String
+
+    /** Add a new category to a chart. */
+    public var slideIndex: Int
+
+    /** Add a new category to a chart. */
+    public var shapeIndex: Int
+
+    /** Add a new category to a chart. */
+    public var category: ChartCategory
+
+    /** Add a new category to a chart. */
+    public var password: String
+
+    /** Add a new category to a chart. */
+    public var folder: String
+
+    /** Add a new category to a chart. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, category: ChartCategory, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.category = category
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
+public struct PostChartDataPointRequest: Codable {
+
+    /** Add a new data point to a chart series. */
+    public var name: String
+
+    /** Add a new data point to a chart series. */
+    public var slideIndex: Int
+
+    /** Add a new data point to a chart series. */
+    public var shapeIndex: Int
+
+    /** Add a new data point to a chart series. */
+    public var seriesIndex: Int
+
+    /** Add a new data point to a chart series. */
+    public var dataPoint: DataPoint
+
+    /** Add a new data point to a chart series. */
+    public var password: String
+
+    /** Add a new data point to a chart series. */
+    public var folder: String
+
+    /** Add a new data point to a chart series. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, seriesIndex: Int, dataPoint: DataPoint, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.seriesIndex = seriesIndex
+        self.dataPoint = dataPoint
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
 public struct PostChartSeriesRequest: Codable {
 
     /** Add a new series to a chart. */
@@ -3971,6 +4115,86 @@ public struct PostSubshapeSaveAsRequest: Codable {
         self.scaleY = scaleY
         self.bounds = bounds
         self.fontsFolder = fontsFolder
+    }
+}
+
+public struct PutChartCategoryRequest: Codable {
+
+    /** Update a chart category. */
+    public var name: String
+
+    /** Update a chart category. */
+    public var slideIndex: Int
+
+    /** Update a chart category. */
+    public var shapeIndex: Int
+
+    /** Update a chart category. */
+    public var categoryIndex: Int
+
+    /** Update a chart category. */
+    public var category: ChartCategory
+
+    /** Update a chart category. */
+    public var password: String
+
+    /** Update a chart category. */
+    public var folder: String
+
+    /** Update a chart category. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, categoryIndex: Int, category: ChartCategory, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.categoryIndex = categoryIndex
+        self.category = category
+        self.password = password
+        self.folder = folder
+        self.storage = storage
+    }
+}
+
+public struct PutChartDataPointRequest: Codable {
+
+    /** Update a data point in a chart series. */
+    public var name: String
+
+    /** Update a data point in a chart series. */
+    public var slideIndex: Int
+
+    /** Update a data point in a chart series. */
+    public var shapeIndex: Int
+
+    /** Update a data point in a chart series. */
+    public var seriesIndex: Int
+
+    /** Update a data point in a chart series. */
+    public var pointIndex: Int
+
+    /** Update a data point in a chart series. */
+    public var dataPoint: DataPoint
+
+    /** Update a data point in a chart series. */
+    public var password: String
+
+    /** Update a data point in a chart series. */
+    public var folder: String
+
+    /** Update a data point in a chart series. */
+    public var storage: String
+
+    public init(name: String, slideIndex: Int, shapeIndex: Int, seriesIndex: Int, pointIndex: Int, dataPoint: DataPoint, password: String, folder: String, storage: String) {
+        self.name = name
+        self.slideIndex = slideIndex
+        self.shapeIndex = shapeIndex
+        self.seriesIndex = seriesIndex
+        self.pointIndex = pointIndex
+        self.dataPoint = dataPoint
+        self.password = password
+        self.folder = folder
+        self.storage = storage
     }
 }
 

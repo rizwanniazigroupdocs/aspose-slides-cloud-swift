@@ -29,18 +29,11 @@
 import Foundation
 
 
-/** Represents export options for whole presentation. */
+/** Data point. */
 
-public struct ExportOptions: Codable {
+public struct DataPoint: Codable {
 
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    public var format: String?
 
-    public init(defaultRegularFont: String?, format: String?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
-    }
 
 
 }

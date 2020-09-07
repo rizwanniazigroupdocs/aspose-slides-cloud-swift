@@ -51,6 +51,8 @@ public struct HtmlExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Get or sets flag for save presentation as zip file */
@@ -78,7 +80,8 @@ public struct HtmlExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(format: String?, saveAsZip: Bool?, subDirectoryName: String?, showHiddenSlides: Bool?, svgResponsiveLayout: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+    public init(defaultRegularFont: String?, format: String?, saveAsZip: Bool?, subDirectoryName: String?, showHiddenSlides: Bool?, svgResponsiveLayout: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.saveAsZip = saveAsZip
         self.subDirectoryName = subDirectoryName

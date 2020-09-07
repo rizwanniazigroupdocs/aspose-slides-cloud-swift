@@ -33,6 +33,8 @@ import Foundation
 
 public struct XpsExportOptions: Codable {
 
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Specifies whether the generated document should include hidden slides or not. Default is false.  */
@@ -42,7 +44,8 @@ public struct XpsExportOptions: Codable {
     /** True to draw black frame around each slide. */
     public var drawSlidesFrame: Bool?
 
-    public init(format: String?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, drawSlidesFrame: Bool?) {
+    public init(defaultRegularFont: String?, format: String?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, drawSlidesFrame: Bool?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.showHiddenSlides = showHiddenSlides
         self.saveMetafilesAsPng = saveMetafilesAsPng

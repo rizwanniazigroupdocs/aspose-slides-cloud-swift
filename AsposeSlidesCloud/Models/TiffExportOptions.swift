@@ -58,6 +58,8 @@ public struct TiffExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Compression type. */
@@ -85,7 +87,8 @@ public struct TiffExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(format: String?, compression: Compression?, width: Int?, height: Int?, dpiX: Int?, dpiY: Int?, showHiddenSlides: Bool?, pixelFormat: PixelFormat?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+    public init(defaultRegularFont: String?, format: String?, compression: Compression?, width: Int?, height: Int?, dpiX: Int?, dpiY: Int?, showHiddenSlides: Bool?, pixelFormat: PixelFormat?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.compression = compression
         self.width = width

@@ -166,6 +166,97 @@ open class SlidesAPI {
     }
 
     /**
+     Delete a category from a chart.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteChartCategory(request: DeleteChartCategoryRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        deleteChartCategoryWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Delete a category from a chart.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories/{categoryIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func deleteChartCategoryWithRequestBuilder(request: DeleteChartCategoryRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories/{categoryIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "categoryIndex", request.categoryIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Delete a data point from a chart series.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteChartDataPoint(request: DeleteChartDataPointRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        deleteChartDataPointWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Delete a data point from a chart series.
+     - DELETE /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints/{pointIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func deleteChartDataPointWithRequestBuilder(request: DeleteChartDataPointRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints/{pointIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "seriesIndex", request.seriesIndex)
+        path = APIHelper.replacePathParameter(path, "pointIndex", request.pointIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Delete a series from a chart.
      
      - parameter request: object containing request parameters
@@ -4339,6 +4430,95 @@ open class SlidesAPI {
     }
 
     /**
+     Add a new category to a chart.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postChartCategory(request: PostChartCategoryRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        postChartCategoryWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Add a new category to a chart.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func postChartCategoryWithRequestBuilder(request: PostChartCategoryRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.category)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Add a new data point to a chart series.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postChartDataPoint(request: PostChartDataPointRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        postChartDataPointWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Add a new data point to a chart series.
+     - POST /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func postChartDataPointWithRequestBuilder(request: PostChartDataPointRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "seriesIndex", request.seriesIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dataPoint)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      Add a new series to a chart.
      
      - parameter request: object containing request parameters
@@ -5944,6 +6124,97 @@ open class SlidesAPI {
         let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update a chart category.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putChartCategory(request: PutChartCategoryRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        putChartCategoryWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update a chart category.
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories/{categoryIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func putChartCategoryWithRequestBuilder(request: PutChartCategoryRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/categories/{categoryIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "categoryIndex", request.categoryIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.category)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update a data point in a chart series.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putChartDataPoint(request: PutChartDataPointRequest, completion: @escaping ((_ data: Chart?,_ error: Error?) -> Void)) {
+        putChartDataPointWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update a data point in a chart series.
+     - PUT /slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints/{pointIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Chart> 
+     */
+    open class func putChartDataPointWithRequestBuilder(request: PutChartDataPointRequest) -> RequestBuilder<Chart> {
+        var path = "/slides/{name}/slides/{slideIndex}/shapes/{shapeIndex}/series/{seriesIndex}/dataPoints/{pointIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        path = APIHelper.replacePathParameter(path, "shapeIndex", request.shapeIndex)
+        path = APIHelper.replacePathParameter(path, "seriesIndex", request.seriesIndex)
+        path = APIHelper.replacePathParameter(path, "pointIndex", request.pointIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dataPoint)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Chart>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**

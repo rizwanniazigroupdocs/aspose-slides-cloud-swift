@@ -43,6 +43,8 @@ public struct SwfExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Specifies whether the generated document should include hidden slides or not. Default is false.  */
@@ -86,7 +88,8 @@ public struct SwfExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(format: String?, showHiddenSlides: Bool?, compressed: Bool?, viewerIncluded: Bool?, showPageBorder: Bool?, showFullScreen: Bool?, showPageStepper: Bool?, showSearch: Bool?, showTopPane: Bool?, showBottomPane: Bool?, showLeftPane: Bool?, startOpenLeftPane: Bool?, enableContextMenu: Bool?, logoImage: String?, logoLink: String?, jpegQuality: Int?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+    public init(defaultRegularFont: String?, format: String?, showHiddenSlides: Bool?, compressed: Bool?, viewerIncluded: Bool?, showPageBorder: Bool?, showFullScreen: Bool?, showPageStepper: Bool?, showSearch: Bool?, showTopPane: Bool?, showBottomPane: Bool?, showLeftPane: Bool?, startOpenLeftPane: Bool?, enableContextMenu: Bool?, logoImage: String?, logoLink: String?, jpegQuality: Int?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.showHiddenSlides = showHiddenSlides
         self.compressed = compressed

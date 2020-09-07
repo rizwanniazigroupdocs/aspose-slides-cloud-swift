@@ -43,6 +43,8 @@ public struct ImageExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
+    /** Setting user password to protect the PDF document.  */
+    public var defaultRegularFont: String?
     /** Export format. */
     public var format: String?
     /** Gets or sets the position of the notes on the page. */
@@ -54,7 +56,8 @@ public struct ImageExportOptions: Codable {
     /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
     public var commentsAreaColor: String?
 
-    public init(format: String?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?) {
+    public init(defaultRegularFont: String?, format: String?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?) {
+        self.defaultRegularFont = defaultRegularFont
         self.format = format
         self.notesPosition = notesPosition
         self.commentsPosition = commentsPosition

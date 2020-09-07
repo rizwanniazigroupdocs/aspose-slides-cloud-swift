@@ -33,16 +33,10 @@ import Foundation
 
 public struct BubbleChartDataPoint: Codable {
 
-    /** X-value */
-    public var xValue: Double?
-    /** Y-value */
-    public var yValue: Double?
     /** Bubble size. */
     public var bubbleSize: Double?
 
-    public init(xValue: Double?, yValue: Double?, bubbleSize: Double?) {
-        self.xValue = xValue
-        self.yValue = yValue
+    public init(bubbleSize: Double?) {
         self.bubbleSize = bubbleSize
     }
 
