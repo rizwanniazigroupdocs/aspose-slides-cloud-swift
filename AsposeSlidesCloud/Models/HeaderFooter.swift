@@ -25,12 +25,39 @@
  * --------------------------------------------------------------------------------------------------------------------
  */
 
+
 import Foundation
 
-open class Configuration {
-	
-	// This value is used to configure the date formatter that is used to serialize dates into JSON format. 
-	// You must set it prior to encoding any dates, and it will only be read once. 
-    public static var dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-    public static let apiVersion = "20.9.0"
+
+/** Represents header/footer info of slide */
+
+public struct HeaderFooter: Codable {
+
+    /** Gets or sets the link to this resource. */
+    public var selfUri: ResourceUri?
+    /** List of alternate links. */
+    public var alternateLinks: [ResourceUri]?
+    /** True if date is displayed in the footer */
+    public var isDateTimeVisible: Bool?
+    /** Text to be displayed as date in the footer */
+    public var dateTimeText: String?
+    /** True if footer is displayed */
+    public var isFooterVisible: Bool?
+    /** Text to be displayed in the footer */
+    public var footerText: String?
+    /** True if slide number is displayed in the footer */
+    public var isSlideNumberVisible: Bool?
+
+    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, isDateTimeVisible: Bool?, dateTimeText: String?, isFooterVisible: Bool?, footerText: String?, isSlideNumberVisible: Bool?) {
+        self.selfUri = selfUri
+        self.alternateLinks = alternateLinks
+        self.isDateTimeVisible = isDateTimeVisible
+        self.dateTimeText = dateTimeText
+        self.isFooterVisible = isFooterVisible
+        self.footerText = footerText
+        self.isSlideNumberVisible = isSlideNumberVisible
+    }
+
+
 }
+

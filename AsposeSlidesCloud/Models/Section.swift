@@ -25,12 +25,33 @@
  * --------------------------------------------------------------------------------------------------------------------
  */
 
+
 import Foundation
 
-open class Configuration {
-	
-	// This value is used to configure the date formatter that is used to serialize dates into JSON format. 
-	// You must set it prior to encoding any dates, and it will only be read once. 
-    public static var dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-    public static let apiVersion = "20.9.0"
+
+/** Presentation section. */
+
+public struct Section: Codable {
+
+    /** Gets or sets the link to this resource. */
+    public var selfUri: ResourceUri?
+    /** List of alternate links. */
+    public var alternateLinks: [ResourceUri]?
+    /** Name. */
+    public var name: String?
+    /** One-based index of slide with which the section starts. */
+    public var firstSlideIndex: Int?
+    /** Links to the shapes contained in the section. */
+    public var slideList: [ResourceUriElement]?
+
+    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, firstSlideIndex: Int?, slideList: [ResourceUriElement]?) {
+        self.selfUri = selfUri
+        self.alternateLinks = alternateLinks
+        self.name = name
+        self.firstSlideIndex = firstSlideIndex
+        self.slideList = slideList
+    }
+
+
 }
+

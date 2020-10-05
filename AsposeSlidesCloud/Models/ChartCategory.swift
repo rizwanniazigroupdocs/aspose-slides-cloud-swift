@@ -33,8 +33,10 @@ import Foundation
 
 public struct ChartCategory: Codable {
 
-    /** Gets or sets the categories for chart data */
-    public var categories: [ChartCategory]?
+    /** Gets or sets the parent categories. Used with Sunburst &amp;amp; treemap categories; ignored for other chart types. */
+    public var parentCategories: [String]?
+    /** Gets or sets the grouping level for the category. Used with Sunburst &amp;amp; treemap categories; ignored for other chart types. */
+    public var level: Int?
     /** Category value */
     public var value: String?
     /** Get or sets the fill format. */
@@ -46,8 +48,9 @@ public struct ChartCategory: Codable {
     /** Gets or sets the data points for chart data */
     public var dataPoints: [OneValueChartDataPoint]?
 
-    public init(categories: [ChartCategory]?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [OneValueChartDataPoint]?) {
-        self.categories = categories
+    public init(parentCategories: [String]?, level: Int?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [OneValueChartDataPoint]?) {
+        self.parentCategories = parentCategories
+        self.level = level
         self.value = value
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat

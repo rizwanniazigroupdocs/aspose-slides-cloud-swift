@@ -33,12 +33,7 @@ import Foundation
 
 public struct IShapeExportOptions: Codable {
 
-    /** Export format. */
-    public var format: String?
 
-    public init(format: String?) {
-        self.format = format
-    }
 
 
 }

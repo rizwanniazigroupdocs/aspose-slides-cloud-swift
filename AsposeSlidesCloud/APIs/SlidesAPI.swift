@@ -885,6 +885,94 @@ open class SlidesAPI {
     }
 
     /**
+     Delete a presentation section.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSection(request: DeleteSectionRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        deleteSectionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Delete a presentation section.
+     - DELETE /slides/{name}/sections/{sectionIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func deleteSectionWithRequestBuilder(request: DeleteSectionRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections/{sectionIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "sectionIndex", request.sectionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "withSlides": request.withSlides, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Delete presentation sections.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func deleteSections(request: DeleteSectionsRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        deleteSectionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Delete presentation sections.
+     - DELETE /slides/{name}/sections
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func deleteSectionsWithRequestBuilder(request: DeleteSectionsRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sections": request.sections, 
+            "withSlides": request.withSlides, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Remove animation from a slide.
      
      - parameter request: object containing request parameters
@@ -2162,6 +2250,49 @@ open class SlidesAPI {
     }
 
     /**
+     Get header/footer info for the notes slide.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getNotesSlideHeaderFooter(request: GetNotesSlideHeaderFooterRequest, completion: @escaping ((_ data: NotesSlideHeaderFooter?,_ error: Error?) -> Void)) {
+        getNotesSlideHeaderFooterWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Get header/footer info for the notes slide.
+     - GET /slides/{name}/slides/{slideIndex}/notesSlide/headerFooter
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<NotesSlideHeaderFooter> 
+     */
+    open class func getNotesSlideHeaderFooterWithRequestBuilder(request: GetNotesSlideHeaderFooterRequest) -> RequestBuilder<NotesSlideHeaderFooter> {
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/headerFooter"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "storage": request.storage, 
+            "folder": request.folder
+        ])
+
+        let requestBuilder: RequestBuilder<NotesSlideHeaderFooter>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Read slide shape info.
      
      - parameter request: object containing request parameters
@@ -2578,6 +2709,48 @@ open class SlidesAPI {
     }
 
     /**
+     Read presentation sections info.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSections(request: GetSectionsRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        getSectionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Read presentation sections info.
+     - GET /slides/{name}/sections
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func getSectionsWithRequestBuilder(request: GetSectionsRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      Read slide animation effects.
      
      - parameter request: object containing request parameters
@@ -2617,6 +2790,49 @@ open class SlidesAPI {
         ])
 
         let requestBuilder: RequestBuilder<SlideAnimation>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Get footer info for the slide.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getSlideHeaderFooter(request: GetSlideHeaderFooterRequest, completion: @escaping ((_ data: HeaderFooter?,_ error: Error?) -> Void)) {
+        getSlideHeaderFooterWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Get footer info for the slide.
+     - GET /slides/{name}/slides/{slideIndex}/headerFooter
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<HeaderFooter> 
+     */
+    open class func getSlideHeaderFooterWithRequestBuilder(request: GetSlideHeaderFooterRequest) -> RequestBuilder<HeaderFooter> {
+        var path = "/slides/{name}/slides/{slideIndex}/headerFooter"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<HeaderFooter>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -5041,6 +5257,94 @@ open class SlidesAPI {
     }
 
     /**
+     Create a section starting at a specified slide index.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postSection(request: PostSectionRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        postSectionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Create a section starting at a specified slide index.
+     - POST /slides/{name}/sections
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func postSectionWithRequestBuilder(request: PostSectionRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sectionName": request.sectionName, 
+            "slideIndex": request.slideIndex.encodeToJSON(), 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Move presentation section to a specified position.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func postSectionMove(request: PostSectionMoveRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        postSectionMoveWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Move presentation section to a specified position.
+     - POST /slides/{name}/sections/{sectionIndex}/move
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func postSectionMoveWithRequestBuilder(request: PostSectionMoveRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections/{sectionIndex}/move"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "sectionIndex", request.sectionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "newPosition": request.newPosition.encodeToJSON(), 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
      * enum for parameter format
      */
     public enum Format_postShapeSaveAs: String { 
@@ -6306,6 +6610,49 @@ open class SlidesAPI {
     }
 
     /**
+     Set header/footer the notes slide.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putNotesSlideHeaderFooter(request: PutNotesSlideHeaderFooterRequest, completion: @escaping ((_ data: NotesSlideHeaderFooter?,_ error: Error?) -> Void)) {
+        putNotesSlideHeaderFooterWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Set header/footer the notes slide.
+     - PUT /slides/{name}/slides/{slideIndex}/notesSlide/headerFooter
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<NotesSlideHeaderFooter> 
+     */
+    open class func putNotesSlideHeaderFooterWithRequestBuilder(request: PutNotesSlideHeaderFooterRequest) -> RequestBuilder<NotesSlideHeaderFooter> {
+        var path = "/slides/{name}/slides/{slideIndex}/notesSlide/headerFooter"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "storage": request.storage, 
+            "folder": request.folder
+        ])
+
+        let requestBuilder: RequestBuilder<NotesSlideHeaderFooter>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      * enum for parameter format
      */
     public enum Format_putNotesSlideShapeSaveAs: String { 
@@ -6417,6 +6764,92 @@ open class SlidesAPI {
         ])
 
         let requestBuilder: RequestBuilder<Document>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Update section name.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSection(request: PutSectionRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        putSectionWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Update section name.
+     - PUT /slides/{name}/sections/{sectionIndex}
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func putSectionWithRequestBuilder(request: PutSectionRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections/{sectionIndex}"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "sectionIndex", request.sectionIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters: [String:Any]? = nil
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sectionName": request.sectionName, 
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Replace existing presentation sections with the ones provided in the sections DTO.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSections(request: PutSectionsRequest, completion: @escaping ((_ data: Sections?,_ error: Error?) -> Void)) {
+        putSectionsWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Replace existing presentation sections with the ones provided in the sections DTO.
+     - PUT /slides/{name}/sections
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Sections> 
+     */
+    open class func putSectionsWithRequestBuilder(request: PutSectionsRequest) -> RequestBuilder<Sections> {
+        var path = "/slides/{name}/sections"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.sections)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<Sections>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -6812,6 +7245,49 @@ open class SlidesAPI {
     }
 
     /**
+     Set footer the slide.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSlideHeaderFooter(request: PutSlideHeaderFooterRequest, completion: @escaping ((_ data: HeaderFooter?,_ error: Error?) -> Void)) {
+        putSlideHeaderFooterWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Set footer the slide.
+     - PUT /slides/{name}/slides/{slideIndex}/headerFooter
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<HeaderFooter> 
+     */
+    open class func putSlideHeaderFooterWithRequestBuilder(request: PutSlideHeaderFooterRequest) -> RequestBuilder<HeaderFooter> {
+        var path = "/slides/{name}/slides/{slideIndex}/headerFooter"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        path = APIHelper.replacePathParameter(path, "slideIndex", request.slideIndex)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "folder": request.folder, 
+            "storage": request.storage
+        ])
+
+        let requestBuilder: RequestBuilder<HeaderFooter>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
      * enum for parameter format
      */
     public enum Format_putSlideSaveAs: String { 
@@ -7080,6 +7556,48 @@ open class SlidesAPI {
         path = APIHelper.replacePathParameter(path, "name", request.name)
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.html)
+
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "password": request.password, 
+            "storage": request.storage, 
+            "folder": request.folder
+        ])
+
+        let requestBuilder: RequestBuilder<Document>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+     Set footers for all slides in a presentation.
+     
+     - parameter request: object containing request parameters
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func putSlidesHeaderFooter(request: PutSlidesHeaderFooterRequest, completion: @escaping ((_ data: Document?,_ error: Error?) -> Void)) {
+        putSlidesHeaderFooterWithRequestBuilder(request: request).executeAuthorized { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     Set footers for all slides in a presentation.
+     - PUT /slides/{name}/headerFooter
+     - OAuth:
+       - type: oauth2
+       - name: JWT
+     - examples: [{contentType=application/json, example=""}]
+     - parameter request: object containing request parameters
+
+     - returns: RequestBuilder<Document> 
+     */
+    open class func putSlidesHeaderFooterWithRequestBuilder(request: PutSlidesHeaderFooterRequest) -> RequestBuilder<Document> {
+        var path = "/slides/{name}/headerFooter"
+        path = APIHelper.replacePathParameter(path, "name", request.name)
+        let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.dto)
 
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
