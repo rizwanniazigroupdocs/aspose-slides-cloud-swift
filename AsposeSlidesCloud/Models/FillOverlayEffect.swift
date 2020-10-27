@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents fill overlay effect  */
-
-public struct FillOverlayEffect: Codable {
+public class FillOverlayEffect: Codable {
 
     public enum Blend: String, Codable { 
         case darken = "Darken"
@@ -43,7 +42,11 @@ public struct FillOverlayEffect: Codable {
     /** blend mode */
     public var blend: Blend?
 
-    public init(blend: Blend?) {
+    private enum CodingKeys: String, CodingKey {
+        case blend
+    }
+
+    public init(blend: Blend? = nil) {
         self.blend = blend
     }
 

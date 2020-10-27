@@ -34,7 +34,7 @@ import PackageDescription
 let package = Package(
     name: "MyPackage",
     dependencies: [
-        .package(url: "https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift", from: "20.9.0"),
+        .package(url: "https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift", from: "20.10.0"),
     ],
     targets: [
         .target(
@@ -49,7 +49,7 @@ To use the SDK as a Cocoapod, add "pod 'AsposeSlidesCloud'" line to your Podfile
 ```ruby
 target 'myproj' do
   ...
-  pod 'AsposeSlidesCloud', '~> 20.9.0'
+  pod 'AsposeSlidesCloud', '~> 20.10.0'
 end
 ```
 ### Sample usage
@@ -66,7 +66,7 @@ AsposeSlidesCloudAPI.appKey = "MyAppKey"
 
 dispatchGroup.enter()
 let input = FileManager.default.contents(atPath: "MyPresentation.ppt")!
-let request = postSlidesConvertRequest(format: "pdf", document: input, password: "password", fontsFolder: "")
+let request = postSlidesConvertRequest(format: "pdf", document: input)
 SlidesAPI.postSlidesConvert(request: request) { (response, e) -> Void in
     do {
         let url = URL(fileURLWithPath: "MyPresentation.pdf")

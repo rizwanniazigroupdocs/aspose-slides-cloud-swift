@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents SmartArt shape resource. */
-
-public struct SmartArt: Codable {
+public class SmartArt: ShapeBase {
 
     public enum Layout: String, Codable { 
         case accentProcess = "AccentProcess"
@@ -238,12 +237,41 @@ public struct SmartArt: Codable {
     /** The state of the SmartArt diagram with regard to (left-to-right) LTR or (right-to-left) RTL, if the diagram supports reversal. */
     public var isReversed: Bool?
 
-    public init(layout: Layout?, quickStyle: QuickStyle?, colorStyle: ColorStyle?, nodes: [SmartArtNode]?, isReversed: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case layout
+        case quickStyle
+        case colorStyle
+        case nodes
+        case isReversed
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, layout: Layout? = nil, quickStyle: QuickStyle? = nil, colorStyle: ColorStyle? = nil, nodes: [SmartArtNode]? = nil, isReversed: Bool? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type)
         self.layout = layout
         self.quickStyle = quickStyle
         self.colorStyle = colorStyle
         self.nodes = nodes
         self.isReversed = isReversed
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        layout = try values.decode(Layout?.self, forKey: .layout)
+        quickStyle = try values.decode(QuickStyle?.self, forKey: .quickStyle)
+        colorStyle = try values.decode(ColorStyle?.self, forKey: .colorStyle)
+        nodes = try values.decode([SmartArtNode]?.self, forKey: .nodes)
+        isReversed = try values.decode(Bool?.self, forKey: .isReversed)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(layout, forKey: .layout)
+        try container.encode(quickStyle, forKey: .quickStyle)
+        try container.encode(colorStyle, forKey: .colorStyle)
+        try container.encode(nodes, forKey: .nodes)
+        try container.encode(isReversed, forKey: .isReversed)
     }
 
 

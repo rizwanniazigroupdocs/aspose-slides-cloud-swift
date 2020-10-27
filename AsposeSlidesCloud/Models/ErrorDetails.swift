@@ -30,15 +30,19 @@ import Foundation
 
 
 /** The error details */
-
-public struct ErrorDetails: Codable {
+public class ErrorDetails: Codable {
 
     /** The request id */
     public var requestId: String?
     /** Date */
     public var date: Date?
 
-    public init(requestId: String?, date: Date?) {
+    private enum CodingKeys: String, CodingKey {
+        case requestId
+        case date
+    }
+
+    public init(requestId: String? = nil, date: Date? = nil) {
         self.requestId = requestId
         self.date = date
     }

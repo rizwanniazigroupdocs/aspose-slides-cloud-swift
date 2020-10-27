@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Line format. */
-
-public struct LineFormat: Codable {
+public class LineFormat: Codable {
 
     public enum Alignment: String, Codable { 
         case center = "Center"
@@ -96,7 +95,21 @@ public struct LineFormat: Codable {
     /** Width. */
     public var width: Double?
 
-    public init(alignment: Alignment?, capStyle: CapStyle?, dashStyle: DashStyle?, joinStyle: JoinStyle?, style: Style?, beginArrowHead: ArrowHeadProperties?, endArrowHead: ArrowHeadProperties?, customDashPattern: CustomDashPattern?, fillFormat: FillFormat?, miterLimit: Double?, width: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case alignment
+        case capStyle
+        case dashStyle
+        case joinStyle
+        case style
+        case beginArrowHead
+        case endArrowHead
+        case customDashPattern
+        case fillFormat
+        case miterLimit
+        case width
+    }
+
+    public init(alignment: Alignment? = nil, capStyle: CapStyle? = nil, dashStyle: DashStyle? = nil, joinStyle: JoinStyle? = nil, style: Style? = nil, beginArrowHead: ArrowHeadProperties? = nil, endArrowHead: ArrowHeadProperties? = nil, customDashPattern: CustomDashPattern? = nil, fillFormat: FillFormat? = nil, miterLimit: Double? = nil, width: Double? = nil) {
         self.alignment = alignment
         self.capStyle = capStyle
         self.dashStyle = dashStyle

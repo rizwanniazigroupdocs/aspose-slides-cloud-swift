@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents response for ApiInfo  DTO */
-
-public struct ApiInfo: Codable {
+public class ApiInfo: Codable {
 
     /** Product name. */
     public var name: String?
     /** API version. */
     public var version: String?
 
-    public init(name: String?, version: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case version
+    }
+
+    public init(name: String? = nil, version: String? = nil) {
         self.name = name
         self.version = version
     }

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents Pattern Fill */
-
-public struct PatternFill: Codable {
+public class PatternFill: FillFormat {
 
     public enum Style: String, Codable { 
         case unknown = "Unknown"
@@ -98,10 +97,33 @@ public struct PatternFill: Codable {
     /** Gets or sets the style of pattern fill. */
     public var style: Style?
 
-    public init(backColor: String?, foreColor: String?, style: Style?) {
+    private enum CodingKeys: String, CodingKey {
+        case backColor
+        case foreColor
+        case style
+    }
+
+    public init(type: ModelType? = nil, backColor: String? = nil, foreColor: String? = nil, style: Style? = nil) {
+        super.init(type: type)
         self.backColor = backColor
         self.foreColor = foreColor
         self.style = style
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        backColor = try values.decode(String?.self, forKey: .backColor)
+        foreColor = try values.decode(String?.self, forKey: .foreColor)
+        style = try values.decode(Style?.self, forKey: .style)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(backColor, forKey: .backColor)
+        try container.encode(foreColor, forKey: .foreColor)
+        try container.encode(style, forKey: .style)
     }
 
 

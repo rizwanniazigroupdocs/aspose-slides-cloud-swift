@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents VideoFrame resource. */
-
-public struct VideoFrame: Codable {
+public class VideoFrame: GeometryShape {
 
     public enum PlayMode: String, Codable { 
         case auto = "Auto"
@@ -61,7 +60,18 @@ public struct VideoFrame: Codable {
     /** Video data encoded in base64. */
     public var base64Data: String?
 
-    public init(fullScreenMode: Bool?, hideAtShowing: Bool?, playLoopMode: Bool?, playMode: PlayMode?, rewindVideo: Bool?, volume: Volume?, base64Data: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case fullScreenMode
+        case hideAtShowing
+        case playLoopMode
+        case playMode
+        case rewindVideo
+        case volume
+        case base64Data
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, fullScreenMode: Bool? = nil, hideAtShowing: Bool? = nil, playLoopMode: Bool? = nil, playMode: PlayMode? = nil, rewindVideo: Bool? = nil, volume: Volume? = nil, base64Data: String? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type, shapeType: shapeType)
         self.fullScreenMode = fullScreenMode
         self.hideAtShowing = hideAtShowing
         self.playLoopMode = playLoopMode
@@ -69,6 +79,30 @@ public struct VideoFrame: Codable {
         self.rewindVideo = rewindVideo
         self.volume = volume
         self.base64Data = base64Data
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        fullScreenMode = try values.decode(Bool?.self, forKey: .fullScreenMode)
+        hideAtShowing = try values.decode(Bool?.self, forKey: .hideAtShowing)
+        playLoopMode = try values.decode(Bool?.self, forKey: .playLoopMode)
+        playMode = try values.decode(PlayMode?.self, forKey: .playMode)
+        rewindVideo = try values.decode(Bool?.self, forKey: .rewindVideo)
+        volume = try values.decode(Volume?.self, forKey: .volume)
+        base64Data = try values.decode(String?.self, forKey: .base64Data)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(fullScreenMode, forKey: .fullScreenMode)
+        try container.encode(hideAtShowing, forKey: .hideAtShowing)
+        try container.encode(playLoopMode, forKey: .playLoopMode)
+        try container.encode(playMode, forKey: .playMode)
+        try container.encode(rewindVideo, forKey: .rewindVideo)
+        try container.encode(volume, forKey: .volume)
+        try container.encode(base64Data, forKey: .base64Data)
     }
 
 

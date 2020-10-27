@@ -30,13 +30,16 @@ import Foundation
 
 
 /** File versions FileVersion. */
-
-public struct FileVersions: Codable {
+public class FileVersions: Codable {
 
     /** File versions FileVersion. */
     public var value: [FileVersion]?
 
-    public init(value: [FileVersion]?) {
+    private enum CodingKeys: String, CodingKey {
+        case value
+    }
+
+    public init(value: [FileVersion]? = nil) {
         self.value = value
     }
 

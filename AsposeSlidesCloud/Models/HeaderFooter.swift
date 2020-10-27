@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Represents header/footer info of slide */
+public class HeaderFooter: ResourceBase {
 
-public struct HeaderFooter: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** True if date is displayed in the footer */
     public var isDateTimeVisible: Bool?
     /** Text to be displayed as date in the footer */
@@ -48,14 +43,41 @@ public struct HeaderFooter: Codable {
     /** True if slide number is displayed in the footer */
     public var isSlideNumberVisible: Bool?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, isDateTimeVisible: Bool?, dateTimeText: String?, isFooterVisible: Bool?, footerText: String?, isSlideNumberVisible: Bool?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case isDateTimeVisible
+        case dateTimeText
+        case isFooterVisible
+        case footerText
+        case isSlideNumberVisible
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, isDateTimeVisible: Bool? = nil, dateTimeText: String? = nil, isFooterVisible: Bool? = nil, footerText: String? = nil, isSlideNumberVisible: Bool? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.isDateTimeVisible = isDateTimeVisible
         self.dateTimeText = dateTimeText
         self.isFooterVisible = isFooterVisible
         self.footerText = footerText
         self.isSlideNumberVisible = isSlideNumberVisible
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        isDateTimeVisible = try values.decode(Bool?.self, forKey: .isDateTimeVisible)
+        dateTimeText = try values.decode(String?.self, forKey: .dateTimeText)
+        isFooterVisible = try values.decode(Bool?.self, forKey: .isFooterVisible)
+        footerText = try values.decode(String?.self, forKey: .footerText)
+        isSlideNumberVisible = try values.decode(Bool?.self, forKey: .isSlideNumberVisible)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(isDateTimeVisible, forKey: .isDateTimeVisible)
+        try container.encode(dateTimeText, forKey: .dateTimeText)
+        try container.encode(isFooterVisible, forKey: .isFooterVisible)
+        try container.encode(footerText, forKey: .footerText)
+        try container.encode(isSlideNumberVisible, forKey: .isSlideNumberVisible)
     }
 
 

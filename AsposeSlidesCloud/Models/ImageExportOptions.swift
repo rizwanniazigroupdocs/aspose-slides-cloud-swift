@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in an image format. */
-
-public struct ImageExportOptions: Codable {
+public class ImageExportOptions: ExportOptions {
 
     public enum NotesPosition: String, Codable { 
         case _none = "None"
@@ -43,10 +42,6 @@ public struct ImageExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Gets or sets the position of the notes on the page. */
     public var notesPosition: NotesPosition?
     /** Gets or sets the position of the comments on the page. */
@@ -56,13 +51,37 @@ public struct ImageExportOptions: Codable {
     /** Gets or sets the color of comments area (Applies only if comments are displayed on the right). */
     public var commentsAreaColor: String?
 
-    public init(defaultRegularFont: String?, format: String?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case notesPosition
+        case commentsPosition
+        case commentsAreaWidth
+        case commentsAreaColor
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.notesPosition = notesPosition
         self.commentsPosition = commentsPosition
         self.commentsAreaWidth = commentsAreaWidth
         self.commentsAreaColor = commentsAreaColor
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        notesPosition = try values.decode(NotesPosition?.self, forKey: .notesPosition)
+        commentsPosition = try values.decode(CommentsPosition?.self, forKey: .commentsPosition)
+        commentsAreaWidth = try values.decode(Int?.self, forKey: .commentsAreaWidth)
+        commentsAreaColor = try values.decode(String?.self, forKey: .commentsAreaColor)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(notesPosition, forKey: .notesPosition)
+        try container.encode(commentsPosition, forKey: .commentsPosition)
+        try container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
+        try container.encode(commentsAreaColor, forKey: .commentsAreaColor)
     }
 
 

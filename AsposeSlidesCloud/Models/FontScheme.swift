@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Represents font scheme */
+public class FontScheme: ResourceBase {
 
-public struct FontScheme: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Gets or sets fonts collection for a \&quot;heading\&quot; part of the slide. */
     public var major: FontSet?
     /** Gets or sets  the fonts collection for a \&quot;body\&quot; part of the slide. */
@@ -44,12 +39,33 @@ public struct FontScheme: Codable {
     /** Gets or sets the name. */
     public var name: String?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, major: FontSet?, minor: FontSet?, name: String?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case major
+        case minor
+        case name
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, major: FontSet? = nil, minor: FontSet? = nil, name: String? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.major = major
         self.minor = minor
         self.name = name
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        major = try values.decode(FontSet?.self, forKey: .major)
+        minor = try values.decode(FontSet?.self, forKey: .minor)
+        name = try values.decode(String?.self, forKey: .name)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(major, forKey: .major)
+        try container.encode(minor, forKey: .minor)
+        try container.encode(name, forKey: .name)
     }
 
 

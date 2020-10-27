@@ -5983,11 +5983,12 @@ open class SlidesAPI {
         let URLString = AsposeSlidesCloudAPI.getBaseUrl() + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: request.pipeline)
 
+        let files = request.files
         let url = URLComponents(string: URLString)
 
         let requestBuilder: RequestBuilder<Data>.Type = AsposeSlidesCloudAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true, files: files)
     }
 
     /**

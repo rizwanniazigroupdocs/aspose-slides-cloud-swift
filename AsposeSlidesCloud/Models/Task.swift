@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents task for pipeline. */
-
-public struct Task: Codable {
+public class Task: Codable {
 
     public enum ModelType: String, Codable { 
         case save = "Save"
@@ -52,7 +51,11 @@ public struct Task: Codable {
     }
     public var type: ModelType?
 
-    public init(type: ModelType?) {
+    private enum CodingKeys: String, CodingKey {
+        case type
+    }
+
+    public init(type: ModelType? = nil) {
         self.type = type
     }
 

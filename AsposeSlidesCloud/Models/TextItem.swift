@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents text item, referenced by TextItems */
-
-public struct TextItem: Codable {
+public class TextItem: Codable {
 
     /** Gets or sets the URI to resource that contains text */
     public var uri: ResourceUri?
     /** Gets or sets the text. */
     public var text: String?
 
-    public init(uri: ResourceUri?, text: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case uri
+        case text
+    }
+
+    public init(uri: ResourceUri? = nil, text: String? = nil) {
         self.uri = uri
         self.text = text
     }

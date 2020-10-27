@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents chart axes */
-
-public struct Axes: Codable {
+public class Axes: Codable {
 
     /** Gets or sets the horizontal axis. */
     public var horizontalAxis: Axis?
@@ -42,7 +41,14 @@ public struct Axes: Codable {
     /** Gets or sets the secondary vertical axis. */
     public var secondaryVerticalAxis: Axis?
 
-    public init(horizontalAxis: Axis?, verticalAxis: Axis?, secondaryHorizontalAxis: Axis?, secondaryVerticalAxis: Axis?) {
+    private enum CodingKeys: String, CodingKey {
+        case horizontalAxis
+        case verticalAxis
+        case secondaryHorizontalAxis
+        case secondaryVerticalAxis
+    }
+
+    public init(horizontalAxis: Axis? = nil, verticalAxis: Axis? = nil, secondaryHorizontalAxis: Axis? = nil, secondaryVerticalAxis: Axis? = nil) {
         self.horizontalAxis = horizontalAxis
         self.verticalAxis = verticalAxis
         self.secondaryHorizontalAxis = secondaryHorizontalAxis

@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Merging source. */
-
-public struct MergingSource: Codable {
+public class MergingSource: Codable {
 
     /** Source file. */
     public var input: InputFile?
     /** Indices of slides to be merged. */
     public var slides: [Int]?
 
-    public init(input: InputFile?, slides: [Int]?) {
+    private enum CodingKeys: String, CodingKey {
+        case input
+        case slides
+    }
+
+    public init(input: InputFile? = nil, slides: [Int]? = nil) {
         self.input = input
         self.slides = slides
     }

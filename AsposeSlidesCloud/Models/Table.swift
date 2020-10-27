@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents Table shape resource. */
-
-public struct Table: Codable {
+public class Table: ShapeBase {
 
     public enum Style: String, Codable { 
         case _none = "None"
@@ -132,7 +131,21 @@ public struct Table: Codable {
     /** Determines whether the even columns has to be drawn with a different formatting. */
     public var verticalBanding: Bool?
 
-    public init(style: Style?, rows: [TableRow]?, columns: [TableColumn]?, firstCol: Bool?, firstRow: Bool?, horizontalBanding: Bool?, lastCol: Bool?, lastRow: Bool?, rightToLeft: Bool?, verticalBanding: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case style
+        case rows
+        case columns
+        case firstCol
+        case firstRow
+        case horizontalBanding
+        case lastCol
+        case lastRow
+        case rightToLeft
+        case verticalBanding
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, style: Style? = nil, rows: [TableRow]? = nil, columns: [TableColumn]? = nil, firstCol: Bool? = nil, firstRow: Bool? = nil, horizontalBanding: Bool? = nil, lastCol: Bool? = nil, lastRow: Bool? = nil, rightToLeft: Bool? = nil, verticalBanding: Bool? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type)
         self.style = style
         self.rows = rows
         self.columns = columns
@@ -143,6 +156,36 @@ public struct Table: Codable {
         self.lastRow = lastRow
         self.rightToLeft = rightToLeft
         self.verticalBanding = verticalBanding
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        style = try values.decode(Style?.self, forKey: .style)
+        rows = try values.decode([TableRow]?.self, forKey: .rows)
+        columns = try values.decode([TableColumn]?.self, forKey: .columns)
+        firstCol = try values.decode(Bool?.self, forKey: .firstCol)
+        firstRow = try values.decode(Bool?.self, forKey: .firstRow)
+        horizontalBanding = try values.decode(Bool?.self, forKey: .horizontalBanding)
+        lastCol = try values.decode(Bool?.self, forKey: .lastCol)
+        lastRow = try values.decode(Bool?.self, forKey: .lastRow)
+        rightToLeft = try values.decode(Bool?.self, forKey: .rightToLeft)
+        verticalBanding = try values.decode(Bool?.self, forKey: .verticalBanding)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(style, forKey: .style)
+        try container.encode(rows, forKey: .rows)
+        try container.encode(columns, forKey: .columns)
+        try container.encode(firstCol, forKey: .firstCol)
+        try container.encode(firstRow, forKey: .firstRow)
+        try container.encode(horizontalBanding, forKey: .horizontalBanding)
+        try container.encode(lastCol, forKey: .lastCol)
+        try container.encode(lastRow, forKey: .lastRow)
+        try container.encode(rightToLeft, forKey: .rightToLeft)
+        try container.encode(verticalBanding, forKey: .verticalBanding)
     }
 
 

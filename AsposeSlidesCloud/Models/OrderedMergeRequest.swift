@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Request for presentations merge with optional order of slides */
-
-public struct OrderedMergeRequest: Codable {
+public class OrderedMergeRequest: Codable {
 
     /** Gets or sets the presentation paths. */
     public var presentations: [PresentationToMerge]?
 
-    public init(presentations: [PresentationToMerge]?) {
+    private enum CodingKeys: String, CodingKey {
+        case presentations
+    }
+
+    public init(presentations: [PresentationToMerge]? = nil) {
         self.presentations = presentations
     }
 

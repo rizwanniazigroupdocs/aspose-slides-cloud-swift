@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Represents soft edge effect  */
-
-public struct SoftEdgeEffect: Codable {
+public class SoftEdgeEffect: Codable {
 
     /** radius */
     public var radius: Double?
 
-    public init(radius: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case radius
+    }
+
+    public init(radius: Double? = nil) {
         self.radius = radius
     }
 

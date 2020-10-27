@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents gradient fill format */
-
-public struct GradientFill: Codable {
+public class GradientFill: FillFormat {
 
     public enum Direction: String, Codable { 
         case fromCorner1 = "FromCorner1"
@@ -68,13 +67,45 @@ public struct GradientFill: Codable {
     /** Gradient flipping mode. */
     public var tileFlip: TileFlip?
 
-    public init(direction: Direction?, shape: Shape?, stops: [GradientFillStop]?, linearAngle: Double?, isScaled: Bool?, tileFlip: TileFlip?) {
+    private enum CodingKeys: String, CodingKey {
+        case direction
+        case shape
+        case stops
+        case linearAngle
+        case isScaled
+        case tileFlip
+    }
+
+    public init(type: ModelType? = nil, direction: Direction? = nil, shape: Shape? = nil, stops: [GradientFillStop]? = nil, linearAngle: Double? = nil, isScaled: Bool? = nil, tileFlip: TileFlip? = nil) {
+        super.init(type: type)
         self.direction = direction
         self.shape = shape
         self.stops = stops
         self.linearAngle = linearAngle
         self.isScaled = isScaled
         self.tileFlip = tileFlip
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        direction = try values.decode(Direction?.self, forKey: .direction)
+        shape = try values.decode(Shape?.self, forKey: .shape)
+        stops = try values.decode([GradientFillStop]?.self, forKey: .stops)
+        linearAngle = try values.decode(Double?.self, forKey: .linearAngle)
+        isScaled = try values.decode(Bool?.self, forKey: .isScaled)
+        tileFlip = try values.decode(TileFlip?.self, forKey: .tileFlip)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(shape, forKey: .shape)
+        try container.encode(stops, forKey: .stops)
+        try container.encode(linearAngle, forKey: .linearAngle)
+        try container.encode(isScaled, forKey: .isScaled)
+        try container.encode(tileFlip, forKey: .tileFlip)
     }
 
 

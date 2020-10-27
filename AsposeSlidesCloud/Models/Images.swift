@@ -30,20 +30,30 @@ import Foundation
 
 
 /** List of images. */
+public class Images: ResourceBase {
 
-public struct Images: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Image list. */
     public var list: [Image]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, list: [Image]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case list
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, list: [Image]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.list = list
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        list = try values.decode([Image]?.self, forKey: .list)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(list, forKey: .list)
     }
 
 

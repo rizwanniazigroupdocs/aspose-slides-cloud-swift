@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Presentation slide. */
+public class Slide: ResourceBase {
 
-public struct Slide: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Gets or sets the width. */
     public var width: Double?
     /** Gets or sets the height. */
@@ -44,25 +39,38 @@ public struct Slide: Codable {
     /** Specifies if shapes of the master slide should be shown on the slide. True by default. */
     public var showMasterShapes: Bool?
     /** Gets or sets the  link to the layout slide. */
-    public var layoutSlide: ResourceUriElement?
+    public var layoutSlide: ResourceUri?
     /** Gets or sets the  link to list of top-level shapes. */
-    public var shapes: ResourceUriElement?
+    public var shapes: ResourceUri?
     /** Gets or sets the link to theme. */
-    public var theme: ResourceUriElement?
+    public var theme: ResourceUri?
     /** Gets or sets the  link to placeholders. */
-    public var placeholders: ResourceUriElement?
+    public var placeholders: ResourceUri?
     /** Gets or sets the link to images. */
-    public var images: ResourceUriElement?
+    public var images: ResourceUri?
     /** Gets or sets the link to comments. */
-    public var comments: ResourceUriElement?
+    public var comments: ResourceUri?
     /** Get or sets the link to slide&#39;s background */
-    public var background: ResourceUriElement?
+    public var background: ResourceUri?
     /** Get or sets the link to notes slide. */
-    public var notesSlide: ResourceUriElement?
+    public var notesSlide: ResourceUri?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, width: Double?, height: Double?, showMasterShapes: Bool?, layoutSlide: ResourceUriElement?, shapes: ResourceUriElement?, theme: ResourceUriElement?, placeholders: ResourceUriElement?, images: ResourceUriElement?, comments: ResourceUriElement?, background: ResourceUriElement?, notesSlide: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case width
+        case height
+        case showMasterShapes
+        case layoutSlide
+        case shapes
+        case theme
+        case placeholders
+        case images
+        case comments
+        case background
+        case notesSlide
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.width = width
         self.height = height
         self.showMasterShapes = showMasterShapes
@@ -74,6 +82,38 @@ public struct Slide: Codable {
         self.comments = comments
         self.background = background
         self.notesSlide = notesSlide
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        width = try values.decode(Double?.self, forKey: .width)
+        height = try values.decode(Double?.self, forKey: .height)
+        showMasterShapes = try values.decode(Bool?.self, forKey: .showMasterShapes)
+        layoutSlide = try values.decode(ResourceUri?.self, forKey: .layoutSlide)
+        shapes = try values.decode(ResourceUri?.self, forKey: .shapes)
+        theme = try values.decode(ResourceUri?.self, forKey: .theme)
+        placeholders = try values.decode(ResourceUri?.self, forKey: .placeholders)
+        images = try values.decode(ResourceUri?.self, forKey: .images)
+        comments = try values.decode(ResourceUri?.self, forKey: .comments)
+        background = try values.decode(ResourceUri?.self, forKey: .background)
+        notesSlide = try values.decode(ResourceUri?.self, forKey: .notesSlide)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(showMasterShapes, forKey: .showMasterShapes)
+        try container.encode(layoutSlide, forKey: .layoutSlide)
+        try container.encode(shapes, forKey: .shapes)
+        try container.encode(theme, forKey: .theme)
+        try container.encode(placeholders, forKey: .placeholders)
+        try container.encode(images, forKey: .images)
+        try container.encode(comments, forKey: .comments)
+        try container.encode(background, forKey: .background)
+        try container.encode(notesSlide, forKey: .notesSlide)
     }
 
 

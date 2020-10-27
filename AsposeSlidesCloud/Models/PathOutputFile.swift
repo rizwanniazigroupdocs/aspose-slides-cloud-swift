@@ -30,17 +30,36 @@ import Foundation
 
 
 /** Represents fileSystem file with path. */
-
-public struct PathOutputFile: Codable {
+public class PathOutputFile: OutputFile {
 
     /** Get or sets path to file. */
     public var path: String?
     /** Get or sets name of storage. */
     public var storage: String?
 
-    public init(path: String?, storage: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case path
+        case storage
+    }
+
+    public init(type: ModelType? = nil, path: String? = nil, storage: String? = nil) {
+        super.init(type: type)
         self.path = path
         self.storage = storage
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        path = try values.decode(String?.self, forKey: .path)
+        storage = try values.decode(String?.self, forKey: .storage)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(path, forKey: .path)
+        try container.encode(storage, forKey: .storage)
     }
 
 

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents presentation to merge */
-
-public struct PresentationToMerge: Codable {
+public class PresentationToMerge: Codable {
 
     /** Get or sets the presentation path */
     public var path: String?
@@ -40,7 +39,13 @@ public struct PresentationToMerge: Codable {
     /** Get or sets the indexes of slides to merge */
     public var slides: [Int]?
 
-    public init(path: String?, password: String?, slides: [Int]?) {
+    private enum CodingKeys: String, CodingKey {
+        case path
+        case password
+        case slides
+    }
+
+    public init(path: String? = nil, password: String? = nil, slides: [Int]? = nil) {
         self.path = path
         self.password = password
         self.slides = slides

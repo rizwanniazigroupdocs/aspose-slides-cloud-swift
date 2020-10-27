@@ -30,15 +30,19 @@ import Foundation
 
 
 /** File upload result */
-
-public struct FilesUploadResult: Codable {
+public class FilesUploadResult: Codable {
 
     /** List of uploaded file names */
     public var uploaded: [String]?
     /** List of errors. */
     public var errors: [ModelError]?
 
-    public init(uploaded: [String]?, errors: [ModelError]?) {
+    private enum CodingKeys: String, CodingKey {
+        case uploaded
+        case errors
+    }
+
+    public init(uploaded: [String]? = nil, errors: [ModelError]? = nil) {
         self.uploaded = uploaded
         self.errors = errors
     }

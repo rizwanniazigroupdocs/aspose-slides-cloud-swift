@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Represents image DTO. */
+public class Image: ResourceBase {
 
-public struct Image: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Get or sets the width of an image. */
     public var width: Int?
     /** Get or sets the height of an image. */
@@ -44,12 +39,33 @@ public struct Image: Codable {
     /** Get or sets the content type of an image. */
     public var contentType: String?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, width: Int?, height: Int?, contentType: String?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case width
+        case height
+        case contentType
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Int? = nil, height: Int? = nil, contentType: String? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.width = width
         self.height = height
         self.contentType = contentType
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        width = try values.decode(Int?.self, forKey: .width)
+        height = try values.decode(Int?.self, forKey: .height)
+        contentType = try values.decode(String?.self, forKey: .contentType)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(contentType, forKey: .contentType)
     }
 
 

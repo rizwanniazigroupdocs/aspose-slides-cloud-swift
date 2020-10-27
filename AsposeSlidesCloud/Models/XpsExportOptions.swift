@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in XPS format. */
+public class XpsExportOptions: ExportOptions {
 
-public struct XpsExportOptions: Codable {
-
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Specifies whether the generated document should include hidden slides or not. Default is false.  */
     public var showHiddenSlides: Bool?
     /** True to convert all metafiles used in a presentation to the PNG images. */
@@ -44,12 +39,33 @@ public struct XpsExportOptions: Codable {
     /** True to draw black frame around each slide. */
     public var drawSlidesFrame: Bool?
 
-    public init(defaultRegularFont: String?, format: String?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, drawSlidesFrame: Bool?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case showHiddenSlides
+        case saveMetafilesAsPng
+        case drawSlidesFrame
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, drawSlidesFrame: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.showHiddenSlides = showHiddenSlides
         self.saveMetafilesAsPng = saveMetafilesAsPng
         self.drawSlidesFrame = drawSlidesFrame
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        showHiddenSlides = try values.decode(Bool?.self, forKey: .showHiddenSlides)
+        saveMetafilesAsPng = try values.decode(Bool?.self, forKey: .saveMetafilesAsPng)
+        drawSlidesFrame = try values.decode(Bool?.self, forKey: .drawSlidesFrame)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        try container.encode(saveMetafilesAsPng, forKey: .saveMetafilesAsPng)
+        try container.encode(drawSlidesFrame, forKey: .drawSlidesFrame)
     }
 
 

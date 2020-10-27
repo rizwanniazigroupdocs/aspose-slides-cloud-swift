@@ -30,25 +30,35 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in PPTX format. */
-
-public struct PptxExportOptions: Codable {
+public class PptxExportOptions: ExportOptions {
 
     public enum Conformance: String, Codable { 
         case ecma3762006 = "Ecma376_2006"
         case iso295002008Transitional = "Iso29500_2008_Transitional"
         case iso295002008Strict = "Iso29500_2008_Strict"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** The conformance class to which the PresentationML document conforms. Read/write Conformance. */
     public var conformance: Conformance?
 
-    public init(defaultRegularFont: String?, format: String?, conformance: Conformance?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case conformance
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, conformance: Conformance? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.conformance = conformance
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        conformance = try values.decode(Conformance?.self, forKey: .conformance)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(conformance, forKey: .conformance)
     }
 
 

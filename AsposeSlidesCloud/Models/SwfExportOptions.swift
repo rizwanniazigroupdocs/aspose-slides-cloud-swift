@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in SWF format. */
-
-public struct SwfExportOptions: Codable {
+public class SwfExportOptions: ExportOptions {
 
     public enum NotesPosition: String, Codable { 
         case _none = "None"
@@ -43,10 +42,6 @@ public struct SwfExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Specifies whether the generated document should include hidden slides or not. Default is false.  */
     public var showHiddenSlides: Bool?
     /** Specifies whether the generated SWF document should be compressed or not. Default is true.  */
@@ -88,9 +83,31 @@ public struct SwfExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(defaultRegularFont: String?, format: String?, showHiddenSlides: Bool?, compressed: Bool?, viewerIncluded: Bool?, showPageBorder: Bool?, showFullScreen: Bool?, showPageStepper: Bool?, showSearch: Bool?, showTopPane: Bool?, showBottomPane: Bool?, showLeftPane: Bool?, startOpenLeftPane: Bool?, enableContextMenu: Bool?, logoImage: String?, logoLink: String?, jpegQuality: Int?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case showHiddenSlides
+        case compressed
+        case viewerIncluded
+        case showPageBorder
+        case showFullScreen
+        case showPageStepper
+        case showSearch
+        case showTopPane
+        case showBottomPane
+        case showLeftPane
+        case startOpenLeftPane
+        case enableContextMenu
+        case logoImage
+        case logoLink
+        case jpegQuality
+        case notesPosition
+        case commentsPosition
+        case commentsAreaWidth
+        case commentsAreaColor
+        case showCommentsByNoAuthor
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, showHiddenSlides: Bool? = nil, compressed: Bool? = nil, viewerIncluded: Bool? = nil, showPageBorder: Bool? = nil, showFullScreen: Bool? = nil, showPageStepper: Bool? = nil, showSearch: Bool? = nil, showTopPane: Bool? = nil, showBottomPane: Bool? = nil, showLeftPane: Bool? = nil, startOpenLeftPane: Bool? = nil, enableContextMenu: Bool? = nil, logoImage: String? = nil, logoLink: String? = nil, jpegQuality: Int? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.showHiddenSlides = showHiddenSlides
         self.compressed = compressed
         self.viewerIncluded = viewerIncluded
@@ -111,6 +128,56 @@ public struct SwfExportOptions: Codable {
         self.commentsAreaWidth = commentsAreaWidth
         self.commentsAreaColor = commentsAreaColor
         self.showCommentsByNoAuthor = showCommentsByNoAuthor
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        showHiddenSlides = try values.decode(Bool?.self, forKey: .showHiddenSlides)
+        compressed = try values.decode(Bool?.self, forKey: .compressed)
+        viewerIncluded = try values.decode(Bool?.self, forKey: .viewerIncluded)
+        showPageBorder = try values.decode(Bool?.self, forKey: .showPageBorder)
+        showFullScreen = try values.decode(Bool?.self, forKey: .showFullScreen)
+        showPageStepper = try values.decode(Bool?.self, forKey: .showPageStepper)
+        showSearch = try values.decode(Bool?.self, forKey: .showSearch)
+        showTopPane = try values.decode(Bool?.self, forKey: .showTopPane)
+        showBottomPane = try values.decode(Bool?.self, forKey: .showBottomPane)
+        showLeftPane = try values.decode(Bool?.self, forKey: .showLeftPane)
+        startOpenLeftPane = try values.decode(Bool?.self, forKey: .startOpenLeftPane)
+        enableContextMenu = try values.decode(Bool?.self, forKey: .enableContextMenu)
+        logoImage = try values.decode(String?.self, forKey: .logoImage)
+        logoLink = try values.decode(String?.self, forKey: .logoLink)
+        jpegQuality = try values.decode(Int?.self, forKey: .jpegQuality)
+        notesPosition = try values.decode(NotesPosition?.self, forKey: .notesPosition)
+        commentsPosition = try values.decode(CommentsPosition?.self, forKey: .commentsPosition)
+        commentsAreaWidth = try values.decode(Int?.self, forKey: .commentsAreaWidth)
+        commentsAreaColor = try values.decode(String?.self, forKey: .commentsAreaColor)
+        showCommentsByNoAuthor = try values.decode(Bool?.self, forKey: .showCommentsByNoAuthor)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        try container.encode(compressed, forKey: .compressed)
+        try container.encode(viewerIncluded, forKey: .viewerIncluded)
+        try container.encode(showPageBorder, forKey: .showPageBorder)
+        try container.encode(showFullScreen, forKey: .showFullScreen)
+        try container.encode(showPageStepper, forKey: .showPageStepper)
+        try container.encode(showSearch, forKey: .showSearch)
+        try container.encode(showTopPane, forKey: .showTopPane)
+        try container.encode(showBottomPane, forKey: .showBottomPane)
+        try container.encode(showLeftPane, forKey: .showLeftPane)
+        try container.encode(startOpenLeftPane, forKey: .startOpenLeftPane)
+        try container.encode(enableContextMenu, forKey: .enableContextMenu)
+        try container.encode(logoImage, forKey: .logoImage)
+        try container.encode(logoLink, forKey: .logoLink)
+        try container.encode(jpegQuality, forKey: .jpegQuality)
+        try container.encode(notesPosition, forKey: .notesPosition)
+        try container.encode(commentsPosition, forKey: .commentsPosition)
+        try container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
+        try container.encode(commentsAreaColor, forKey: .commentsAreaColor)
+        try container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
     }
 
 

@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents comments collection of slide */
-
-public struct InteractiveSequence: Codable {
+public class InteractiveSequence: Codable {
 
     /** Effect list. */
     public var effects: [Effect]?
     /** Index of the shape that triggers the sequence. */
     public var triggerShapeIndex: Int?
 
-    public init(effects: [Effect]?, triggerShapeIndex: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case effects
+        case triggerShapeIndex
+    }
+
+    public init(effects: [Effect]? = nil, triggerShapeIndex: Int? = nil) {
         self.effects = effects
         self.triggerShapeIndex = triggerShapeIndex
     }

@@ -49,6 +49,7 @@ open class RequestBuilder<T> {
     var credential: URLCredential?
     var headers: [String:String]
     public let parameters: [String:Any]?
+    public let files: [Data]
     public let isBody: Bool
     public let method: String
     public let URLString: String
@@ -56,11 +57,12 @@ open class RequestBuilder<T> {
     /// Optional block to obtain a reference to the request's progress instance when available.
     public var onProgressReady: ((Progress) -> ())?
 
-    required public init(method: String, URLString: String, parameters: [String:Any]?, isBody: Bool, headers: [String:String] = [:]) {
+    required public init(method: String, URLString: String, parameters: [String:Any]?, isBody: Bool, files: [Data] = [Data](), headers: [String:String] = [:]) {
         self.method = method
         self.URLString = URLString
         self.parameters = parameters
         self.isBody = isBody
+        self.files = files
         self.headers = headers
     }
     

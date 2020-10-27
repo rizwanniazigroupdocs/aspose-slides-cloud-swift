@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Bubble chart data point. */
-
-public struct BubbleChartDataPoint: Codable {
+public class BubbleChartDataPoint: ScatterChartDataPoint {
 
     /** Bubble size. */
     public var bubbleSize: Double?
 
-    public init(bubbleSize: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case bubbleSize
+    }
+
+    public init(xValue: Double? = nil, yValue: Double? = nil, bubbleSize: Double? = nil) {
+        super.init(xValue: xValue, yValue: yValue)
         self.bubbleSize = bubbleSize
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        bubbleSize = try values.decode(Double?.self, forKey: .bubbleSize)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(bubbleSize, forKey: .bubbleSize)
     }
 
 

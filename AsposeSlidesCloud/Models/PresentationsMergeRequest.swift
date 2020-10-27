@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Request for presentations merge */
-
-public struct PresentationsMergeRequest: Codable {
+public class PresentationsMergeRequest: Codable {
 
     /** Gets or sets the presentation paths. */
     public var presentationPaths: [String]?
     /** Gets or sets the presentation passwords. */
     public var presentationPasswords: [String]?
 
-    public init(presentationPaths: [String]?, presentationPasswords: [String]?) {
+    private enum CodingKeys: String, CodingKey {
+        case presentationPaths
+        case presentationPasswords
+    }
+
+    public init(presentationPaths: [String]? = nil, presentationPasswords: [String]? = nil) {
         self.presentationPaths = presentationPaths
         self.presentationPasswords = presentationPasswords
     }

@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Class for disc space information. */
-
-public struct DiscUsage: Codable {
+public class DiscUsage: Codable {
 
     /** Application used disc space. */
     public var usedSize: Int64?
     /** Total disc space. */
     public var totalSize: Int64?
 
-    public init(usedSize: Int64?, totalSize: Int64?) {
+    private enum CodingKeys: String, CodingKey {
+        case usedSize
+        case totalSize
+    }
+
+    public init(usedSize: Int64? = nil, totalSize: Int64? = nil) {
         self.usedSize = usedSize
         self.totalSize = totalSize
     }

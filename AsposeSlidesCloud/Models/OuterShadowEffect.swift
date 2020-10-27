@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents outer shadow effect  */
-
-public struct OuterShadowEffect: Codable {
+public class OuterShadowEffect: Codable {
 
     /** direction */
     public var direction: Double?
@@ -42,7 +41,14 @@ public struct OuterShadowEffect: Codable {
     /** shadow color */
     public var shadowColor: String?
 
-    public init(direction: Double?, distance: Double?, blurRadius: Double?, shadowColor: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case direction
+        case distance
+        case blurRadius
+        case shadowColor
+    }
+
+    public init(direction: Double? = nil, distance: Double? = nil, blurRadius: Double? = nil, shadowColor: String? = nil) {
         self.direction = direction
         self.distance = distance
         self.blurRadius = blurRadius

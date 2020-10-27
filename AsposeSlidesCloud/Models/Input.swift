@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents input document for pipeline. */
-
-public struct Input: Codable {
+public class Input: Codable {
 
     /** Get or sets template document. If property is null new empty presentation will be created. */
     public var template: InputFile?
@@ -40,7 +39,13 @@ public struct Input: Codable {
     /** Get or sets data for template engine. */
     public var templateData: InputFile?
 
-    public init(template: InputFile?, htmlData: InputFile?, templateData: InputFile?) {
+    private enum CodingKeys: String, CodingKey {
+        case template
+        case htmlData
+        case templateData
+    }
+
+    public init(template: InputFile? = nil, htmlData: InputFile? = nil, templateData: InputFile? = nil) {
         self.template = template
         self.htmlData = htmlData
         self.templateData = templateData

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents export options for whole presentation. */
-
-public struct IShapeExportOptions: Codable {
+public class IShapeExportOptions: Codable {
 
 
 

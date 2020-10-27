@@ -30,17 +30,30 @@ import Foundation
 
 
 /** Represents input file from multipart request. */
+public class RequestInputFile: InputFile {
 
-public struct RequestInputFile: Codable {
-
-    /** Get or sets password to open document. */
-    public var password: String?
     /** Get or sets index of file from request. */
     public var index: Int?
 
-    public init(password: String?, index: Int?) {
-        self.password = password
+    private enum CodingKeys: String, CodingKey {
+        case index
+    }
+
+    public init(password: String? = nil, type: ModelType? = nil, index: Int? = nil) {
+        super.init(password: password, type: type)
         self.index = index
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        index = try values.decode(Int?.self, forKey: .index)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(index, forKey: .index)
     }
 
 

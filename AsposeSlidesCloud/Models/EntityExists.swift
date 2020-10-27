@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Information about object existence. */
-
-public struct EntityExists: Codable {
+public class EntityExists: Codable {
 
     /** True if the object exists. */
     public var exists: Bool?
 
-    public init(exists: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case exists
+    }
+
+    public init(exists: Bool? = nil) {
         self.exists = exists
     }
 

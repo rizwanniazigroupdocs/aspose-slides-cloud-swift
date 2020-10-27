@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Merge presentations task. */
-
-public struct Merge: Codable {
+public class Merge: Task {
 
     /** Information about documents and slides being merging sources. */
     public var presentations: [MergingSource]?
 
-    public init(presentations: [MergingSource]?) {
+    private enum CodingKeys: String, CodingKey {
+        case presentations
+    }
+
+    public init(type: ModelType? = nil, presentations: [MergingSource]? = nil) {
+        super.init(type: type)
         self.presentations = presentations
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        presentations = try values.decode([MergingSource]?.self, forKey: .presentations)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(presentations, forKey: .presentations)
     }
 
 

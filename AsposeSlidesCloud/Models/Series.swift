@@ -30,8 +30,7 @@ import Foundation
 
 
 /** A chart series. */
-
-public struct Series: Codable {
+public class Series: Codable {
 
     public enum ModelType: String, Codable { 
         case clusteredColumn = "ClusteredColumn"
@@ -157,7 +156,28 @@ public struct Series: Codable {
     public var lineFormat: LineFormat?
     public var dataPointType: DataPointType?
 
-    public init(type: ModelType?, name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPointType: DataPointType?) {
+    private enum CodingKeys: String, CodingKey {
+        case type
+        case name
+        case isColorVaried
+        case invertedSolidFillColor
+        case smooth
+        case plotOnSecondAxis
+        case order
+        case numberFormatOfYValues
+        case numberFormatOfXValues
+        case numberFormatOfValues
+        case numberFormatOfBubbleSizes
+        case invertIfNegative
+        case explosion
+        case marker
+        case fillFormat
+        case effectFormat
+        case lineFormat
+        case dataPointType
+    }
+
+    public init(type: ModelType? = nil, name: String? = nil, isColorVaried: Bool? = nil, invertedSolidFillColor: String? = nil, smooth: Bool? = nil, plotOnSecondAxis: Bool? = nil, order: Int? = nil, numberFormatOfYValues: String? = nil, numberFormatOfXValues: String? = nil, numberFormatOfValues: String? = nil, numberFormatOfBubbleSizes: String? = nil, invertIfNegative: Bool? = nil, explosion: Int? = nil, marker: SeriesMarker? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, dataPointType: DataPointType? = nil) {
         self.type = type
         self.name = name
         self.isColorVaried = isColorVaried

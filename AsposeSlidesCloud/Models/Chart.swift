@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents chart resource */
-
-public struct Chart: Codable {
+public class Chart: ShapeBase {
 
     public enum ChartType: String, Codable { 
         case clusteredColumn = "ClusteredColumn"
@@ -139,7 +138,22 @@ public struct Chart: Codable {
     /** Gets or sets the plot area. */
     public var plotArea: PlotArea?
 
-    public init(chartType: ChartType?, showDataLabelsOverMaximum: Bool?, series: [Series]?, categories: [ChartCategory]?, title: ChartTitle?, backWall: ChartWall?, sideWall: ChartWall?, floor: ChartWall?, legend: Legend?, axes: Axes?, plotArea: PlotArea?) {
+    private enum CodingKeys: String, CodingKey {
+        case chartType
+        case showDataLabelsOverMaximum
+        case series
+        case categories
+        case title
+        case backWall
+        case sideWall
+        case floor
+        case legend
+        case axes
+        case plotArea
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, chartType: ChartType? = nil, showDataLabelsOverMaximum: Bool? = nil, series: [Series]? = nil, categories: [ChartCategory]? = nil, title: ChartTitle? = nil, backWall: ChartWall? = nil, sideWall: ChartWall? = nil, floor: ChartWall? = nil, legend: Legend? = nil, axes: Axes? = nil, plotArea: PlotArea? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type)
         self.chartType = chartType
         self.showDataLabelsOverMaximum = showDataLabelsOverMaximum
         self.series = series
@@ -151,6 +165,38 @@ public struct Chart: Codable {
         self.legend = legend
         self.axes = axes
         self.plotArea = plotArea
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        chartType = try values.decode(ChartType?.self, forKey: .chartType)
+        showDataLabelsOverMaximum = try values.decode(Bool?.self, forKey: .showDataLabelsOverMaximum)
+        series = try values.decode([Series]?.self, forKey: .series)
+        categories = try values.decode([ChartCategory]?.self, forKey: .categories)
+        title = try values.decode(ChartTitle?.self, forKey: .title)
+        backWall = try values.decode(ChartWall?.self, forKey: .backWall)
+        sideWall = try values.decode(ChartWall?.self, forKey: .sideWall)
+        floor = try values.decode(ChartWall?.self, forKey: .floor)
+        legend = try values.decode(Legend?.self, forKey: .legend)
+        axes = try values.decode(Axes?.self, forKey: .axes)
+        plotArea = try values.decode(PlotArea?.self, forKey: .plotArea)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(chartType, forKey: .chartType)
+        try container.encode(showDataLabelsOverMaximum, forKey: .showDataLabelsOverMaximum)
+        try container.encode(series, forKey: .series)
+        try container.encode(categories, forKey: .categories)
+        try container.encode(title, forKey: .title)
+        try container.encode(backWall, forKey: .backWall)
+        try container.encode(sideWall, forKey: .sideWall)
+        try container.encode(floor, forKey: .floor)
+        try container.encode(legend, forKey: .legend)
+        try container.encode(axes, forKey: .axes)
+        try container.encode(plotArea, forKey: .plotArea)
     }
 
 

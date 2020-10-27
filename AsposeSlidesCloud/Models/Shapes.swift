@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Represents list of Links to Shapes resources */
+public class Shapes: ResourceBase {
 
-public struct Shapes: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** List of shape links. */
-    public var shapesLinks: [ResourceUriElement]?
+    public var shapesLinks: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, shapesLinks: [ResourceUriElement]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case shapesLinks
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, shapesLinks: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.shapesLinks = shapesLinks
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        shapesLinks = try values.decode([ResourceUri]?.self, forKey: .shapesLinks)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(shapesLinks, forKey: .shapesLinks)
     }
 
 

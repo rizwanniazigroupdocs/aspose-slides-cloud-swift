@@ -30,35 +30,60 @@ import Foundation
 
 
 /** Represents document DTO. */
+public class Document: ResourceBase {
 
-public struct Document: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Link to Document properties. */
-    public var documentProperties: ResourceUriElement?
+    public var documentProperties: ResourceUri?
     /** Link to Document properties. */
-    public var viewProperties: ResourceUriElement?
+    public var viewProperties: ResourceUri?
     /** Link to slides collection. */
-    public var slides: ResourceUriElement?
+    public var slides: ResourceUri?
     /** Link to images collection. */
-    public var images: ResourceUriElement?
+    public var images: ResourceUri?
     /** Link to layout slides collection. */
-    public var layoutSlides: ResourceUriElement?
+    public var layoutSlides: ResourceUri?
     /** Link to master slides collection. */
-    public var masterSlides: ResourceUriElement?
+    public var masterSlides: ResourceUri?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, documentProperties: ResourceUriElement?, viewProperties: ResourceUriElement?, slides: ResourceUriElement?, images: ResourceUriElement?, layoutSlides: ResourceUriElement?, masterSlides: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case documentProperties
+        case viewProperties
+        case slides
+        case images
+        case layoutSlides
+        case masterSlides
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, documentProperties: ResourceUri? = nil, viewProperties: ResourceUri? = nil, slides: ResourceUri? = nil, images: ResourceUri? = nil, layoutSlides: ResourceUri? = nil, masterSlides: ResourceUri? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.documentProperties = documentProperties
         self.viewProperties = viewProperties
         self.slides = slides
         self.images = images
         self.layoutSlides = layoutSlides
         self.masterSlides = masterSlides
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        documentProperties = try values.decode(ResourceUri?.self, forKey: .documentProperties)
+        viewProperties = try values.decode(ResourceUri?.self, forKey: .viewProperties)
+        slides = try values.decode(ResourceUri?.self, forKey: .slides)
+        images = try values.decode(ResourceUri?.self, forKey: .images)
+        layoutSlides = try values.decode(ResourceUri?.self, forKey: .layoutSlides)
+        masterSlides = try values.decode(ResourceUri?.self, forKey: .masterSlides)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(documentProperties, forKey: .documentProperties)
+        try container.encode(viewProperties, forKey: .viewProperties)
+        try container.encode(slides, forKey: .slides)
+        try container.encode(images, forKey: .images)
+        try container.encode(layoutSlides, forKey: .layoutSlides)
+        try container.encode(masterSlides, forKey: .masterSlides)
     }
 
 

@@ -30,17 +30,30 @@ import Foundation
 
 
 /** Represents base64 inline encoded file. */
+public class Base64InputFile: InputFile {
 
-public struct Base64InputFile: Codable {
-
-    /** Get or sets password to open document. */
-    public var password: String?
     /** Get or sets base64 data. */
     public var data: String?
 
-    public init(password: String?, data: String?) {
-        self.password = password
+    private enum CodingKeys: String, CodingKey {
+        case data
+    }
+
+    public init(password: String? = nil, type: ModelType? = nil, data: String? = nil) {
+        super.init(password: password, type: type)
         self.data = data
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        data = try values.decode(String?.self, forKey: .data)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(data, forKey: .data)
     }
 
 

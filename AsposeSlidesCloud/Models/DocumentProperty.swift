@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Document property. */
+public class DocumentProperty: ResourceBase {
 
-public struct DocumentProperty: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Name. */
     public var name: String?
     /** Value. */
@@ -44,12 +39,33 @@ public struct DocumentProperty: Codable {
     /** True for builtin property. */
     public var builtIn: Bool?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, value: String?, builtIn: Bool?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case value
+        case builtIn
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, value: String? = nil, builtIn: Bool? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.value = value
         self.builtIn = builtIn
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String?.self, forKey: .name)
+        value = try values.decode(String?.self, forKey: .value)
+        builtIn = try values.decode(Bool?.self, forKey: .builtIn)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(value, forKey: .value)
+        try container.encode(builtIn, forKey: .builtIn)
     }
 
 

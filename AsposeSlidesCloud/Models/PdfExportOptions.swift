@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in Pdf format. */
-
-public struct PdfExportOptions: Codable {
+public class PdfExportOptions: ExportOptions {
 
     public enum TextCompression: String, Codable { 
         case _none = "None"
@@ -64,10 +63,6 @@ public struct PdfExportOptions: Codable {
         case assembleDocument = "AssembleDocument"
         case highQualityPrint = "HighQualityPrint"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Specifies compression type to be used for all textual content in the document. */
     public var textCompression: TextCompression?
     /** Determines if all characters of font should be embedded or only used subset. */
@@ -107,9 +102,30 @@ public struct PdfExportOptions: Codable {
     /** Access permissions that should be granted when the document is opened with user access.  Default is AccessPermissions.None.              */
     public var accessPermissions: AccessPermissions?
 
-    public init(defaultRegularFont: String?, format: String?, textCompression: TextCompression?, embedFullFonts: Bool?, compliance: Compliance?, sufficientResolution: Double?, jpegQuality: Int?, drawSlidesFrame: Bool?, showHiddenSlides: Bool?, saveMetafilesAsPng: Bool?, password: String?, embedTrueTypeFontsForASCII: Bool?, additionalCommonFontFamilies: [String]?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?, imageTransparentColor: String?, applyImageTransparent: Bool?, accessPermissions: AccessPermissions?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case textCompression
+        case embedFullFonts
+        case compliance
+        case sufficientResolution
+        case jpegQuality
+        case drawSlidesFrame
+        case showHiddenSlides
+        case saveMetafilesAsPng
+        case password
+        case embedTrueTypeFontsForASCII
+        case additionalCommonFontFamilies
+        case notesPosition
+        case commentsPosition
+        case commentsAreaWidth
+        case commentsAreaColor
+        case showCommentsByNoAuthor
+        case imageTransparentColor
+        case applyImageTransparent
+        case accessPermissions
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, textCompression: TextCompression? = nil, embedFullFonts: Bool? = nil, compliance: Compliance? = nil, sufficientResolution: Double? = nil, jpegQuality: Int? = nil, drawSlidesFrame: Bool? = nil, showHiddenSlides: Bool? = nil, saveMetafilesAsPng: Bool? = nil, password: String? = nil, embedTrueTypeFontsForASCII: Bool? = nil, additionalCommonFontFamilies: [String]? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil, imageTransparentColor: String? = nil, applyImageTransparent: Bool? = nil, accessPermissions: AccessPermissions? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.textCompression = textCompression
         self.embedFullFonts = embedFullFonts
         self.compliance = compliance
@@ -129,6 +145,54 @@ public struct PdfExportOptions: Codable {
         self.imageTransparentColor = imageTransparentColor
         self.applyImageTransparent = applyImageTransparent
         self.accessPermissions = accessPermissions
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        textCompression = try values.decode(TextCompression?.self, forKey: .textCompression)
+        embedFullFonts = try values.decode(Bool?.self, forKey: .embedFullFonts)
+        compliance = try values.decode(Compliance?.self, forKey: .compliance)
+        sufficientResolution = try values.decode(Double?.self, forKey: .sufficientResolution)
+        jpegQuality = try values.decode(Int?.self, forKey: .jpegQuality)
+        drawSlidesFrame = try values.decode(Bool?.self, forKey: .drawSlidesFrame)
+        showHiddenSlides = try values.decode(Bool?.self, forKey: .showHiddenSlides)
+        saveMetafilesAsPng = try values.decode(Bool?.self, forKey: .saveMetafilesAsPng)
+        password = try values.decode(String?.self, forKey: .password)
+        embedTrueTypeFontsForASCII = try values.decode(Bool?.self, forKey: .embedTrueTypeFontsForASCII)
+        additionalCommonFontFamilies = try values.decode([String]?.self, forKey: .additionalCommonFontFamilies)
+        notesPosition = try values.decode(NotesPosition?.self, forKey: .notesPosition)
+        commentsPosition = try values.decode(CommentsPosition?.self, forKey: .commentsPosition)
+        commentsAreaWidth = try values.decode(Int?.self, forKey: .commentsAreaWidth)
+        commentsAreaColor = try values.decode(String?.self, forKey: .commentsAreaColor)
+        showCommentsByNoAuthor = try values.decode(Bool?.self, forKey: .showCommentsByNoAuthor)
+        imageTransparentColor = try values.decode(String?.self, forKey: .imageTransparentColor)
+        applyImageTransparent = try values.decode(Bool?.self, forKey: .applyImageTransparent)
+        accessPermissions = try values.decode(AccessPermissions?.self, forKey: .accessPermissions)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(textCompression, forKey: .textCompression)
+        try container.encode(embedFullFonts, forKey: .embedFullFonts)
+        try container.encode(compliance, forKey: .compliance)
+        try container.encode(sufficientResolution, forKey: .sufficientResolution)
+        try container.encode(jpegQuality, forKey: .jpegQuality)
+        try container.encode(drawSlidesFrame, forKey: .drawSlidesFrame)
+        try container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        try container.encode(saveMetafilesAsPng, forKey: .saveMetafilesAsPng)
+        try container.encode(password, forKey: .password)
+        try container.encode(embedTrueTypeFontsForASCII, forKey: .embedTrueTypeFontsForASCII)
+        try container.encode(additionalCommonFontFamilies, forKey: .additionalCommonFontFamilies)
+        try container.encode(notesPosition, forKey: .notesPosition)
+        try container.encode(commentsPosition, forKey: .commentsPosition)
+        try container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
+        try container.encode(commentsAreaColor, forKey: .commentsAreaColor)
+        try container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
+        try container.encode(imageTransparentColor, forKey: .imageTransparentColor)
+        try container.encode(applyImageTransparent, forKey: .applyImageTransparent)
+        try container.encode(accessPermissions, forKey: .accessPermissions)
     }
 
 

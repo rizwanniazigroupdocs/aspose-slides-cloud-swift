@@ -38,8 +38,8 @@ class AlamofireRequestBuilderFactory: RequestBuilderFactory {
 }
 
 open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
-    required public init(method: String, URLString: String, parameters: [String : Any]?, isBody: Bool, headers: [String : String] = [:]) {
-        super.init(method: method, URLString: URLString, parameters: parameters, isBody: isBody, headers: headers)
+    required public init(method: String, URLString: String, parameters: [String : Any]?, isBody: Bool, files: [Data] = [Data](), headers: [String : String] = [:]) {
+        super.init(method: method, URLString: URLString, parameters: parameters, isBody: isBody, files: files, headers: headers)
     }
 
     /**
@@ -63,59 +63,49 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
     }
 
     override open func execute(_ completion: @escaping (_ response: Response<T>?, _ error: Error?) -> Void) {
-        let fileKeys = parameters == nil ? [] : parameters!.filter { $1 is NSURL }
-                                                           .map { $0.0 }
         let dataKeys = parameters == nil ? [] : parameters!.filter { $1 is Data }.map { $0.0 }
         if dataKeys.count == 1 {
             let key = dataKeys[0]
-            let data = parameters![key] as! Data
-            if key == "jsonData" {
-                headers["Content-Type"] = "text/json"
-            } else if key == "data" {
+            var data = Data()
+            if (key == "data") {
                 headers["Content-Type"] = "application/octet-stream"
+                data.append(parameters![key] as! Data)
             }
-            /*let request = makeRequest(manager: manager, method: xMethod!, encoding: encoding, headers: headers)
-            if let onProgressReady = self.onProgressReady {
-                onProgressReady(request.progress)
-            }*/
+            else {
+                if files.count > 0 {
+                    let boundary = "7d70fb31-0eb9-4846-9ea8-933dfb69d8f1"
+                    headers["Content-Type"] = "multipart/form-data; boundary=\(boundary)"
+                    putMultipart(&data, boundary, 0, parameters![key] as! Data)
+                    for i in files.indices {
+                        putMultipart(&data, boundary, i + 1, files[i])
+                    }
+                    data.append(Data("\r\n--\(boundary)--\r\n".utf8))
+                } else {
+                    headers["Content-Type"] = "text/json"
+                    data.append(parameters![key] as! Data)
+                }
+            }
             var request = URLRequest(url: URL(string: URLString)!)
             request.httpBody = data
-            //let request = DataRequest()//manager.upload(data, to: URLString, method: xMethod!, headers: headers)
             processRequest(request: request, completion)
-        } else if fileKeys.count > 0 {
-            /*manager.upload(multipartFormData: { mpForm in
-                for (k, v) in self.parameters! {
-                    switch v {
-                    case let fileURL as URL:
-                        if let mimeType = self.contentTypeForFormPart(fileURL: fileURL) {
-                            mpForm.append(fileURL, withName: k, fileName: fileURL.lastPathComponent, mimeType: mimeType)
-                        }
-                        else {
-                            mpForm.append(fileURL, withName: k)
-                        }
-                    case let string as String:
-                        mpForm.append(string.data(using: String.Encoding.utf8)!, withName: k)
-                    case let number as NSNumber:
-                        mpForm.append(number.stringValue.data(using: String.Encoding.utf8)!, withName: k)
-                    default:
-                        fatalError("Unprocessable value \(v) with key \(k)")
-                    }
-                }
-                }, to: URLString, method: xMethod!, headers: nil, encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    if let onProgressReady = self.onProgressReady {
-                        onProgressReady(upload.uploadProgress)
-                    }
-                    self.processRequest(request: upload, managerId, completion)
-                case .failure(let encodingError):
-                    completion(nil, ErrorResponse.error(415, nil, encodingError))
-                }
-            })*/
         } else {
             let request = makeRequest(method: method, headers: headers)
             processRequest(request: request, completion)
         }
+    }
+    
+    fileprivate func putMultipart(_ data: inout Data, _ boundary: String, _ index: Int, _ part: Data) {
+        data.append(Data("\r\n--\(boundary)\r\n".utf8))
+        if index > 0 {
+            data.append(Data("Content-Disposition: form-data; name=\"file\(index)\";filename=\"null\"\r\n".utf8))
+            data.append(Data("Content-Type: application/octet-stream\r\n".utf8))
+        } else {
+          data.append(Data("Content-Disposition: form-data; name=\"data\"\r\n".utf8))
+          data.append(Data("Content-Type: text/json\r\n".utf8))
+        }
+        data.append(Data("Content-Length: \(part.count)\r\n".utf8))
+        data.append(Data("\r\n".utf8))
+        data.append(part)
     }
 
     fileprivate func processRequest(request: URLRequest, _ completion: @escaping (_ response: Response<T>?, _ error: Error?) -> Void) {
@@ -132,20 +122,7 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
                 print(String(data: r.httpBody!, encoding: .utf8)!)
             }
         }
-        /*request.httpMethod = "POST"
-        let postString = "grant_type=client_credentials&client_id=\(AsposeSlidesCloudAPI.appSid)&client_secret=\(AsposeSlidesCloudAPI.appKey)";
-        request.httpBody = postString.data(using: String.Encoding.utf8);
-        */
         let task = URLSession.shared.dataTask(with: r) { data, response, error in
-            /*if error == nil && (200 ... 299) ~= (response as? HTTPURLResponse)!.statusCode && data != nil {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any]
-                    if json != nil {
-                        AsposeSlidesCloudAPI.authToken = json!["access_token"] as? String
-                    }
-                } catch {
-                }
-            }*/
             if AsposeSlidesCloudAPI.debug {
                 print("<< \(response!)")
                 if (data != nil) {
@@ -171,129 +148,6 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
             }
         }
         task.resume()
-        /*switch T.self {
-        case is String.Type:
-            request.responseString(completionHandler: { (stringResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(stringResponse)
-                }
-                cleanupRequest()
-
-                if stringResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(stringResponse.response?.statusCode ?? 500, stringResponse.data, stringResponse.result.error! as Error)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: stringResponse.response!,
-                        body: ((stringResponse.result.value ?? "") as! T)
-                    ),
-                    nil
-                )
-            })
-        case is URL.Type:
-            request.responseData(completionHandler: { (dataResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(dataResponse)
-                }
-                cleanupRequest()
-
-                do {
-
-                    guard !dataResponse.result.isFailure else {
-                        throw DownloadException.responseFailed
-                    }
-
-                    guard let data = dataResponse.data else {
-                        throw DownloadException.responseDataMissing
-                    }
-
-                    guard let request = request.request else {
-                        throw DownloadException.requestMissing
-                    }
-
-                    let fileManager = FileManager.default
-                    let urlRequest = try request.asURLRequest()
-                    let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                    let requestURL = try self.getURL(from: urlRequest)
-
-                    var requestPath = try self.getPath(from: requestURL)
-
-                    if let headerFileName = self.getFileName(fromContentDisposition: dataResponse.response?.allHeaderFields["Content-Disposition"] as? String) {
-                        requestPath = requestPath.appending("/\(headerFileName)")
-                    }
-
-                    let filePath = documentsDirectory.appendingPathComponent(requestPath)
-                    let directoryPath = filePath.deletingLastPathComponent().path
-
-                    try fileManager.createDirectory(atPath: directoryPath, withIntermediateDirectories: true, attributes: nil)
-                    try data.write(to: filePath, options: .atomic)
-
-                    completion(
-                        Response(
-                            response: dataResponse.response!,
-                            body: (filePath as! T)
-                        ),
-                        nil
-                    )
-
-                } catch let requestParserError as DownloadException {
-                    completion(nil, ErrorResponse.error(400, dataResponse.data, requestParserError))
-                } catch let error {
-                    completion(nil, ErrorResponse.error(400, dataResponse.data, error))
-                }
-                return
-            })
-        case is Void.Type:
-            request.responseData(completionHandler: { (voidResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(voidResponse)
-                }
-                cleanupRequest()
-
-                if voidResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(voidResponse.response?.statusCode ?? 500, voidResponse.data, voidResponse.result.error!)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: voidResponse.response!,
-                        body: nil),
-                    nil
-                )
-            })
-        default:
-            request.responseData(completionHandler: { (dataResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(dataResponse)
-                }
-                cleanupRequest()
-
-                if dataResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(dataResponse.response?.statusCode ?? 500, dataResponse.data, dataResponse.result.error!)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: dataResponse.response!,
-                        body: (dataResponse.data as! T)
-                    ),
-                    nil
-                )
-            })
-        }*/
     }
 
     open func buildHeaders() -> [String: String] {
@@ -394,20 +248,7 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
                 }
             }
         }
-        /*request.httpMethod = "POST"
-        let postString = "grant_type=client_credentials&client_id=\(AsposeSlidesCloudAPI.appSid)&client_secret=\(AsposeSlidesCloudAPI.appKey)";
-        request.httpBody = postString.data(using: String.Encoding.utf8);
-        */
         let task = URLSession.shared.dataTask(with: r) { data, response, error in
-            /*if error == nil && (200 ... 299) ~= (response as? HTTPURLResponse)!.statusCode && data != nil {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any]
-                    if json != nil {
-                        AsposeSlidesCloudAPI.authToken = json!["access_token"] as? String
-                    }
-                } catch {
-                }
-            }*/
             if AsposeSlidesCloudAPI.debug {
                 print("<< \(response!)")
                 if data != nil {
@@ -442,106 +283,5 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
             }
         }
         task.resume()
-        /*switch T.self {
-        case is String.Type:
-            validatedRequest.responseString(completionHandler: { (stringResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(stringResponse)
-                }
-                cleanupRequest()
-
-                if stringResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(stringResponse.response?.statusCode ?? 500, stringResponse.data, stringResponse.result.error! as Error)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: stringResponse.response!,
-                        body: ((stringResponse.result.value ?? "") as! T)
-                    ),
-                    nil
-                )
-            })
-        case is Void.Type:
-            validatedRequest.responseData(completionHandler: { (voidResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(voidResponse)
-                }
-                cleanupRequest()
-
-                if voidResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(voidResponse.response?.statusCode ?? 500, voidResponse.data, voidResponse.result.error!)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: voidResponse.response!,
-                        body: nil),
-                    nil
-                )
-            })
-        case is Data.Type:
-            validatedRequest.responseData(completionHandler: { (dataResponse) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(dataResponse)
-                }
-                cleanupRequest()
-
-                if dataResponse.result.isFailure {
-                    completion(
-                        nil,
-                        ErrorResponse.error(dataResponse.response?.statusCode ?? 500, dataResponse.data, dataResponse.result.error!)
-                    )
-                    return
-                }
-
-                completion(
-                    Response(
-                        response: dataResponse.response!,
-                        body: (dataResponse.data as! T)
-                    ),
-                    nil
-                )
-            })
-        default:
-            validatedRequest.responseData(completionHandler: { (dataResponse: DataResponse<Data>) in
-                if AsposeSlidesCloudAPI.debug {
-                    debugPrint(dataResponse)
-                }
-                cleanupRequest()
-
-                guard dataResponse.result.isSuccess else {
-                    completion(nil, ErrorResponse.error(dataResponse.response?.statusCode ?? 500, dataResponse.data, dataResponse.result.error!))
-                    return
-                }
-
-                guard let data = dataResponse.data, !data.isEmpty else {
-                    completion(nil, ErrorResponse.error(-1, nil, AlamofireDecodableRequestBuilderError.emptyDataResponse))
-                    return
-                }
-
-                guard let httpResponse = dataResponse.response else {
-                    completion(nil, ErrorResponse.error(-2, nil, AlamofireDecodableRequestBuilderError.nilHTTPResponse))
-                    return
-                }
-
-                var responseObj: Response<T>? = nil
-
-                let decodeResult: (decodableObj: T?, error: Error?) = CodableHelper.decode(T.self, from: data)
-                if decodeResult.error == nil {
-                    responseObj = Response(response: httpResponse, body: decodeResult.decodableObj)
-                }
-
-                completion(responseObj, decodeResult.error)
-            })
-        }*/
     }
 }

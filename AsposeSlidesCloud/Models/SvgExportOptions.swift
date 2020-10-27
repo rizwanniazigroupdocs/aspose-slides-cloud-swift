@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in SVG format. */
-
-public struct SvgExportOptions: Codable {
+public class SvgExportOptions: ExportOptions {
 
     public enum PicturesCompression: String, Codable { 
         case dpi330 = "Dpi330"
@@ -46,10 +45,6 @@ public struct SvgExportOptions: Codable {
         case embed = "Embed"
         case vectorize = "Vectorize"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Determines whether the text on a slide will be saved as graphics. */
     public var vectorizeText: Bool?
     /** Returns or sets the lower resolution limit for metafile rasterization. */
@@ -69,9 +64,20 @@ public struct SvgExportOptions: Codable {
     /** Determines a way of handling externally loaded fonts. */
     public var externalFontsHandling: ExternalFontsHandling?
 
-    public init(defaultRegularFont: String?, format: String?, vectorizeText: Bool?, metafileRasterizationDpi: Int?, disable3DText: Bool?, disableGradientSplit: Bool?, disableLineEndCropping: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, externalFontsHandling: ExternalFontsHandling?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case vectorizeText
+        case metafileRasterizationDpi
+        case disable3DText
+        case disableGradientSplit
+        case disableLineEndCropping
+        case jpegQuality
+        case picturesCompression
+        case deletePicturesCroppedAreas
+        case externalFontsHandling
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, vectorizeText: Bool? = nil, metafileRasterizationDpi: Int? = nil, disable3DText: Bool? = nil, disableGradientSplit: Bool? = nil, disableLineEndCropping: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, externalFontsHandling: ExternalFontsHandling? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.vectorizeText = vectorizeText
         self.metafileRasterizationDpi = metafileRasterizationDpi
         self.disable3DText = disable3DText
@@ -81,6 +87,34 @@ public struct SvgExportOptions: Codable {
         self.picturesCompression = picturesCompression
         self.deletePicturesCroppedAreas = deletePicturesCroppedAreas
         self.externalFontsHandling = externalFontsHandling
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        vectorizeText = try values.decode(Bool?.self, forKey: .vectorizeText)
+        metafileRasterizationDpi = try values.decode(Int?.self, forKey: .metafileRasterizationDpi)
+        disable3DText = try values.decode(Bool?.self, forKey: .disable3DText)
+        disableGradientSplit = try values.decode(Bool?.self, forKey: .disableGradientSplit)
+        disableLineEndCropping = try values.decode(Bool?.self, forKey: .disableLineEndCropping)
+        jpegQuality = try values.decode(Int?.self, forKey: .jpegQuality)
+        picturesCompression = try values.decode(PicturesCompression?.self, forKey: .picturesCompression)
+        deletePicturesCroppedAreas = try values.decode(Bool?.self, forKey: .deletePicturesCroppedAreas)
+        externalFontsHandling = try values.decode(ExternalFontsHandling?.self, forKey: .externalFontsHandling)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(vectorizeText, forKey: .vectorizeText)
+        try container.encode(metafileRasterizationDpi, forKey: .metafileRasterizationDpi)
+        try container.encode(disable3DText, forKey: .disable3DText)
+        try container.encode(disableGradientSplit, forKey: .disableGradientSplit)
+        try container.encode(disableLineEndCropping, forKey: .disableLineEndCropping)
+        try container.encode(jpegQuality, forKey: .jpegQuality)
+        try container.encode(picturesCompression, forKey: .picturesCompression)
+        try container.encode(deletePicturesCroppedAreas, forKey: .deletePicturesCroppedAreas)
+        try container.encode(externalFontsHandling, forKey: .externalFontsHandling)
     }
 
 

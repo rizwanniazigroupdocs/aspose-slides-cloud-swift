@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents comment of slide */
-
-public struct SlideComment: Codable {
+public class SlideComment: Codable {
 
     /** Author. */
     public var author: String?
@@ -42,7 +41,14 @@ public struct SlideComment: Codable {
     /** Child comments. */
     public var childComments: [SlideComment]?
 
-    public init(author: String?, text: String?, createdTime: String?, childComments: [SlideComment]?) {
+    private enum CodingKeys: String, CodingKey {
+        case author
+        case text
+        case createdTime
+        case childComments
+    }
+
+    public init(author: String? = nil, text: String? = nil, createdTime: String? = nil, childComments: [SlideComment]? = nil) {
         self.author = author
         self.text = text
         self.createdTime = createdTime

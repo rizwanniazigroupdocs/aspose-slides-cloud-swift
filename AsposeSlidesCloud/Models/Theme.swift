@@ -30,29 +30,48 @@ import Foundation
 
 
 /** Represents Slide&#39;s theme  */
+public class Theme: ResourceBase {
 
-public struct Theme: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Name. */
     public var name: String?
     /** Color scheme. */
-    public var colorScheme: ResourceUriElement?
+    public var colorScheme: ResourceUri?
     /** Font scheme. */
-    public var fontScheme: ResourceUriElement?
+    public var fontScheme: ResourceUri?
     /** Format scheme. */
-    public var formatScheme: ResourceUriElement?
+    public var formatScheme: ResourceUri?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, colorScheme: ResourceUriElement?, fontScheme: ResourceUriElement?, formatScheme: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case colorScheme
+        case fontScheme
+        case formatScheme
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, colorScheme: ResourceUri? = nil, fontScheme: ResourceUri? = nil, formatScheme: ResourceUri? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.colorScheme = colorScheme
         self.fontScheme = fontScheme
         self.formatScheme = formatScheme
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String?.self, forKey: .name)
+        colorScheme = try values.decode(ResourceUri?.self, forKey: .colorScheme)
+        fontScheme = try values.decode(ResourceUri?.self, forKey: .fontScheme)
+        formatScheme = try values.decode(ResourceUri?.self, forKey: .formatScheme)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(colorScheme, forKey: .colorScheme)
+        try container.encode(fontScheme, forKey: .fontScheme)
+        try container.encode(formatScheme, forKey: .formatScheme)
     }
 
 

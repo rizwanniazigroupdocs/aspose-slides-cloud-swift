@@ -30,14 +30,18 @@ import Foundation
 
 
 /** Represents export options for whole presentation. */
-
-public struct ExportOptions: Codable {
+public class ExportOptions: Codable {
 
     /** Setting user password to protect the PDF document.  */
     public var defaultRegularFont: String?
     public var format: String?
 
-    public init(defaultRegularFont: String?, format: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case defaultRegularFont
+        case format
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil) {
         self.defaultRegularFont = defaultRegularFont
         self.format = format
     }

@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Custom dash pattern. */
-
-public struct CustomDashPattern: Codable {
+public class CustomDashPattern: Codable {
 
     /** Pattern items. */
     public var items: [Double]?
 
-    public init(items: [Double]?) {
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+
+    public init(items: [Double]? = nil) {
         self.items = items
     }
 

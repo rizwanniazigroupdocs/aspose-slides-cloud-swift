@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents abstract input file source for pipeline. */
-
-public struct InputFile: Codable {
+public class InputFile: Codable {
 
     public enum ModelType: String, Codable { 
         case path = "Path"
@@ -42,7 +41,12 @@ public struct InputFile: Codable {
     public var password: String?
     public var type: ModelType?
 
-    public init(password: String?, type: ModelType?) {
+    private enum CodingKeys: String, CodingKey {
+        case password
+        case type
+    }
+
+    public init(password: String? = nil, type: ModelType? = nil) {
         self.password = password
         self.type = type
     }

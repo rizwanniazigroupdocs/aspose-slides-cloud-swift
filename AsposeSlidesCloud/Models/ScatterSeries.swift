@@ -30,62 +30,30 @@ import Foundation
 
 
 /** A scatter series */
+public class ScatterSeries: Series {
 
-public struct ScatterSeries: Codable {
-
-    /** Series name. */
-    public var name: String?
-    /** True if each data marker in the series has a different color. */
-    public var isColorVaried: Bool?
-    /** Invert solid color for the series. */
-    public var invertedSolidFillColor: String?
-    /** True if curve smoothing is turned on. Applies only to line and scatter connected by lines charts. */
-    public var smooth: Bool?
-    /** True if the series is plotted on second value axis. */
-    public var plotOnSecondAxis: Bool?
-    /** Series order. */
-    public var order: Int?
-    /** The number format for the series y values. */
-    public var numberFormatOfYValues: String?
-    /** The number format for the series x values. */
-    public var numberFormatOfXValues: String?
-    /** The number format for the series values. */
-    public var numberFormatOfValues: String?
-    /** The number format for the series bubble sizes. */
-    public var numberFormatOfBubbleSizes: String?
-    /** True if the series shall invert its colors if the value is negative. Applies to bar, column and bubble series. */
-    public var invertIfNegative: Bool?
-    /** The distance of an open pie slice from the center of the pie chart is expressed as a percentage of the pie diameter. */
-    public var explosion: Int?
-    /** Series marker. */
-    public var marker: SeriesMarker?
-    /** Fill properties set for the series. */
-    public var fillFormat: FillFormat?
-    /** Effect properties set for the series. */
-    public var effectFormat: EffectFormat?
-    /** Line properties set for the series. */
-    public var lineFormat: LineFormat?
     /** Gets or sets the values. */
     public var dataPoints: [ScatterChartDataPoint]?
 
-    public init(name: String?, isColorVaried: Bool?, invertedSolidFillColor: String?, smooth: Bool?, plotOnSecondAxis: Bool?, order: Int?, numberFormatOfYValues: String?, numberFormatOfXValues: String?, numberFormatOfValues: String?, numberFormatOfBubbleSizes: String?, invertIfNegative: Bool?, explosion: Int?, marker: SeriesMarker?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [ScatterChartDataPoint]?) {
-        self.name = name
-        self.isColorVaried = isColorVaried
-        self.invertedSolidFillColor = invertedSolidFillColor
-        self.smooth = smooth
-        self.plotOnSecondAxis = plotOnSecondAxis
-        self.order = order
-        self.numberFormatOfYValues = numberFormatOfYValues
-        self.numberFormatOfXValues = numberFormatOfXValues
-        self.numberFormatOfValues = numberFormatOfValues
-        self.numberFormatOfBubbleSizes = numberFormatOfBubbleSizes
-        self.invertIfNegative = invertIfNegative
-        self.explosion = explosion
-        self.marker = marker
-        self.fillFormat = fillFormat
-        self.effectFormat = effectFormat
-        self.lineFormat = lineFormat
+    private enum CodingKeys: String, CodingKey {
+        case dataPoints
+    }
+
+    public init(type: ModelType? = nil, name: String? = nil, isColorVaried: Bool? = nil, invertedSolidFillColor: String? = nil, smooth: Bool? = nil, plotOnSecondAxis: Bool? = nil, order: Int? = nil, numberFormatOfYValues: String? = nil, numberFormatOfXValues: String? = nil, numberFormatOfValues: String? = nil, numberFormatOfBubbleSizes: String? = nil, invertIfNegative: Bool? = nil, explosion: Int? = nil, marker: SeriesMarker? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, dataPointType: DataPointType? = nil, dataPoints: [ScatterChartDataPoint]? = nil) {
+        super.init(type: type, name: name, isColorVaried: isColorVaried, invertedSolidFillColor: invertedSolidFillColor, smooth: smooth, plotOnSecondAxis: plotOnSecondAxis, order: order, numberFormatOfYValues: numberFormatOfYValues, numberFormatOfXValues: numberFormatOfXValues, numberFormatOfValues: numberFormatOfValues, numberFormatOfBubbleSizes: numberFormatOfBubbleSizes, invertIfNegative: invertIfNegative, explosion: explosion, marker: marker, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, dataPointType: dataPointType)
         self.dataPoints = dataPoints
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        dataPoints = try values.decode([ScatterChartDataPoint]?.self, forKey: .dataPoints)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(dataPoints, forKey: .dataPoints)
     }
 
 

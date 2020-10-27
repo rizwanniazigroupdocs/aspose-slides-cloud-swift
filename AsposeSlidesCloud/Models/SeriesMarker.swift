@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents a series marker */
-
-public struct SeriesMarker: Codable {
+public class SeriesMarker: Codable {
 
     public enum Symbol: String, Codable { 
         case circle = "Circle"
@@ -58,7 +57,15 @@ public struct SeriesMarker: Codable {
     /** Get or sets the line format. */
     public var lineFormat: LineFormat?
 
-    public init(size: Int?, symbol: Symbol?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    private enum CodingKeys: String, CodingKey {
+        case size
+        case symbol
+        case fillFormat
+        case effectFormat
+        case lineFormat
+    }
+
+    public init(size: Int? = nil, symbol: Symbol? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil) {
         self.size = size
         self.symbol = symbol
         self.fillFormat = fillFormat

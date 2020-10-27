@@ -30,15 +30,19 @@ import Foundation
 
 
 /** The sizing of the slide region. */
-
-public struct NormalViewRestoredProperties: Codable {
+public class NormalViewRestoredProperties: Codable {
 
     /** True if the size of the side content region should compensate for the new size when resizing the window containing the view within the application. */
     public var autoAdjust: Bool?
     /** The size of the slide region. */
     public var dimensionSize: Double?
 
-    public init(autoAdjust: Bool?, dimensionSize: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case autoAdjust
+        case dimensionSize
+    }
+
+    public init(autoAdjust: Bool? = nil, dimensionSize: Double? = nil) {
         self.autoAdjust = autoAdjust
         self.dimensionSize = dimensionSize
     }

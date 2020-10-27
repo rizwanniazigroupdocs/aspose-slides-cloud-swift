@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Table Row. */
-
-public struct TableRow: Codable {
+public class TableRow: Codable {
 
     /** Cells for the row. */
     public var cells: [TableCell]?
@@ -40,7 +39,13 @@ public struct TableRow: Codable {
     /** Height of the row. */
     public var height: Double?
 
-    public init(cells: [TableCell]?, minimalHeight: Double?, height: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case cells
+        case minimalHeight
+        case height
+    }
+
+    public init(cells: [TableCell]? = nil, minimalHeight: Double? = nil, height: Double? = nil) {
         self.cells = cells
         self.minimalHeight = minimalHeight
         self.height = height

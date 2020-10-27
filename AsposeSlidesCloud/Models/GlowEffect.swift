@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents glow effect  */
-
-public struct GlowEffect: Codable {
+public class GlowEffect: Codable {
 
     /** radius */
     public var radius: Double?
     /** color */
     public var color: String?
 
-    public init(radius: Double?, color: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case radius
+        case color
+    }
+
+    public init(radius: Double? = nil, color: String? = nil) {
         self.radius = radius
         self.color = color
     }

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents output file destination in pipeline. */
-
-public struct OutputFile: Codable {
+public class OutputFile: Codable {
 
     public enum ModelType: String, Codable { 
         case path = "Path"
@@ -39,7 +38,11 @@ public struct OutputFile: Codable {
     }
     public var type: ModelType?
 
-    public init(type: ModelType?) {
+    private enum CodingKeys: String, CodingKey {
+        case type
+    }
+
+    public init(type: ModelType? = nil) {
         self.type = type
     }
 

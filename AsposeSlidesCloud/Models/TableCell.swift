@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents one cell of table. */
-
-public struct TableCell: Codable {
+public class TableCell: Codable {
 
     public enum TextAnchorType: String, Codable { 
         case top = "Top"
@@ -84,7 +83,26 @@ public struct TableCell: Codable {
     /** Line properties set for the diagonal down border of the cell. */
     public var borderDiagonalDown: LineFormat?
 
-    public init(text: String?, rowSpan: Int?, colSpan: Int?, marginTop: Double?, marginRight: Double?, marginLeft: Double?, marginBottom: Double?, textAnchorType: TextAnchorType?, textVerticalType: TextVerticalType?, fillFormat: FillFormat?, borderTop: LineFormat?, borderRight: LineFormat?, borderLeft: LineFormat?, borderBottom: LineFormat?, borderDiagonalUp: LineFormat?, borderDiagonalDown: LineFormat?) {
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case rowSpan
+        case colSpan
+        case marginTop
+        case marginRight
+        case marginLeft
+        case marginBottom
+        case textAnchorType
+        case textVerticalType
+        case fillFormat
+        case borderTop
+        case borderRight
+        case borderLeft
+        case borderBottom
+        case borderDiagonalUp
+        case borderDiagonalDown
+    }
+
+    public init(text: String? = nil, rowSpan: Int? = nil, colSpan: Int? = nil, marginTop: Double? = nil, marginRight: Double? = nil, marginLeft: Double? = nil, marginBottom: Double? = nil, textAnchorType: TextAnchorType? = nil, textVerticalType: TextVerticalType? = nil, fillFormat: FillFormat? = nil, borderTop: LineFormat? = nil, borderRight: LineFormat? = nil, borderLeft: LineFormat? = nil, borderBottom: LineFormat? = nil, borderDiagonalUp: LineFormat? = nil, borderDiagonalDown: LineFormat? = nil) {
         self.text = text
         self.rowSpan = rowSpan
         self.colSpan = colSpan

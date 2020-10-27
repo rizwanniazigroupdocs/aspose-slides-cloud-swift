@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents Connector resource. */
-
-public struct Connector: Codable {
+public class Connector: GeometryShape {
 
     /** Start shape link. */
     public var startShapeConnectedTo: ResourceUri?
@@ -42,11 +41,37 @@ public struct Connector: Codable {
     /** End shape index. */
     public var endShapeConnectedToIndex: Int?
 
-    public init(startShapeConnectedTo: ResourceUri?, startShapeConnectedToIndex: Int?, endShapeConnectedTo: ResourceUri?, endShapeConnectedToIndex: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case startShapeConnectedTo
+        case startShapeConnectedToIndex
+        case endShapeConnectedTo
+        case endShapeConnectedToIndex
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, startShapeConnectedTo: ResourceUri? = nil, startShapeConnectedToIndex: Int? = nil, endShapeConnectedTo: ResourceUri? = nil, endShapeConnectedToIndex: Int? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type, shapeType: shapeType)
         self.startShapeConnectedTo = startShapeConnectedTo
         self.startShapeConnectedToIndex = startShapeConnectedToIndex
         self.endShapeConnectedTo = endShapeConnectedTo
         self.endShapeConnectedToIndex = endShapeConnectedToIndex
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        startShapeConnectedTo = try values.decode(ResourceUri?.self, forKey: .startShapeConnectedTo)
+        startShapeConnectedToIndex = try values.decode(Int?.self, forKey: .startShapeConnectedToIndex)
+        endShapeConnectedTo = try values.decode(ResourceUri?.self, forKey: .endShapeConnectedTo)
+        endShapeConnectedToIndex = try values.decode(Int?.self, forKey: .endShapeConnectedToIndex)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(startShapeConnectedTo, forKey: .startShapeConnectedTo)
+        try container.encode(startShapeConnectedToIndex, forKey: .startShapeConnectedToIndex)
+        try container.encode(endShapeConnectedTo, forKey: .endShapeConnectedTo)
+        try container.encode(endShapeConnectedToIndex, forKey: .endShapeConnectedToIndex)
     }
 
 

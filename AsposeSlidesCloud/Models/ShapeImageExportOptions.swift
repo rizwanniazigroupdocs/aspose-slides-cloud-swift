@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a shape is saved in thumbnail. */
-
-public struct ShapeImageExportOptions: Codable {
+public class ShapeImageExportOptions: Codable {
 
     public enum ThumbnailBounds: String, Codable { 
         case slide = "Slide"
@@ -47,7 +46,14 @@ public struct ShapeImageExportOptions: Codable {
     /** Gets export format. */
     public var format: String?
 
-    public init(scaleX: Double?, scaleY: Double?, thumbnailBounds: ThumbnailBounds?, format: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case scaleX
+        case scaleY
+        case thumbnailBounds
+        case format
+    }
+
+    public init(scaleX: Double? = nil, scaleY: Double? = nil, thumbnailBounds: ThumbnailBounds? = nil, format: String? = nil) {
         self.scaleX = scaleX
         self.scaleY = scaleY
         self.thumbnailBounds = thumbnailBounds

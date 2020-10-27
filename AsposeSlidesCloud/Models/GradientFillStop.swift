@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Gradient stop. */
-
-public struct GradientFillStop: Codable {
+public class GradientFillStop: Codable {
 
     /** Color. */
     public var color: String?
     /** Stop position (0..1). */
     public var position: Double?
 
-    public init(color: String?, position: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case color
+        case position
+    }
+
+    public init(color: String? = nil, position: Double? = nil) {
         self.color = color
         self.position = position
     }

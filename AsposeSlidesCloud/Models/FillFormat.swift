@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Base class for fill formats  */
-
-public struct FillFormat: Codable {
+public class FillFormat: Codable {
 
     public enum ModelType: String, Codable { 
         case noFill = "NoFill"
@@ -43,7 +42,11 @@ public struct FillFormat: Codable {
     }
     public var type: ModelType?
 
-    public init(type: ModelType?) {
+    private enum CodingKeys: String, CodingKey {
+        case type
+    }
+
+    public init(type: ModelType? = nil) {
         self.type = type
     }
 

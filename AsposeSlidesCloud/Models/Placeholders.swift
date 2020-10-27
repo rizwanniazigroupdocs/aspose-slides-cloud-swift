@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Placeholder list. */
+public class Placeholders: ResourceBase {
 
-public struct Placeholders: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** List for placeholder links. */
     public var placeholderLinks: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, placeholderLinks: [ResourceUri]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case placeholderLinks
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, placeholderLinks: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.placeholderLinks = placeholderLinks
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        placeholderLinks = try values.decode([ResourceUri]?.self, forKey: .placeholderLinks)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(placeholderLinks, forKey: .placeholderLinks)
     }
 
 

@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents chart title */
-
-public struct ChartTitle: Codable {
+public class ChartTitle: Codable {
 
     /** Get or sets the text. */
     public var text: String?
     /** Get or sets value determines visibility of title */
     public var hasTitle: Bool?
 
-    public init(text: String?, hasTitle: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case hasTitle
+    }
+
+    public init(text: String? = nil, hasTitle: Bool? = nil) {
         self.text = text
         self.hasTitle = hasTitle
     }

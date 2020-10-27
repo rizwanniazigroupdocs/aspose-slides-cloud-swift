@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Smart art node. */
-
-public struct SmartArtNode: Codable {
+public class SmartArtNode: Codable {
 
     public enum OrgChartLayout: String, Codable { 
         case initial = "Initial"
@@ -43,7 +42,7 @@ public struct SmartArtNode: Codable {
     /** Node list. */
     public var nodes: [SmartArtNode]?
     /** Gets or sets the link to shapes. */
-    public var shapes: ResourceUriElement?
+    public var shapes: ResourceUri?
     /** True for and assistant node. */
     public var isAssistant: Bool?
     /** Node text. */
@@ -51,7 +50,15 @@ public struct SmartArtNode: Codable {
     /** Organization chart layout type associated with current node. */
     public var orgChartLayout: OrgChartLayout?
 
-    public init(nodes: [SmartArtNode]?, shapes: ResourceUriElement?, isAssistant: Bool?, text: String?, orgChartLayout: OrgChartLayout?) {
+    private enum CodingKeys: String, CodingKey {
+        case nodes
+        case shapes
+        case isAssistant
+        case text
+        case orgChartLayout
+    }
+
+    public init(nodes: [SmartArtNode]? = nil, shapes: ResourceUri? = nil, isAssistant: Bool? = nil, text: String? = nil, orgChartLayout: OrgChartLayout? = nil) {
         self.nodes = nodes
         self.shapes = shapes
         self.isAssistant = isAssistant

@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Represents comments collection of slide */
+public class SlideComments: ResourceBase {
 
-public struct SlideComments: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Slide comment list. */
     public var list: [SlideComment]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, list: [SlideComment]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case list
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, list: [SlideComment]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.list = list
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        list = try values.decode([SlideComment]?.self, forKey: .list)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(list, forKey: .list)
     }
 
 

@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Slides document properties. */
+public class DocumentProperties: ResourceBase {
 
-public struct DocumentProperties: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Document property list. */
     public var list: [DocumentProperty]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, list: [DocumentProperty]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case list
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, list: [DocumentProperty]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.list = list
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        list = try values.decode([DocumentProperty]?.self, forKey: .list)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(list, forKey: .list)
     }
 
 

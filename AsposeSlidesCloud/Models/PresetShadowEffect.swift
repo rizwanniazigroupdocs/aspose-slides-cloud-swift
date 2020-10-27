@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents preset shadow effect  */
-
-public struct PresetShadowEffect: Codable {
+public class PresetShadowEffect: Codable {
 
     public enum Preset: String, Codable { 
         case topLeftDropShadow = "TopLeftDropShadow"
@@ -64,7 +63,14 @@ public struct PresetShadowEffect: Codable {
     /** shadow color */
     public var shadowColor: String?
 
-    public init(direction: Double?, distance: Double?, preset: Preset?, shadowColor: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case direction
+        case distance
+        case preset
+        case shadowColor
+    }
+
+    public init(direction: Double? = nil, distance: Double? = nil, preset: Preset? = nil, shadowColor: String? = nil) {
         self.direction = direction
         self.distance = distance
         self.preset = preset

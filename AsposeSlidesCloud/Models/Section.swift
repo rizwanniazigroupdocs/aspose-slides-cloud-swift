@@ -30,26 +30,42 @@ import Foundation
 
 
 /** Presentation section. */
+public class Section: ResourceBase {
 
-public struct Section: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Name. */
     public var name: String?
     /** One-based index of slide with which the section starts. */
     public var firstSlideIndex: Int?
     /** Links to the shapes contained in the section. */
-    public var slideList: [ResourceUriElement]?
+    public var slideList: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, firstSlideIndex: Int?, slideList: [ResourceUriElement]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case firstSlideIndex
+        case slideList
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, firstSlideIndex: Int? = nil, slideList: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.firstSlideIndex = firstSlideIndex
         self.slideList = slideList
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String?.self, forKey: .name)
+        firstSlideIndex = try values.decode(Int?.self, forKey: .firstSlideIndex)
+        slideList = try values.decode([ResourceUri]?.self, forKey: .slideList)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(firstSlideIndex, forKey: .firstSlideIndex)
+        try container.encode(slideList, forKey: .slideList)
     }
 
 

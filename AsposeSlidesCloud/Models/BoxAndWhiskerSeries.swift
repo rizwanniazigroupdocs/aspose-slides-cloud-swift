@@ -30,8 +30,7 @@ import Foundation
 
 
 /** One value series. */
-
-public struct BoxAndWhiskerSeries: Codable {
+public class BoxAndWhiskerSeries: OneValueSeries {
 
     public enum QuartileMethod: String, Codable { 
         case exclusive = "Exclusive"
@@ -48,12 +47,41 @@ public struct BoxAndWhiskerSeries: Codable {
     /** True if outlier points are shown. */
     public var showOutlierPoints: Bool?
 
-    public init(quartileMethod: QuartileMethod?, showInnerPoints: Bool?, showMeanLine: Bool?, showMeanMarkers: Bool?, showOutlierPoints: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case quartileMethod
+        case showInnerPoints
+        case showMeanLine
+        case showMeanMarkers
+        case showOutlierPoints
+    }
+
+    public init(type: ModelType? = nil, name: String? = nil, isColorVaried: Bool? = nil, invertedSolidFillColor: String? = nil, smooth: Bool? = nil, plotOnSecondAxis: Bool? = nil, order: Int? = nil, numberFormatOfYValues: String? = nil, numberFormatOfXValues: String? = nil, numberFormatOfValues: String? = nil, numberFormatOfBubbleSizes: String? = nil, invertIfNegative: Bool? = nil, explosion: Int? = nil, marker: SeriesMarker? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, dataPointType: DataPointType? = nil, dataPoints: [OneValueChartDataPoint]? = nil, quartileMethod: QuartileMethod? = nil, showInnerPoints: Bool? = nil, showMeanLine: Bool? = nil, showMeanMarkers: Bool? = nil, showOutlierPoints: Bool? = nil) {
+        super.init(type: type, name: name, isColorVaried: isColorVaried, invertedSolidFillColor: invertedSolidFillColor, smooth: smooth, plotOnSecondAxis: plotOnSecondAxis, order: order, numberFormatOfYValues: numberFormatOfYValues, numberFormatOfXValues: numberFormatOfXValues, numberFormatOfValues: numberFormatOfValues, numberFormatOfBubbleSizes: numberFormatOfBubbleSizes, invertIfNegative: invertIfNegative, explosion: explosion, marker: marker, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, dataPointType: dataPointType, dataPoints: dataPoints)
         self.quartileMethod = quartileMethod
         self.showInnerPoints = showInnerPoints
         self.showMeanLine = showMeanLine
         self.showMeanMarkers = showMeanMarkers
         self.showOutlierPoints = showOutlierPoints
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        quartileMethod = try values.decode(QuartileMethod?.self, forKey: .quartileMethod)
+        showInnerPoints = try values.decode(Bool?.self, forKey: .showInnerPoints)
+        showMeanLine = try values.decode(Bool?.self, forKey: .showMeanLine)
+        showMeanMarkers = try values.decode(Bool?.self, forKey: .showMeanMarkers)
+        showOutlierPoints = try values.decode(Bool?.self, forKey: .showOutlierPoints)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(quartileMethod, forKey: .quartileMethod)
+        try container.encode(showInnerPoints, forKey: .showInnerPoints)
+        try container.encode(showMeanLine, forKey: .showMeanLine)
+        try container.encode(showMeanMarkers, forKey: .showMeanMarkers)
+        try container.encode(showOutlierPoints, forKey: .showOutlierPoints)
     }
 
 

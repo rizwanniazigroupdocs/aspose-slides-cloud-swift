@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Base class for all Slide&#39;s DTO objects  */
-
-public struct ResourceBase: Codable {
+public class ResourceBase: Codable {
 
     /** Gets or sets the link to this resource. */
     public var selfUri: ResourceUri?
     /** List of alternate links. */
     public var alternateLinks: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?) {
+    private enum CodingKeys: String, CodingKey {
+        case selfUri
+        case alternateLinks
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil) {
         self.selfUri = selfUri
         self.alternateLinks = alternateLinks
     }

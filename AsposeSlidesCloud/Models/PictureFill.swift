@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Picture fill. */
-
-public struct PictureFill: Codable {
+public class PictureFill: FillFormat {
 
     public enum PictureFillMode: String, Codable { 
         case tile = "Tile"
@@ -48,7 +47,7 @@ public struct PictureFill: Codable {
     /** Picture resolution. */
     public var dpi: Int?
     /** Internal image link. */
-    public var image: ResourceUriElement?
+    public var image: ResourceUri?
     /** Base 64 image data. */
     public var base64Data: String?
     /** SVG image data. */
@@ -56,7 +55,20 @@ public struct PictureFill: Codable {
     /** Fill mode. */
     public var pictureFillMode: PictureFillMode?
 
-    public init(cropBottom: Double?, cropLeft: Double?, cropRight: Double?, cropTop: Double?, dpi: Int?, image: ResourceUriElement?, base64Data: String?, svgData: String?, pictureFillMode: PictureFillMode?) {
+    private enum CodingKeys: String, CodingKey {
+        case cropBottom
+        case cropLeft
+        case cropRight
+        case cropTop
+        case dpi
+        case image
+        case base64Data
+        case svgData
+        case pictureFillMode
+    }
+
+    public init(type: ModelType? = nil, cropBottom: Double? = nil, cropLeft: Double? = nil, cropRight: Double? = nil, cropTop: Double? = nil, dpi: Int? = nil, image: ResourceUri? = nil, base64Data: String? = nil, svgData: String? = nil, pictureFillMode: PictureFillMode? = nil) {
+        super.init(type: type)
         self.cropBottom = cropBottom
         self.cropLeft = cropLeft
         self.cropRight = cropRight
@@ -66,6 +78,34 @@ public struct PictureFill: Codable {
         self.base64Data = base64Data
         self.svgData = svgData
         self.pictureFillMode = pictureFillMode
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        cropBottom = try values.decode(Double?.self, forKey: .cropBottom)
+        cropLeft = try values.decode(Double?.self, forKey: .cropLeft)
+        cropRight = try values.decode(Double?.self, forKey: .cropRight)
+        cropTop = try values.decode(Double?.self, forKey: .cropTop)
+        dpi = try values.decode(Int?.self, forKey: .dpi)
+        image = try values.decode(ResourceUri?.self, forKey: .image)
+        base64Data = try values.decode(String?.self, forKey: .base64Data)
+        svgData = try values.decode(String?.self, forKey: .svgData)
+        pictureFillMode = try values.decode(PictureFillMode?.self, forKey: .pictureFillMode)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cropBottom, forKey: .cropBottom)
+        try container.encode(cropLeft, forKey: .cropLeft)
+        try container.encode(cropRight, forKey: .cropRight)
+        try container.encode(cropTop, forKey: .cropTop)
+        try container.encode(dpi, forKey: .dpi)
+        try container.encode(image, forKey: .image)
+        try container.encode(base64Data, forKey: .base64Data)
+        try container.encode(svgData, forKey: .svgData)
+        try container.encode(pictureFillMode, forKey: .pictureFillMode)
     }
 
 

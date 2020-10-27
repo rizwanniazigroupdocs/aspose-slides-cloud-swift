@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Represents solid fill format  */
-
-public struct SolidFill: Codable {
+public class SolidFill: FillFormat {
 
     /** Color. */
     public var color: String?
 
-    public init(color: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case color
+    }
+
+    public init(type: ModelType? = nil, color: String? = nil) {
+        super.init(type: type)
         self.color = color
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        color = try values.decode(String?.self, forKey: .color)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(color, forKey: .color)
     }
 
 

@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents pipeline for one input document. */
-
-public struct Pipeline: Codable {
+public class Pipeline: Codable {
 
     /** Get or sets input document. */
     public var input: Input?
     /** Get or sets list of tasks representing pipeline. */
     public var tasks: [Task]?
 
-    public init(input: Input?, tasks: [Task]?) {
+    private enum CodingKeys: String, CodingKey {
+        case input
+        case tasks
+    }
+
+    public init(input: Input? = nil, tasks: [Task]? = nil) {
         self.input = input
         self.tasks = tasks
     }

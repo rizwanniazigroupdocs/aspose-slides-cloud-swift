@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Table column. */
-
-public struct TableColumn: Codable {
+public class TableColumn: Codable {
 
     /** Width. */
     public var width: Double?
 
-    public init(width: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case width
+    }
+
+    public init(width: Double? = nil) {
         self.width = width
     }
 

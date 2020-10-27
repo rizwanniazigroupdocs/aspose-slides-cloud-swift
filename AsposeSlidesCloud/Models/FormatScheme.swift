@@ -30,13 +30,8 @@ import Foundation
 
 
 /** Represents Format Scheme for slide&#39;s theme */
+public class FormatScheme: ResourceBase {
 
-public struct FormatScheme: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Background style links. */
     public var backgroundStyles: [ResourceUri]?
     /** Effect style links. */
@@ -46,13 +41,37 @@ public struct FormatScheme: Codable {
     /** Line style links. */
     public var lineStyles: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, backgroundStyles: [ResourceUri]?, effectStyles: [ResourceUri]?, fillStyles: [ResourceUri]?, lineStyles: [ResourceUri]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case backgroundStyles
+        case effectStyles
+        case fillStyles
+        case lineStyles
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, backgroundStyles: [ResourceUri]? = nil, effectStyles: [ResourceUri]? = nil, fillStyles: [ResourceUri]? = nil, lineStyles: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.backgroundStyles = backgroundStyles
         self.effectStyles = effectStyles
         self.fillStyles = fillStyles
         self.lineStyles = lineStyles
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        backgroundStyles = try values.decode([ResourceUri]?.self, forKey: .backgroundStyles)
+        effectStyles = try values.decode([ResourceUri]?.self, forKey: .effectStyles)
+        fillStyles = try values.decode([ResourceUri]?.self, forKey: .fillStyles)
+        lineStyles = try values.decode([ResourceUri]?.self, forKey: .lineStyles)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(backgroundStyles, forKey: .backgroundStyles)
+        try container.encode(effectStyles, forKey: .effectStyles)
+        try container.encode(fillStyles, forKey: .fillStyles)
+        try container.encode(lineStyles, forKey: .lineStyles)
     }
 
 

@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Remove shape task. */
-
-public struct RemoveShape: Codable {
+public class RemoveShape: Task {
 
     /** Shape path for a grouped or smart art shape. */
     public var shapePath: String?
 
-    public init(shapePath: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case shapePath
+    }
+
+    public init(type: ModelType? = nil, shapePath: String? = nil) {
+        super.init(type: type)
         self.shapePath = shapePath
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        shapePath = try values.decode(String?.self, forKey: .shapePath)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(shapePath, forKey: .shapePath)
     }
 
 

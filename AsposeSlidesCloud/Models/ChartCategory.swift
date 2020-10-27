@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents chart category resource */
-
-public struct ChartCategory: Codable {
+public class ChartCategory: Codable {
 
     /** Gets or sets the parent categories. Used with Sunburst &amp;amp; treemap categories; ignored for other chart types. */
     public var parentCategories: [String]?
@@ -48,7 +47,17 @@ public struct ChartCategory: Codable {
     /** Gets or sets the data points for chart data */
     public var dataPoints: [OneValueChartDataPoint]?
 
-    public init(parentCategories: [String]?, level: Int?, value: String?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, dataPoints: [OneValueChartDataPoint]?) {
+    private enum CodingKeys: String, CodingKey {
+        case parentCategories
+        case level
+        case value
+        case fillFormat
+        case effectFormat
+        case lineFormat
+        case dataPoints
+    }
+
+    public init(parentCategories: [String]? = nil, level: Int? = nil, value: String? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, dataPoints: [OneValueChartDataPoint]? = nil) {
         self.parentCategories = parentCategories
         self.level = level
         self.value = value

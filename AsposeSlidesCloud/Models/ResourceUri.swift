@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents Resource URI */
-
-public struct ResourceUri: Codable {
+public class ResourceUri: Codable {
 
     /** Gets or sets the href. */
     public var href: String?
@@ -42,7 +41,14 @@ public struct ResourceUri: Codable {
     /** Gets or sets the title of link. */
     public var title: String?
 
-    public init(href: String?, relation: String?, linkType: String?, title: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case href
+        case relation
+        case linkType
+        case title
+    }
+
+    public init(href: String? = nil, relation: String? = nil, linkType: String? = nil, title: String? = nil) {
         self.href = href
         self.relation = relation
         self.linkType = linkType

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Save slide task. */
-
-public struct SaveSlide: Codable {
+public class SaveSlide: Task {
 
     public enum Format: String, Codable { 
         case jpeg = "Jpeg"
@@ -69,13 +68,45 @@ public struct SaveSlide: Codable {
     /** Slide index. */
     public var position: Int?
 
-    public init(output: OutputFile?, format: Format?, options: ExportOptions?, width: Int?, height: Int?, position: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case output
+        case format
+        case options
+        case width
+        case height
+        case position
+    }
+
+    public init(type: ModelType? = nil, output: OutputFile? = nil, format: Format? = nil, options: ExportOptions? = nil, width: Int? = nil, height: Int? = nil, position: Int? = nil) {
+        super.init(type: type)
         self.output = output
         self.format = format
         self.options = options
         self.width = width
         self.height = height
         self.position = position
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        output = try values.decode(OutputFile?.self, forKey: .output)
+        format = try values.decode(Format?.self, forKey: .format)
+        options = try values.decode(ExportOptions?.self, forKey: .options)
+        width = try values.decode(Int?.self, forKey: .width)
+        height = try values.decode(Int?.self, forKey: .height)
+        position = try values.decode(Int?.self, forKey: .position)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(output, forKey: .output)
+        try container.encode(format, forKey: .format)
+        try container.encode(options, forKey: .options)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(position, forKey: .position)
     }
 
 

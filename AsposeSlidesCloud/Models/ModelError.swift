@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Error */
-
-public struct ModelError: Codable {
+public class ModelError: Codable {
 
     /** Code              */
     public var code: String?
@@ -42,7 +41,14 @@ public struct ModelError: Codable {
     /** Inner Error              */
     public var innerError: ErrorDetails?
 
-    public init(code: String?, message: String?, description: String?, innerError: ErrorDetails?) {
+    private enum CodingKeys: String, CodingKey {
+        case code
+        case message
+        case description
+        case innerError
+    }
+
+    public init(code: String? = nil, message: String? = nil, description: String? = nil, innerError: ErrorDetails? = nil) {
         self.code = code
         self.message = message
         self.description = description

@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Represents slide replace result DTO. */
-
-public struct SlideReplaceResult: Codable {
+public class SlideReplaceResult: Slide {
 
     /** Gets or sets the number of matches  */
     public var matches: Int?
 
-    public init(matches: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case matches
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, width: Double? = nil, height: Double? = nil, showMasterShapes: Bool? = nil, layoutSlide: ResourceUri? = nil, shapes: ResourceUri? = nil, theme: ResourceUri? = nil, placeholders: ResourceUri? = nil, images: ResourceUri? = nil, comments: ResourceUri? = nil, background: ResourceUri? = nil, notesSlide: ResourceUri? = nil, matches: Int? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, width: width, height: height, showMasterShapes: showMasterShapes, layoutSlide: layoutSlide, shapes: shapes, theme: theme, placeholders: placeholders, images: images, comments: comments, background: background, notesSlide: notesSlide)
         self.matches = matches
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        matches = try values.decode(Int?.self, forKey: .matches)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(matches, forKey: .matches)
     }
 
 

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents comment of slide */
-
-public struct Effect: Codable {
+public class Effect: Codable {
 
     public enum ModelType: String, Codable { 
         case appear = "Appear"
@@ -290,7 +289,24 @@ public struct Effect: Codable {
     /** Delay time after trigger. */
     public var triggerDelayTime: Double?
 
-    public init(type: ModelType?, subtype: Subtype?, presetClassType: PresetClassType?, shapeIndex: Int?, triggerType: TriggerType?, accelerate: Double?, autoReverse: Bool?, decelerate: Double?, duration: Double?, repeatCount: Double?, repeatDuration: Double?, restart: Restart?, speed: Double?, triggerDelayTime: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case type
+        case subtype
+        case presetClassType
+        case shapeIndex
+        case triggerType
+        case accelerate
+        case autoReverse
+        case decelerate
+        case duration
+        case repeatCount
+        case repeatDuration
+        case restart
+        case speed
+        case triggerDelayTime
+    }
+
+    public init(type: ModelType? = nil, subtype: Subtype? = nil, presetClassType: PresetClassType? = nil, shapeIndex: Int? = nil, triggerType: TriggerType? = nil, accelerate: Double? = nil, autoReverse: Bool? = nil, decelerate: Double? = nil, duration: Double? = nil, repeatCount: Double? = nil, repeatDuration: Double? = nil, restart: Restart? = nil, speed: Double? = nil, triggerDelayTime: Double? = nil) {
         self.type = type
         self.subtype = subtype
         self.presetClassType = presetClassType

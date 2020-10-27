@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Slides document properties. */
-
-public struct ViewProperties: Codable {
+public class ViewProperties: ResourceBase {
 
     public enum LastView: String, Codable { 
         case notDefined = "NotDefined"
@@ -59,10 +58,6 @@ public struct ViewProperties: Codable {
         case _true = "True"
         case notDefined = "NotDefined"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Last used view mode. */
     public var lastView: LastView?
     /** Horizontal bar state. */
@@ -82,9 +77,20 @@ public struct ViewProperties: Codable {
     /** True if the comments should be shown. */
     public var showComments: ShowComments?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, lastView: LastView?, horizontalBarState: HorizontalBarState?, verticalBarState: VerticalBarState?, preferSingleView: Bool?, restoredLeft: NormalViewRestoredProperties?, restoredTop: NormalViewRestoredProperties?, slideViewProperties: CommonSlideViewProperties?, notesViewProperties: CommonSlideViewProperties?, showComments: ShowComments?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case lastView
+        case horizontalBarState
+        case verticalBarState
+        case preferSingleView
+        case restoredLeft
+        case restoredTop
+        case slideViewProperties
+        case notesViewProperties
+        case showComments
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, lastView: LastView? = nil, horizontalBarState: HorizontalBarState? = nil, verticalBarState: VerticalBarState? = nil, preferSingleView: Bool? = nil, restoredLeft: NormalViewRestoredProperties? = nil, restoredTop: NormalViewRestoredProperties? = nil, slideViewProperties: CommonSlideViewProperties? = nil, notesViewProperties: CommonSlideViewProperties? = nil, showComments: ShowComments? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.lastView = lastView
         self.horizontalBarState = horizontalBarState
         self.verticalBarState = verticalBarState
@@ -94,6 +100,34 @@ public struct ViewProperties: Codable {
         self.slideViewProperties = slideViewProperties
         self.notesViewProperties = notesViewProperties
         self.showComments = showComments
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        lastView = try values.decode(LastView?.self, forKey: .lastView)
+        horizontalBarState = try values.decode(HorizontalBarState?.self, forKey: .horizontalBarState)
+        verticalBarState = try values.decode(VerticalBarState?.self, forKey: .verticalBarState)
+        preferSingleView = try values.decode(Bool?.self, forKey: .preferSingleView)
+        restoredLeft = try values.decode(NormalViewRestoredProperties?.self, forKey: .restoredLeft)
+        restoredTop = try values.decode(NormalViewRestoredProperties?.self, forKey: .restoredTop)
+        slideViewProperties = try values.decode(CommonSlideViewProperties?.self, forKey: .slideViewProperties)
+        notesViewProperties = try values.decode(CommonSlideViewProperties?.self, forKey: .notesViewProperties)
+        showComments = try values.decode(ShowComments?.self, forKey: .showComments)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(lastView, forKey: .lastView)
+        try container.encode(horizontalBarState, forKey: .horizontalBarState)
+        try container.encode(verticalBarState, forKey: .verticalBarState)
+        try container.encode(preferSingleView, forKey: .preferSingleView)
+        try container.encode(restoredLeft, forKey: .restoredLeft)
+        try container.encode(restoredTop, forKey: .restoredTop)
+        try container.encode(slideViewProperties, forKey: .slideViewProperties)
+        try container.encode(notesViewProperties, forKey: .notesViewProperties)
+        try container.encode(showComments, forKey: .showComments)
     }
 
 

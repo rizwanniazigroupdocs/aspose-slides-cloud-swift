@@ -30,17 +30,36 @@ import Foundation
 
 
 /** Add shape task. */
-
-public struct AddShape: Codable {
+public class AddShape: Task {
 
     /** Shape DTO. */
     public var shape: ShapeBase?
     /** Shape path for a grouped shape or smart art shape. */
     public var shapePath: String?
 
-    public init(shape: ShapeBase?, shapePath: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case shape
+        case shapePath
+    }
+
+    public init(type: ModelType? = nil, shape: ShapeBase? = nil, shapePath: String? = nil) {
+        super.init(type: type)
         self.shape = shape
         self.shapePath = shapePath
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        shape = try values.decode(ShapeBase?.self, forKey: .shape)
+        shapePath = try values.decode(String?.self, forKey: .shapePath)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(shape, forKey: .shape)
+        try container.encode(shapePath, forKey: .shapePath)
     }
 
 

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Font set. */
-
-public struct FontSet: Codable {
+public class FontSet: Codable {
 
     /** Complex script font. */
     public var complexScript: String?
@@ -40,7 +39,13 @@ public struct FontSet: Codable {
     /** Latin font. */
     public var latin: String?
 
-    public init(complexScript: String?, eastAsian: String?, latin: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case complexScript
+        case eastAsian
+        case latin
+    }
+
+    public init(complexScript: String? = nil, eastAsian: String? = nil, latin: String? = nil) {
         self.complexScript = complexScript
         self.eastAsian = eastAsian
         self.latin = latin

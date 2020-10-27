@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents background of slide */
-
-public struct SlideBackground: Codable {
+public class SlideBackground: ResourceBase {
 
     public enum ModelType: String, Codable { 
         case noFill = "NoFill"
@@ -41,10 +40,6 @@ public struct SlideBackground: Codable {
         case picture = "Picture"
         case notDefined = "NotDefined"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Fill type. */
     public var type: ModelType?
     /** Fill format. */
@@ -52,12 +47,33 @@ public struct SlideBackground: Codable {
     /** Effect format. */
     public var effectFormat: EffectFormat?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, type: ModelType?, fillFormat: FillFormat?, effectFormat: EffectFormat?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case type
+        case fillFormat
+        case effectFormat
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, type: ModelType? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.type = type
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        type = try values.decode(ModelType?.self, forKey: .type)
+        fillFormat = try values.decode(FillFormat?.self, forKey: .fillFormat)
+        effectFormat = try values.decode(EffectFormat?.self, forKey: .effectFormat)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+        try container.encode(fillFormat, forKey: .fillFormat)
+        try container.encode(effectFormat, forKey: .effectFormat)
     }
 
 

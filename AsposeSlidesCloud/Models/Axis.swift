@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents a chart axis */
-
-public struct Axis: Codable {
+public class Axis: Codable {
 
     public enum Position: String, Codable { 
         case bottom = "Bottom"
@@ -167,7 +166,46 @@ public struct Axis: Codable {
     /** Get or sets the line format. */
     public var lineFormat: LineFormat?
 
-    public init(isVisible: Bool?, hasTitle: Bool?, position: Position?, displayUnit: DisplayUnit?, baseUnitScale: BaseUnitScale?, isAutomaticMajorUnit: Bool?, majorUnit: Double?, majorUnitScale: MajorUnitScale?, majorTickMark: MajorTickMark?, isAutomaticMinorUnit: Bool?, minorUnit: Double?, minorUnitScale: MinorUnitScale?, minorTickMark: MinorTickMark?, isAutomaticMaxValue: Bool?, maxValue: Double?, isAutomaticMinValue: Bool?, minValue: Double?, isLogarithmic: Bool?, logBase: Double?, categoryAxisType: CategoryAxisType?, axisBetweenCategories: Bool?, labelOffset: Int?, isPlotOrderReversed: Bool?, isNumberFormatLinkedToSource: Bool?, numberFormat: String?, crossType: CrossType?, crossAt: Double?, isAutomaticTickMarksSpacing: Bool?, tickMarksSpacing: Int?, isAutomaticTickLabelSpacing: Bool?, tickLabelSpacing: Int?, tickLabelPosition: TickLabelPosition?, tickLabelRotationAngle: Double?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    private enum CodingKeys: String, CodingKey {
+        case isVisible
+        case hasTitle
+        case position
+        case displayUnit
+        case baseUnitScale
+        case isAutomaticMajorUnit
+        case majorUnit
+        case majorUnitScale
+        case majorTickMark
+        case isAutomaticMinorUnit
+        case minorUnit
+        case minorUnitScale
+        case minorTickMark
+        case isAutomaticMaxValue
+        case maxValue
+        case isAutomaticMinValue
+        case minValue
+        case isLogarithmic
+        case logBase
+        case categoryAxisType
+        case axisBetweenCategories
+        case labelOffset
+        case isPlotOrderReversed
+        case isNumberFormatLinkedToSource
+        case numberFormat
+        case crossType
+        case crossAt
+        case isAutomaticTickMarksSpacing
+        case tickMarksSpacing
+        case isAutomaticTickLabelSpacing
+        case tickLabelSpacing
+        case tickLabelPosition
+        case tickLabelRotationAngle
+        case fillFormat
+        case effectFormat
+        case lineFormat
+    }
+
+    public init(isVisible: Bool? = nil, hasTitle: Bool? = nil, position: Position? = nil, displayUnit: DisplayUnit? = nil, baseUnitScale: BaseUnitScale? = nil, isAutomaticMajorUnit: Bool? = nil, majorUnit: Double? = nil, majorUnitScale: MajorUnitScale? = nil, majorTickMark: MajorTickMark? = nil, isAutomaticMinorUnit: Bool? = nil, minorUnit: Double? = nil, minorUnitScale: MinorUnitScale? = nil, minorTickMark: MinorTickMark? = nil, isAutomaticMaxValue: Bool? = nil, maxValue: Double? = nil, isAutomaticMinValue: Bool? = nil, minValue: Double? = nil, isLogarithmic: Bool? = nil, logBase: Double? = nil, categoryAxisType: CategoryAxisType? = nil, axisBetweenCategories: Bool? = nil, labelOffset: Int? = nil, isPlotOrderReversed: Bool? = nil, isNumberFormatLinkedToSource: Bool? = nil, numberFormat: String? = nil, crossType: CrossType? = nil, crossAt: Double? = nil, isAutomaticTickMarksSpacing: Bool? = nil, tickMarksSpacing: Int? = nil, isAutomaticTickLabelSpacing: Bool? = nil, tickLabelSpacing: Int? = nil, tickLabelPosition: TickLabelPosition? = nil, tickLabelRotationAngle: Double? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil) {
         self.isVisible = isVisible
         self.hasTitle = hasTitle
         self.position = position

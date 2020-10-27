@@ -30,8 +30,7 @@ import Foundation
 
 
 /** File or folder information */
-
-public struct StorageFile: Codable {
+public class StorageFile: Codable {
 
     /** File or folder name. */
     public var name: String?
@@ -44,7 +43,15 @@ public struct StorageFile: Codable {
     /** File or folder path. */
     public var path: String?
 
-    public init(name: String?, isFolder: Bool?, modifiedDate: Date?, size: Int64?, path: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case isFolder
+        case modifiedDate
+        case size
+        case path
+    }
+
+    public init(name: String? = nil, isFolder: Bool? = nil, modifiedDate: Date? = nil, size: Int64? = nil, path: String? = nil) {
         self.name = name
         self.isFolder = isFolder
         self.modifiedDate = modifiedDate

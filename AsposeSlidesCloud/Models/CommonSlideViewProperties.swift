@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Slide view properties. */
-
-public struct CommonSlideViewProperties: Codable {
+public class CommonSlideViewProperties: Codable {
 
     /** The view scaling ratio (percentage). */
     public var scale: Int?
     /** True if the view content should automatically scale to best fit the current window size. */
     public var variableScale: Bool?
 
-    public init(scale: Int?, variableScale: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case scale
+        case variableScale
+    }
+
+    public init(scale: Int? = nil, variableScale: Bool? = nil) {
         self.scale = scale
         self.variableScale = variableScale
     }

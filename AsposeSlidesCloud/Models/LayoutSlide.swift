@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Layout slide. */
-
-public struct LayoutSlide: Codable {
+public class LayoutSlide: ResourceBase {
 
     public enum ModelType: String, Codable { 
         case title = "Title"
@@ -71,26 +70,46 @@ public struct LayoutSlide: Codable {
         case pictureAndCaption = "PictureAndCaption"
         case custom = "Custom"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Name. */
     public var name: String?
     /** Layout slide type. */
     public var type: ModelType?
     /** Master slide link. */
-    public var masterSlide: ResourceUriElement?
+    public var masterSlide: ResourceUri?
     /** List of depending slides. */
-    public var dependingSlides: [ResourceUriElement]?
+    public var dependingSlides: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, type: ModelType?, masterSlide: ResourceUriElement?, dependingSlides: [ResourceUriElement]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case type
+        case masterSlide
+        case dependingSlides
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, type: ModelType? = nil, masterSlide: ResourceUri? = nil, dependingSlides: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.type = type
         self.masterSlide = masterSlide
         self.dependingSlides = dependingSlides
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String?.self, forKey: .name)
+        type = try values.decode(ModelType?.self, forKey: .type)
+        masterSlide = try values.decode(ResourceUri?.self, forKey: .masterSlide)
+        dependingSlides = try values.decode([ResourceUri]?.self, forKey: .dependingSlides)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(type, forKey: .type)
+        try container.encode(masterSlide, forKey: .masterSlide)
+        try container.encode(dependingSlides, forKey: .dependingSlides)
     }
 
 

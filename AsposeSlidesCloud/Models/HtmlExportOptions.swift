@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in Html format. */
-
-public struct HtmlExportOptions: Codable {
+public class HtmlExportOptions: ExportOptions {
 
     public enum PicturesCompression: String, Codable { 
         case dpi330 = "Dpi330"
@@ -51,10 +50,6 @@ public struct HtmlExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Get or sets flag for save presentation as zip file */
     public var saveAsZip: Bool?
     /** Get or set name of subdirectory in zip-file for store external files */
@@ -80,9 +75,23 @@ public struct HtmlExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(defaultRegularFont: String?, format: String?, saveAsZip: Bool?, subDirectoryName: String?, showHiddenSlides: Bool?, svgResponsiveLayout: Bool?, jpegQuality: Int?, picturesCompression: PicturesCompression?, deletePicturesCroppedAreas: Bool?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case saveAsZip
+        case subDirectoryName
+        case showHiddenSlides
+        case svgResponsiveLayout
+        case jpegQuality
+        case picturesCompression
+        case deletePicturesCroppedAreas
+        case notesPosition
+        case commentsPosition
+        case commentsAreaWidth
+        case commentsAreaColor
+        case showCommentsByNoAuthor
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, saveAsZip: Bool? = nil, subDirectoryName: String? = nil, showHiddenSlides: Bool? = nil, svgResponsiveLayout: Bool? = nil, jpegQuality: Int? = nil, picturesCompression: PicturesCompression? = nil, deletePicturesCroppedAreas: Bool? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.saveAsZip = saveAsZip
         self.subDirectoryName = subDirectoryName
         self.showHiddenSlides = showHiddenSlides
@@ -95,6 +104,40 @@ public struct HtmlExportOptions: Codable {
         self.commentsAreaWidth = commentsAreaWidth
         self.commentsAreaColor = commentsAreaColor
         self.showCommentsByNoAuthor = showCommentsByNoAuthor
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        saveAsZip = try values.decode(Bool?.self, forKey: .saveAsZip)
+        subDirectoryName = try values.decode(String?.self, forKey: .subDirectoryName)
+        showHiddenSlides = try values.decode(Bool?.self, forKey: .showHiddenSlides)
+        svgResponsiveLayout = try values.decode(Bool?.self, forKey: .svgResponsiveLayout)
+        jpegQuality = try values.decode(Int?.self, forKey: .jpegQuality)
+        picturesCompression = try values.decode(PicturesCompression?.self, forKey: .picturesCompression)
+        deletePicturesCroppedAreas = try values.decode(Bool?.self, forKey: .deletePicturesCroppedAreas)
+        notesPosition = try values.decode(NotesPosition?.self, forKey: .notesPosition)
+        commentsPosition = try values.decode(CommentsPosition?.self, forKey: .commentsPosition)
+        commentsAreaWidth = try values.decode(Int?.self, forKey: .commentsAreaWidth)
+        commentsAreaColor = try values.decode(String?.self, forKey: .commentsAreaColor)
+        showCommentsByNoAuthor = try values.decode(Bool?.self, forKey: .showCommentsByNoAuthor)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(saveAsZip, forKey: .saveAsZip)
+        try container.encode(subDirectoryName, forKey: .subDirectoryName)
+        try container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        try container.encode(svgResponsiveLayout, forKey: .svgResponsiveLayout)
+        try container.encode(jpegQuality, forKey: .jpegQuality)
+        try container.encode(picturesCompression, forKey: .picturesCompression)
+        try container.encode(deletePicturesCroppedAreas, forKey: .deletePicturesCroppedAreas)
+        try container.encode(notesPosition, forKey: .notesPosition)
+        try container.encode(commentsPosition, forKey: .commentsPosition)
+        try container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
+        try container.encode(commentsAreaColor, forKey: .commentsAreaColor)
+        try container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
     }
 
 

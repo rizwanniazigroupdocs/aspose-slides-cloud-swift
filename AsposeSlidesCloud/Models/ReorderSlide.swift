@@ -30,17 +30,36 @@ import Foundation
 
 
 /** Reorder slide task. */
-
-public struct ReorderSlide: Codable {
+public class ReorderSlide: Task {
 
     /** Old position. */
     public var oldPosition: Int?
     /** New position. */
     public var newPosition: Int?
 
-    public init(oldPosition: Int?, newPosition: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case oldPosition
+        case newPosition
+    }
+
+    public init(type: ModelType? = nil, oldPosition: Int? = nil, newPosition: Int? = nil) {
+        super.init(type: type)
         self.oldPosition = oldPosition
         self.newPosition = newPosition
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        oldPosition = try values.decode(Int?.self, forKey: .oldPosition)
+        newPosition = try values.decode(Int?.self, forKey: .newPosition)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(oldPosition, forKey: .oldPosition)
+        try container.encode(newPosition, forKey: .newPosition)
     }
 
 

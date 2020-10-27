@@ -30,26 +30,42 @@ import Foundation
 
 
 /** Master slide. */
+public class MasterSlide: ResourceBase {
 
-public struct MasterSlide: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Name. */
     public var name: String?
     /** List of layout slide links. */
-    public var layoutSlides: [ResourceUriElement]?
+    public var layoutSlides: [ResourceUri]?
     /** List of depending slide links. */
-    public var dependingSlides: [ResourceUriElement]?
+    public var dependingSlides: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, name: String?, layoutSlides: [ResourceUriElement]?, dependingSlides: [ResourceUriElement]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case layoutSlides
+        case dependingSlides
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, layoutSlides: [ResourceUri]? = nil, dependingSlides: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.name = name
         self.layoutSlides = layoutSlides
         self.dependingSlides = dependingSlides
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String?.self, forKey: .name)
+        layoutSlides = try values.decode([ResourceUri]?.self, forKey: .layoutSlides)
+        dependingSlides = try values.decode([ResourceUri]?.self, forKey: .dependingSlides)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(layoutSlides, forKey: .layoutSlides)
+        try container.encode(dependingSlides, forKey: .dependingSlides)
     }
 
 

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents reflection effect  */
-
-public struct ReflectionEffect: Codable {
+public class ReflectionEffect: Codable {
 
     public enum RectangleAlign: String, Codable { 
         case topLeft = "TopLeft"
@@ -74,7 +73,24 @@ public struct ReflectionEffect: Codable {
     /** true if the reflection should rotate with the shape when the shape is rotated */
     public var rotateShadowWithShape: Bool?
 
-    public init(direction: Double?, fadeDirection: Double?, distance: Double?, blurRadius: Double?, scaleHorizontal: Double?, scaleVertical: Double?, skewHorizontal: Double?, skewVertical: Double?, startPosAlpha: Double?, endPosAlpha: Double?, startReflectionOpacity: Double?, endReflectionOpacity: Double?, rectangleAlign: RectangleAlign?, rotateShadowWithShape: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case direction
+        case fadeDirection
+        case distance
+        case blurRadius
+        case scaleHorizontal
+        case scaleVertical
+        case skewHorizontal
+        case skewVertical
+        case startPosAlpha
+        case endPosAlpha
+        case startReflectionOpacity
+        case endReflectionOpacity
+        case rectangleAlign
+        case rotateShadowWithShape
+    }
+
+    public init(direction: Double? = nil, fadeDirection: Double? = nil, distance: Double? = nil, blurRadius: Double? = nil, scaleHorizontal: Double? = nil, scaleVertical: Double? = nil, skewHorizontal: Double? = nil, skewVertical: Double? = nil, startPosAlpha: Double? = nil, endPosAlpha: Double? = nil, startReflectionOpacity: Double? = nil, endReflectionOpacity: Double? = nil, rectangleAlign: RectangleAlign? = nil, rotateShadowWithShape: Bool? = nil) {
         self.direction = direction
         self.fadeDirection = fadeDirection
         self.distance = distance

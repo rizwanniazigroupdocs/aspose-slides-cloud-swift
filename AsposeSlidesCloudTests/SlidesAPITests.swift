@@ -960,6 +960,7 @@ class SlidesAPITests : XCTestCase {
         ("testPostSlidesDocumentFromTemplateInvalidFolder", testPostSlidesDocumentFromTemplateInvalidFolder),
         ("testPostSlidesPipeline", testPostSlidesPipeline),
         ("testPostSlidesPipelineInvalidPipeline", testPostSlidesPipelineInvalidPipeline),
+        ("testPostSlidesPipelineInvalidFiles", testPostSlidesPipelineInvalidFiles),
         ("testPostSlidesPresentationReplaceText", testPostSlidesPresentationReplaceText),
         ("testPostSlidesPresentationReplaceTextInvalidName", testPostSlidesPresentationReplaceTextInvalidName),
         ("testPostSlidesPresentationReplaceTextInvalidOldValue", testPostSlidesPresentationReplaceTextInvalidOldValue),
@@ -13279,7 +13280,7 @@ class SlidesAPITests : XCTestCase {
     }
     func testPostSlidesPipeline() {
         let expectation = self.expectation(description: "testpostSlidesPipeline")
-        let request = PostSlidesPipelineRequest(pipeline: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "pipeline", type: "Pipeline"))
+        let request = PostSlidesPipelineRequest(pipeline: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "pipeline", type: "Pipeline"), files: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "files", type: "[Data]"))
         TestUtils.initialize("postSlidesPipeline") { (response, error) -> Void in
             SlidesAPI.postSlidesPipeline(request: request) { (response, error) -> Void in
                 XCTAssertNotNil(response)
@@ -13292,11 +13293,24 @@ class SlidesAPITests : XCTestCase {
 
     func testPostSlidesPipelineInvalidPipeline() {
         let expectation = self.expectation(description: "testpostSlidesPipeline")
-        var request = PostSlidesPipelineRequest(pipeline: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "pipeline", type: "Pipeline"))
+        var request = PostSlidesPipelineRequest(pipeline: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "pipeline", type: "Pipeline"), files: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "files", type: "[Data]"))
         request.pipeline = TestUtils.getInvalidTestValue(functionName: "postSlidesPipeline", name: "pipeline", value: request.pipeline as Any, type: "Pipeline")
         TestUtils.initialize("postSlidesPipeline", "pipeline", request.pipeline) { (response, error) -> Void in
             SlidesAPI.postSlidesPipeline(request: request) { (response, error) -> Void in
                 TestUtils.assertError(error: error, functionName: "postSlidesPipeline", parameterName: "pipeline", parameterValue: request.pipeline as Any)
+                expectation.fulfill()
+            }
+        }
+        self.waitForExpectations(timeout: testTimeout, handler: nil)
+    }
+
+    func testPostSlidesPipelineInvalidFiles() {
+        let expectation = self.expectation(description: "testpostSlidesPipeline")
+        var request = PostSlidesPipelineRequest(pipeline: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "pipeline", type: "Pipeline"), files: TestUtils.getTestValue(functionName: "postSlidesPipeline", name: "files", type: "[Data]"))
+        request.files = TestUtils.getInvalidTestValue(functionName: "postSlidesPipeline", name: "files", value: request.files as Any, type: "[Data]")
+        TestUtils.initialize("postSlidesPipeline", "files", request.files) { (response, error) -> Void in
+            SlidesAPI.postSlidesPipeline(request: request) { (response, error) -> Void in
+                TestUtils.assertError(error: error, functionName: "postSlidesPipeline", parameterName: "files", parameterValue: request.files as Any)
                 expectation.fulfill()
             }
         }

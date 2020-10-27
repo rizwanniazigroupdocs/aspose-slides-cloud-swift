@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents placeholder */
-
-public struct Placeholder: Codable {
+public class Placeholder: ResourceBase {
 
     public enum Orientation: String, Codable { 
         case horizontal = "Horizontal"
@@ -60,10 +59,6 @@ public struct Placeholder: Codable {
         case slideImage = "SlideImage"
         case picture = "Picture"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Index. */
     public var index: Int?
     /** Orientation. */
@@ -73,16 +68,43 @@ public struct Placeholder: Codable {
     /** Placeholder type. */
     public var type: ModelType?
     /** Shape link. */
-    public var shape: ResourceUriElement?
+    public var shape: ResourceUri?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, index: Int?, orientation: Orientation?, size: Size?, type: ModelType?, shape: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case index
+        case orientation
+        case size
+        case type
+        case shape
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, index: Int? = nil, orientation: Orientation? = nil, size: Size? = nil, type: ModelType? = nil, shape: ResourceUri? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.index = index
         self.orientation = orientation
         self.size = size
         self.type = type
         self.shape = shape
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        index = try values.decode(Int?.self, forKey: .index)
+        orientation = try values.decode(Orientation?.self, forKey: .orientation)
+        size = try values.decode(Size?.self, forKey: .size)
+        type = try values.decode(ModelType?.self, forKey: .type)
+        shape = try values.decode(ResourceUri?.self, forKey: .shape)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(index, forKey: .index)
+        try container.encode(orientation, forKey: .orientation)
+        try container.encode(size, forKey: .size)
+        try container.encode(type, forKey: .type)
+        try container.encode(shape, forKey: .shape)
     }
 
 

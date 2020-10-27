@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Represents blur effect  */
-
-public struct BlurEffect: Codable {
+public class BlurEffect: Codable {
 
     /** radius */
     public var radius: Double?
     /** true if the bounds are grown */
     public var grow: Bool?
 
-    public init(radius: Double?, grow: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case radius
+        case grow
+    }
+
+    public init(radius: Double? = nil, grow: Bool? = nil) {
         self.radius = radius
         self.grow = grow
     }

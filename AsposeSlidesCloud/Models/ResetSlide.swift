@@ -30,14 +30,30 @@ import Foundation
 
 
 /** Reset slide task. */
-
-public struct ResetSlide: Codable {
+public class ResetSlide: Task {
 
     /** Slide position. */
     public var position: Int?
 
-    public init(position: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case position
+    }
+
+    public init(type: ModelType? = nil, position: Int? = nil) {
+        super.init(type: type)
         self.position = position
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        position = try values.decode(Int?.self, forKey: .position)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(position, forKey: .position)
     }
 
 

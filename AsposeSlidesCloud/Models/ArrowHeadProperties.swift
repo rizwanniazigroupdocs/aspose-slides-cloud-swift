@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Arrow head properties. */
-
-public struct ArrowHeadProperties: Codable {
+public class ArrowHeadProperties: Codable {
 
     public enum Length: String, Codable { 
         case short = "Short"
@@ -61,7 +60,13 @@ public struct ArrowHeadProperties: Codable {
     /** Width. */
     public var width: Width?
 
-    public init(length: Length?, style: Style?, width: Width?) {
+    private enum CodingKeys: String, CodingKey {
+        case length
+        case style
+        case width
+    }
+
+    public init(length: Length? = nil, style: Style? = nil, width: Width? = nil) {
         self.length = length
         self.style = style
         self.width = width

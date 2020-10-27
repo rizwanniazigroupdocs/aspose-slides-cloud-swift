@@ -30,14 +30,30 @@ import Foundation
 
 
 /** One value chart data point. */
-
-public struct OneValueChartDataPoint: Codable {
+public class OneValueChartDataPoint: DataPoint {
 
     /** Value. */
     public var value: Double?
 
-    public init(value: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case value
+    }
+
+    public init(value: Double? = nil) {
+        super.init()
         self.value = value
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        value = try values.decode(Double?.self, forKey: .value)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(value, forKey: .value)
     }
 
 

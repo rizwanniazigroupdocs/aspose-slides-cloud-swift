@@ -30,32 +30,36 @@ import Foundation
 
 
 /** File Version */
+public class FileVersion: StorageFile {
 
-public struct FileVersion: Codable {
-
-    /** File or folder name. */
-    public var name: String?
-    /** True if it is a folder. */
-    public var isFolder: Bool?
-    /** File or folder last modified DateTime. */
-    public var modifiedDate: Date?
-    /** File or folder size. */
-    public var size: Int64?
-    /** File or folder path. */
-    public var path: String?
     /** File Version ID. */
     public var versionId: String?
     /** Specifies whether the file is (true) or is not (false) the latest version of an file. */
     public var isLatest: Bool?
 
-    public init(name: String?, isFolder: Bool?, modifiedDate: Date?, size: Int64?, path: String?, versionId: String?, isLatest: Bool?) {
-        self.name = name
-        self.isFolder = isFolder
-        self.modifiedDate = modifiedDate
-        self.size = size
-        self.path = path
+    private enum CodingKeys: String, CodingKey {
+        case versionId
+        case isLatest
+    }
+
+    public init(name: String? = nil, isFolder: Bool? = nil, modifiedDate: Date? = nil, size: Int64? = nil, path: String? = nil, versionId: String? = nil, isLatest: Bool? = nil) {
+        super.init(name: name, isFolder: isFolder, modifiedDate: modifiedDate, size: size, path: path)
         self.versionId = versionId
         self.isLatest = isLatest
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        versionId = try values.decode(String?.self, forKey: .versionId)
+        isLatest = try values.decode(Bool?.self, forKey: .isLatest)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(versionId, forKey: .versionId)
+        try container.encode(isLatest, forKey: .isLatest)
     }
 
 

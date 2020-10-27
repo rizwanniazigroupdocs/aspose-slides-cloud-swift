@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Add master slide task. */
-
-public struct AddMasterSlide: Codable {
+public class AddMasterSlide: Task {
 
     /** Source presentation clone from. */
     public var cloneFromFile: InputFile?
@@ -40,10 +39,33 @@ public struct AddMasterSlide: Codable {
     /** True if cloned master slide is applied to all slides. */
     public var applyToAll: Bool?
 
-    public init(cloneFromFile: InputFile?, cloneFromPosition: Int?, applyToAll: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case cloneFromFile
+        case cloneFromPosition
+        case applyToAll
+    }
+
+    public init(type: ModelType? = nil, cloneFromFile: InputFile? = nil, cloneFromPosition: Int? = nil, applyToAll: Bool? = nil) {
+        super.init(type: type)
         self.cloneFromFile = cloneFromFile
         self.cloneFromPosition = cloneFromPosition
         self.applyToAll = applyToAll
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        cloneFromFile = try values.decode(InputFile?.self, forKey: .cloneFromFile)
+        cloneFromPosition = try values.decode(Int?.self, forKey: .cloneFromPosition)
+        applyToAll = try values.decode(Bool?.self, forKey: .applyToAll)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cloneFromFile, forKey: .cloneFromFile)
+        try container.encode(cloneFromPosition, forKey: .cloneFromPosition)
+        try container.encode(applyToAll, forKey: .applyToAll)
     }
 
 

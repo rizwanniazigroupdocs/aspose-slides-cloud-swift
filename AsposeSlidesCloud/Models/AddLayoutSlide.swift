@@ -30,17 +30,36 @@ import Foundation
 
 
 /** Add layout slide task. */
-
-public struct AddLayoutSlide: Codable {
+public class AddLayoutSlide: Task {
 
     /** Source file. */
     public var cloneFromFile: InputFile?
     /** Source layout slide position. */
     public var cloneFromPosition: Int?
 
-    public init(cloneFromFile: InputFile?, cloneFromPosition: Int?) {
+    private enum CodingKeys: String, CodingKey {
+        case cloneFromFile
+        case cloneFromPosition
+    }
+
+    public init(type: ModelType? = nil, cloneFromFile: InputFile? = nil, cloneFromPosition: Int? = nil) {
+        super.init(type: type)
         self.cloneFromFile = cloneFromFile
         self.cloneFromPosition = cloneFromPosition
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        cloneFromFile = try values.decode(InputFile?.self, forKey: .cloneFromFile)
+        cloneFromPosition = try values.decode(Int?.self, forKey: .cloneFromPosition)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cloneFromFile, forKey: .cloneFromFile)
+        try container.encode(cloneFromPosition, forKey: .cloneFromPosition)
     }
 
 

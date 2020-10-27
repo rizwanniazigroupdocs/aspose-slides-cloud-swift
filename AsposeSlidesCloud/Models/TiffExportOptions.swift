@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Provides options that control how a presentation is saved in TIFF format. */
-
-public struct TiffExportOptions: Codable {
+public class TiffExportOptions: ExportOptions {
 
     public enum Compression: String, Codable { 
         case _default = "Default"
@@ -58,10 +57,6 @@ public struct TiffExportOptions: Codable {
         case bottom = "Bottom"
         case _right = "Right"
     }
-    /** Setting user password to protect the PDF document.  */
-    public var defaultRegularFont: String?
-    /** Export format. */
-    public var format: String?
     /** Compression type. */
     public var compression: Compression?
     /** Width. */
@@ -87,9 +82,23 @@ public struct TiffExportOptions: Codable {
     /** True if comments that have no author are displayed. (Applies only if comments are displayed). */
     public var showCommentsByNoAuthor: Bool?
 
-    public init(defaultRegularFont: String?, format: String?, compression: Compression?, width: Int?, height: Int?, dpiX: Int?, dpiY: Int?, showHiddenSlides: Bool?, pixelFormat: PixelFormat?, notesPosition: NotesPosition?, commentsPosition: CommentsPosition?, commentsAreaWidth: Int?, commentsAreaColor: String?, showCommentsByNoAuthor: Bool?) {
-        self.defaultRegularFont = defaultRegularFont
-        self.format = format
+    private enum CodingKeys: String, CodingKey {
+        case compression
+        case width
+        case height
+        case dpiX
+        case dpiY
+        case showHiddenSlides
+        case pixelFormat
+        case notesPosition
+        case commentsPosition
+        case commentsAreaWidth
+        case commentsAreaColor
+        case showCommentsByNoAuthor
+    }
+
+    public init(defaultRegularFont: String? = nil, format: String? = nil, compression: Compression? = nil, width: Int? = nil, height: Int? = nil, dpiX: Int? = nil, dpiY: Int? = nil, showHiddenSlides: Bool? = nil, pixelFormat: PixelFormat? = nil, notesPosition: NotesPosition? = nil, commentsPosition: CommentsPosition? = nil, commentsAreaWidth: Int? = nil, commentsAreaColor: String? = nil, showCommentsByNoAuthor: Bool? = nil) {
+        super.init(defaultRegularFont: defaultRegularFont, format: format)
         self.compression = compression
         self.width = width
         self.height = height
@@ -102,6 +111,40 @@ public struct TiffExportOptions: Codable {
         self.commentsAreaWidth = commentsAreaWidth
         self.commentsAreaColor = commentsAreaColor
         self.showCommentsByNoAuthor = showCommentsByNoAuthor
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        compression = try values.decode(Compression?.self, forKey: .compression)
+        width = try values.decode(Int?.self, forKey: .width)
+        height = try values.decode(Int?.self, forKey: .height)
+        dpiX = try values.decode(Int?.self, forKey: .dpiX)
+        dpiY = try values.decode(Int?.self, forKey: .dpiY)
+        showHiddenSlides = try values.decode(Bool?.self, forKey: .showHiddenSlides)
+        pixelFormat = try values.decode(PixelFormat?.self, forKey: .pixelFormat)
+        notesPosition = try values.decode(NotesPosition?.self, forKey: .notesPosition)
+        commentsPosition = try values.decode(CommentsPosition?.self, forKey: .commentsPosition)
+        commentsAreaWidth = try values.decode(Int?.self, forKey: .commentsAreaWidth)
+        commentsAreaColor = try values.decode(String?.self, forKey: .commentsAreaColor)
+        showCommentsByNoAuthor = try values.decode(Bool?.self, forKey: .showCommentsByNoAuthor)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(compression, forKey: .compression)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(dpiX, forKey: .dpiX)
+        try container.encode(dpiY, forKey: .dpiY)
+        try container.encode(showHiddenSlides, forKey: .showHiddenSlides)
+        try container.encode(pixelFormat, forKey: .pixelFormat)
+        try container.encode(notesPosition, forKey: .notesPosition)
+        try container.encode(commentsPosition, forKey: .commentsPosition)
+        try container.encode(commentsAreaWidth, forKey: .commentsAreaWidth)
+        try container.encode(commentsAreaColor, forKey: .commentsAreaColor)
+        try container.encode(showCommentsByNoAuthor, forKey: .showCommentsByNoAuthor)
     }
 
 

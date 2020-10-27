@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents a chart wall */
-
-public struct ChartWall: Codable {
+public class ChartWall: Codable {
 
     public enum PictureType: String, Codable { 
         case stack = "Stack"
@@ -50,7 +49,15 @@ public struct ChartWall: Codable {
     /** Get or sets mode of bar picture filling. */
     public var pictureType: PictureType?
 
-    public init(fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, thickness: Int?, pictureType: PictureType?) {
+    private enum CodingKeys: String, CodingKey {
+        case fillFormat
+        case effectFormat
+        case lineFormat
+        case thickness
+        case pictureType
+    }
+
+    public init(fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, thickness: Int? = nil, pictureType: PictureType? = nil) {
         self.fillFormat = fillFormat
         self.effectFormat = effectFormat
         self.lineFormat = lineFormat

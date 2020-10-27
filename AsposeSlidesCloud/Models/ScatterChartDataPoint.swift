@@ -30,17 +30,36 @@ import Foundation
 
 
 /** Scatter chart (two-dimensional) data point */
-
-public struct ScatterChartDataPoint: Codable {
+public class ScatterChartDataPoint: DataPoint {
 
     /** X-value */
     public var xValue: Double?
     /** Y-value */
     public var yValue: Double?
 
-    public init(xValue: Double?, yValue: Double?) {
+    private enum CodingKeys: String, CodingKey {
+        case xValue
+        case yValue
+    }
+
+    public init(xValue: Double? = nil, yValue: Double? = nil) {
+        super.init()
         self.xValue = xValue
         self.yValue = yValue
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        xValue = try values.decode(Double?.self, forKey: .xValue)
+        yValue = try values.decode(Double?.self, forKey: .yValue)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(xValue, forKey: .xValue)
+        try container.encode(yValue, forKey: .yValue)
     }
 
 

@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents a chart legend */
-
-public struct Legend: Codable {
+public class Legend: Codable {
 
     public enum Position: String, Codable { 
         case bottom = "Bottom"
@@ -59,7 +58,19 @@ public struct Legend: Codable {
     /** Get or sets the line format. */
     public var lineFormat: LineFormat?
 
-    public init(position: Position?, X: Double?, Y: Double?, width: Double?, height: Double?, overlay: Bool?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    private enum CodingKeys: String, CodingKey {
+        case position
+        case X
+        case Y
+        case width
+        case height
+        case overlay
+        case fillFormat
+        case effectFormat
+        case lineFormat
+    }
+
+    public init(position: Position? = nil, X: Double? = nil, Y: Double? = nil, width: Double? = nil, height: Double? = nil, overlay: Bool? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil) {
         self.position = position
         self.X = X
         self.Y = Y

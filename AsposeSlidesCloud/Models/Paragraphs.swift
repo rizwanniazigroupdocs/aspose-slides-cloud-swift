@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Represents list of Links to Paragraphs resources */
+public class Paragraphs: ResourceBase {
 
-public struct Paragraphs: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** List of paragraph links. */
-    public var paragraphLinks: [ResourceUriElement]?
+    public var paragraphLinks: [ResourceUri]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, paragraphLinks: [ResourceUriElement]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case paragraphLinks
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, paragraphLinks: [ResourceUri]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.paragraphLinks = paragraphLinks
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        paragraphLinks = try values.decode([ResourceUri]?.self, forKey: .paragraphLinks)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(paragraphLinks, forKey: .paragraphLinks)
     }
 
 

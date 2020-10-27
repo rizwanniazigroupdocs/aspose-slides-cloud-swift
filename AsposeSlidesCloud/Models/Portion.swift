@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents portion resource */
-
-public struct Portion: Codable {
+public class Portion: ResourceBase {
 
     public enum FontBold: String, Codable { 
         case _false = "False"
@@ -101,10 +100,6 @@ public struct Portion: Codable {
         case _true = "True"
         case notDefined = "NotDefined"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Text. */
     public var text: String?
     /** True for bold font. */
@@ -156,9 +151,36 @@ public struct Portion: Codable {
     /** Underline line format. */
     public var underlineLineFormat: LineFormat?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, text: String?, fontBold: FontBold?, fontItalic: FontItalic?, fontUnderline: FontUnderline?, strikethroughType: StrikethroughType?, textCapType: TextCapType?, escapement: Double?, spacing: Double?, fontColor: String?, highlightColor: String?, fontHeight: Double?, normaliseHeight: NormaliseHeight?, proofDisabled: ProofDisabled?, smartTagClean: Bool?, kerningMinimalSize: Double?, kumimoji: Kumimoji?, languageId: String?, alternativeLanguageId: String?, isHardUnderlineFill: IsHardUnderlineFill?, isHardUnderlineLine: IsHardUnderlineLine?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?, underlineFillFormat: FillFormat?, underlineLineFormat: LineFormat?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case fontBold
+        case fontItalic
+        case fontUnderline
+        case strikethroughType
+        case textCapType
+        case escapement
+        case spacing
+        case fontColor
+        case highlightColor
+        case fontHeight
+        case normaliseHeight
+        case proofDisabled
+        case smartTagClean
+        case kerningMinimalSize
+        case kumimoji
+        case languageId
+        case alternativeLanguageId
+        case isHardUnderlineFill
+        case isHardUnderlineLine
+        case fillFormat
+        case effectFormat
+        case lineFormat
+        case underlineFillFormat
+        case underlineLineFormat
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, text: String? = nil, fontBold: FontBold? = nil, fontItalic: FontItalic? = nil, fontUnderline: FontUnderline? = nil, strikethroughType: StrikethroughType? = nil, textCapType: TextCapType? = nil, escapement: Double? = nil, spacing: Double? = nil, fontColor: String? = nil, highlightColor: String? = nil, fontHeight: Double? = nil, normaliseHeight: NormaliseHeight? = nil, proofDisabled: ProofDisabled? = nil, smartTagClean: Bool? = nil, kerningMinimalSize: Double? = nil, kumimoji: Kumimoji? = nil, languageId: String? = nil, alternativeLanguageId: String? = nil, isHardUnderlineFill: IsHardUnderlineFill? = nil, isHardUnderlineLine: IsHardUnderlineLine? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, underlineFillFormat: FillFormat? = nil, underlineLineFormat: LineFormat? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.text = text
         self.fontBold = fontBold
         self.fontItalic = fontItalic
@@ -184,6 +206,66 @@ public struct Portion: Codable {
         self.lineFormat = lineFormat
         self.underlineFillFormat = underlineFillFormat
         self.underlineLineFormat = underlineLineFormat
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        text = try values.decode(String?.self, forKey: .text)
+        fontBold = try values.decode(FontBold?.self, forKey: .fontBold)
+        fontItalic = try values.decode(FontItalic?.self, forKey: .fontItalic)
+        fontUnderline = try values.decode(FontUnderline?.self, forKey: .fontUnderline)
+        strikethroughType = try values.decode(StrikethroughType?.self, forKey: .strikethroughType)
+        textCapType = try values.decode(TextCapType?.self, forKey: .textCapType)
+        escapement = try values.decode(Double?.self, forKey: .escapement)
+        spacing = try values.decode(Double?.self, forKey: .spacing)
+        fontColor = try values.decode(String?.self, forKey: .fontColor)
+        highlightColor = try values.decode(String?.self, forKey: .highlightColor)
+        fontHeight = try values.decode(Double?.self, forKey: .fontHeight)
+        normaliseHeight = try values.decode(NormaliseHeight?.self, forKey: .normaliseHeight)
+        proofDisabled = try values.decode(ProofDisabled?.self, forKey: .proofDisabled)
+        smartTagClean = try values.decode(Bool?.self, forKey: .smartTagClean)
+        kerningMinimalSize = try values.decode(Double?.self, forKey: .kerningMinimalSize)
+        kumimoji = try values.decode(Kumimoji?.self, forKey: .kumimoji)
+        languageId = try values.decode(String?.self, forKey: .languageId)
+        alternativeLanguageId = try values.decode(String?.self, forKey: .alternativeLanguageId)
+        isHardUnderlineFill = try values.decode(IsHardUnderlineFill?.self, forKey: .isHardUnderlineFill)
+        isHardUnderlineLine = try values.decode(IsHardUnderlineLine?.self, forKey: .isHardUnderlineLine)
+        fillFormat = try values.decode(FillFormat?.self, forKey: .fillFormat)
+        effectFormat = try values.decode(EffectFormat?.self, forKey: .effectFormat)
+        lineFormat = try values.decode(LineFormat?.self, forKey: .lineFormat)
+        underlineFillFormat = try values.decode(FillFormat?.self, forKey: .underlineFillFormat)
+        underlineLineFormat = try values.decode(LineFormat?.self, forKey: .underlineLineFormat)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(text, forKey: .text)
+        try container.encode(fontBold, forKey: .fontBold)
+        try container.encode(fontItalic, forKey: .fontItalic)
+        try container.encode(fontUnderline, forKey: .fontUnderline)
+        try container.encode(strikethroughType, forKey: .strikethroughType)
+        try container.encode(textCapType, forKey: .textCapType)
+        try container.encode(escapement, forKey: .escapement)
+        try container.encode(spacing, forKey: .spacing)
+        try container.encode(fontColor, forKey: .fontColor)
+        try container.encode(highlightColor, forKey: .highlightColor)
+        try container.encode(fontHeight, forKey: .fontHeight)
+        try container.encode(normaliseHeight, forKey: .normaliseHeight)
+        try container.encode(proofDisabled, forKey: .proofDisabled)
+        try container.encode(smartTagClean, forKey: .smartTagClean)
+        try container.encode(kerningMinimalSize, forKey: .kerningMinimalSize)
+        try container.encode(kumimoji, forKey: .kumimoji)
+        try container.encode(languageId, forKey: .languageId)
+        try container.encode(alternativeLanguageId, forKey: .alternativeLanguageId)
+        try container.encode(isHardUnderlineFill, forKey: .isHardUnderlineFill)
+        try container.encode(isHardUnderlineLine, forKey: .isHardUnderlineLine)
+        try container.encode(fillFormat, forKey: .fillFormat)
+        try container.encode(effectFormat, forKey: .effectFormat)
+        try container.encode(lineFormat, forKey: .lineFormat)
+        try container.encode(underlineFillFormat, forKey: .underlineFillFormat)
+        try container.encode(underlineLineFormat, forKey: .underlineLineFormat)
     }
 
 

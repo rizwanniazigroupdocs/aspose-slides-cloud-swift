@@ -30,20 +30,30 @@ import Foundation
 
 
 /** Section list. */
+public class Sections: ResourceBase {
 
-public struct Sections: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** List of slide links. */
     public var sectionList: [Section]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, sectionList: [Section]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case sectionList
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, sectionList: [Section]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.sectionList = sectionList
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        sectionList = try values.decode([Section]?.self, forKey: .sectionList)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(sectionList, forKey: .sectionList)
     }
 
 

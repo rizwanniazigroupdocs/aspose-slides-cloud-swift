@@ -30,11 +30,16 @@ import Foundation
 
 
 /** Represents AudioFrame resource. */
+public class GraphicalObject: ShapeBase {
 
-public struct GraphicalObject: Codable {
 
 
-    public init() {
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 
 

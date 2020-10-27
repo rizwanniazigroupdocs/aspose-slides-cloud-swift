@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents AudioFrame resource. */
-
-public struct AudioFrame: Codable {
+public class AudioFrame: GeometryShape {
 
     public enum PlayMode: String, Codable { 
         case auto = "Auto"
@@ -67,7 +66,21 @@ public struct AudioFrame: Codable {
     /** Audio data encoded in base64. */
     public var base64Data: String?
 
-    public init(audioCdEndTrack: Int?, audioCdEndTrackTime: Int?, audioCdStartTrack: Int?, audioCdStartTrackTime: Int?, embedded: Bool?, hideAtShowing: Bool?, playLoopMode: Bool?, playMode: PlayMode?, volume: Volume?, base64Data: String?) {
+    private enum CodingKeys: String, CodingKey {
+        case audioCdEndTrack
+        case audioCdEndTrackTime
+        case audioCdStartTrack
+        case audioCdStartTrackTime
+        case embedded
+        case hideAtShowing
+        case playLoopMode
+        case playMode
+        case volume
+        case base64Data
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil, audioCdEndTrack: Int? = nil, audioCdEndTrackTime: Int? = nil, audioCdStartTrack: Int? = nil, audioCdStartTrackTime: Int? = nil, embedded: Bool? = nil, hideAtShowing: Bool? = nil, playLoopMode: Bool? = nil, playMode: PlayMode? = nil, volume: Volume? = nil, base64Data: String? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type, shapeType: shapeType)
         self.audioCdEndTrack = audioCdEndTrack
         self.audioCdEndTrackTime = audioCdEndTrackTime
         self.audioCdStartTrack = audioCdStartTrack
@@ -78,6 +91,36 @@ public struct AudioFrame: Codable {
         self.playMode = playMode
         self.volume = volume
         self.base64Data = base64Data
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        audioCdEndTrack = try values.decode(Int?.self, forKey: .audioCdEndTrack)
+        audioCdEndTrackTime = try values.decode(Int?.self, forKey: .audioCdEndTrackTime)
+        audioCdStartTrack = try values.decode(Int?.self, forKey: .audioCdStartTrack)
+        audioCdStartTrackTime = try values.decode(Int?.self, forKey: .audioCdStartTrackTime)
+        embedded = try values.decode(Bool?.self, forKey: .embedded)
+        hideAtShowing = try values.decode(Bool?.self, forKey: .hideAtShowing)
+        playLoopMode = try values.decode(Bool?.self, forKey: .playLoopMode)
+        playMode = try values.decode(PlayMode?.self, forKey: .playMode)
+        volume = try values.decode(Volume?.self, forKey: .volume)
+        base64Data = try values.decode(String?.self, forKey: .base64Data)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(audioCdEndTrack, forKey: .audioCdEndTrack)
+        try container.encode(audioCdEndTrackTime, forKey: .audioCdEndTrackTime)
+        try container.encode(audioCdStartTrack, forKey: .audioCdStartTrack)
+        try container.encode(audioCdStartTrackTime, forKey: .audioCdStartTrackTime)
+        try container.encode(embedded, forKey: .embedded)
+        try container.encode(hideAtShowing, forKey: .hideAtShowing)
+        try container.encode(playLoopMode, forKey: .playLoopMode)
+        try container.encode(playMode, forKey: .playMode)
+        try container.encode(volume, forKey: .volume)
+        try container.encode(base64Data, forKey: .base64Data)
     }
 
 

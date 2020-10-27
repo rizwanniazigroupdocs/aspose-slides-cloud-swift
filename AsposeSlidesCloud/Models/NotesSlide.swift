@@ -30,23 +30,36 @@ import Foundation
 
 
 /** Represents notes slide DTO. */
+public class NotesSlide: ResourceBase {
 
-public struct NotesSlide: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Get or sets text of notes slide. */
     public var text: String?
     /** Get or sets the  link to list notes slide shapes. */
-    public var shapes: ResourceUriElement?
+    public var shapes: ResourceUri?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, text: String?, shapes: ResourceUriElement?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case text
+        case shapes
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, text: String? = nil, shapes: ResourceUri? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.text = text
         self.shapes = shapes
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        text = try values.decode(String?.self, forKey: .text)
+        shapes = try values.decode(ResourceUri?.self, forKey: .shapes)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(text, forKey: .text)
+        try container.encode(shapes, forKey: .shapes)
     }
 
 

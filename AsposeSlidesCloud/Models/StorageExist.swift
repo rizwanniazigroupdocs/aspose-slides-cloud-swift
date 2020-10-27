@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Storage exists */
-
-public struct StorageExist: Codable {
+public class StorageExist: Codable {
 
     /** Shows that the storage exists.              */
     public var exists: Bool?
 
-    public init(exists: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case exists
+    }
+
+    public init(exists: Bool? = nil) {
         self.exists = exists
     }
 

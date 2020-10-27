@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents paragraph resource */
-
-public struct Paragraph: Codable {
+public class Paragraph: ResourceBase {
 
     public enum Alignment: String, Codable { 
         case _left = "Left"
@@ -121,10 +120,6 @@ public struct Paragraph: Codable {
         case _true = "True"
         case notDefined = "NotDefined"
     }
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Left margin. */
     public var marginLeft: Double?
     /** Right margin. */
@@ -166,9 +161,31 @@ public struct Paragraph: Codable {
     /** List of portion links. */
     public var portionList: [Portion]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, marginLeft: Double?, marginRight: Double?, spaceBefore: Double?, spaceAfter: Double?, spaceWithin: Double?, indent: Double?, alignment: Alignment?, fontAlignment: FontAlignment?, defaultTabSize: Double?, depth: Int?, bulletChar: String?, bulletHeight: Double?, bulletType: BulletType?, numberedBulletStartWith: Int?, numberedBulletStyle: NumberedBulletStyle?, hangingPunctuation: HangingPunctuation?, eastAsianLineBreak: EastAsianLineBreak?, latinLineBreak: LatinLineBreak?, rightToLeft: RightToLeft?, portionList: [Portion]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case marginLeft
+        case marginRight
+        case spaceBefore
+        case spaceAfter
+        case spaceWithin
+        case indent
+        case alignment
+        case fontAlignment
+        case defaultTabSize
+        case depth
+        case bulletChar
+        case bulletHeight
+        case bulletType
+        case numberedBulletStartWith
+        case numberedBulletStyle
+        case hangingPunctuation
+        case eastAsianLineBreak
+        case latinLineBreak
+        case rightToLeft
+        case portionList
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, marginLeft: Double? = nil, marginRight: Double? = nil, spaceBefore: Double? = nil, spaceAfter: Double? = nil, spaceWithin: Double? = nil, indent: Double? = nil, alignment: Alignment? = nil, fontAlignment: FontAlignment? = nil, defaultTabSize: Double? = nil, depth: Int? = nil, bulletChar: String? = nil, bulletHeight: Double? = nil, bulletType: BulletType? = nil, numberedBulletStartWith: Int? = nil, numberedBulletStyle: NumberedBulletStyle? = nil, hangingPunctuation: HangingPunctuation? = nil, eastAsianLineBreak: EastAsianLineBreak? = nil, latinLineBreak: LatinLineBreak? = nil, rightToLeft: RightToLeft? = nil, portionList: [Portion]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.marginLeft = marginLeft
         self.marginRight = marginRight
         self.spaceBefore = spaceBefore
@@ -189,6 +206,56 @@ public struct Paragraph: Codable {
         self.latinLineBreak = latinLineBreak
         self.rightToLeft = rightToLeft
         self.portionList = portionList
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        marginLeft = try values.decode(Double?.self, forKey: .marginLeft)
+        marginRight = try values.decode(Double?.self, forKey: .marginRight)
+        spaceBefore = try values.decode(Double?.self, forKey: .spaceBefore)
+        spaceAfter = try values.decode(Double?.self, forKey: .spaceAfter)
+        spaceWithin = try values.decode(Double?.self, forKey: .spaceWithin)
+        indent = try values.decode(Double?.self, forKey: .indent)
+        alignment = try values.decode(Alignment?.self, forKey: .alignment)
+        fontAlignment = try values.decode(FontAlignment?.self, forKey: .fontAlignment)
+        defaultTabSize = try values.decode(Double?.self, forKey: .defaultTabSize)
+        depth = try values.decode(Int?.self, forKey: .depth)
+        bulletChar = try values.decode(String?.self, forKey: .bulletChar)
+        bulletHeight = try values.decode(Double?.self, forKey: .bulletHeight)
+        bulletType = try values.decode(BulletType?.self, forKey: .bulletType)
+        numberedBulletStartWith = try values.decode(Int?.self, forKey: .numberedBulletStartWith)
+        numberedBulletStyle = try values.decode(NumberedBulletStyle?.self, forKey: .numberedBulletStyle)
+        hangingPunctuation = try values.decode(HangingPunctuation?.self, forKey: .hangingPunctuation)
+        eastAsianLineBreak = try values.decode(EastAsianLineBreak?.self, forKey: .eastAsianLineBreak)
+        latinLineBreak = try values.decode(LatinLineBreak?.self, forKey: .latinLineBreak)
+        rightToLeft = try values.decode(RightToLeft?.self, forKey: .rightToLeft)
+        portionList = try values.decode([Portion]?.self, forKey: .portionList)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(marginLeft, forKey: .marginLeft)
+        try container.encode(marginRight, forKey: .marginRight)
+        try container.encode(spaceBefore, forKey: .spaceBefore)
+        try container.encode(spaceAfter, forKey: .spaceAfter)
+        try container.encode(spaceWithin, forKey: .spaceWithin)
+        try container.encode(indent, forKey: .indent)
+        try container.encode(alignment, forKey: .alignment)
+        try container.encode(fontAlignment, forKey: .fontAlignment)
+        try container.encode(defaultTabSize, forKey: .defaultTabSize)
+        try container.encode(depth, forKey: .depth)
+        try container.encode(bulletChar, forKey: .bulletChar)
+        try container.encode(bulletHeight, forKey: .bulletHeight)
+        try container.encode(bulletType, forKey: .bulletType)
+        try container.encode(numberedBulletStartWith, forKey: .numberedBulletStartWith)
+        try container.encode(numberedBulletStyle, forKey: .numberedBulletStyle)
+        try container.encode(hangingPunctuation, forKey: .hangingPunctuation)
+        try container.encode(eastAsianLineBreak, forKey: .eastAsianLineBreak)
+        try container.encode(latinLineBreak, forKey: .latinLineBreak)
+        try container.encode(rightToLeft, forKey: .rightToLeft)
+        try container.encode(portionList, forKey: .portionList)
     }
 
 

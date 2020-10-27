@@ -30,10 +30,9 @@ import Foundation
 
 
 /** Represents GeometryShape resource. */
+public class GeometryShape: ShapeBase {
 
-public struct GeometryShape: Codable {
-
-    public enum GeometryShapeType: String, Codable { 
+    public enum ShapeType: String, Codable { 
         case custom = "Custom"
         case line = "Line"
         case lineInverse = "LineInverse"
@@ -224,11 +223,28 @@ public struct GeometryShape: Codable {
         case chartPlus = "ChartPlus"
         case notDefined = "NotDefined"
     }
-    /** Geometry shape type. */
-    public var geometryShapeType: GeometryShapeType?
+    /** Combined shape type. */
+    public var shapeType: ShapeType?
 
-    public init(geometryShapeType: GeometryShapeType?) {
-        self.geometryShapeType = geometryShapeType
+    private enum CodingKeys: String, CodingKey {
+        case shapeType
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, name: String? = nil, width: Double? = nil, height: Double? = nil, alternativeText: String? = nil, alternativeTextTitle: String? = nil, hidden: Bool? = nil, X: Double? = nil, Y: Double? = nil, zOrderPosition: Int? = nil, shapes: ResourceUri? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil, type: ModelType? = nil, shapeType: ShapeType? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks, name: name, width: width, height: height, alternativeText: alternativeText, alternativeTextTitle: alternativeTextTitle, hidden: hidden, X: X, Y: Y, zOrderPosition: zOrderPosition, shapes: shapes, fillFormat: fillFormat, effectFormat: effectFormat, lineFormat: lineFormat, type: type)
+        self.shapeType = shapeType
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        shapeType = try values.decode(ShapeType?.self, forKey: .shapeType)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(shapeType, forKey: .shapeType)
     }
 
 

@@ -30,23 +30,36 @@ import Foundation
 
 
 /** Represents comments collection of slide */
+public class SlideAnimation: ResourceBase {
 
-public struct SlideAnimation: Codable {
-
-    /** Gets or sets the link to this resource. */
-    public var selfUri: ResourceUri?
-    /** List of alternate links. */
-    public var alternateLinks: [ResourceUri]?
     /** Main sequence. */
     public var mainSequence: [Effect]?
     /** Interactive sequence list. */
     public var interactiveSequences: [InteractiveSequence]?
 
-    public init(selfUri: ResourceUri?, alternateLinks: [ResourceUri]?, mainSequence: [Effect]?, interactiveSequences: [InteractiveSequence]?) {
-        self.selfUri = selfUri
-        self.alternateLinks = alternateLinks
+    private enum CodingKeys: String, CodingKey {
+        case mainSequence
+        case interactiveSequences
+    }
+
+    public init(selfUri: ResourceUri? = nil, alternateLinks: [ResourceUri]? = nil, mainSequence: [Effect]? = nil, interactiveSequences: [InteractiveSequence]? = nil) {
+        super.init(selfUri: selfUri, alternateLinks: alternateLinks)
         self.mainSequence = mainSequence
         self.interactiveSequences = interactiveSequences
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        mainSequence = try values.decode([Effect]?.self, forKey: .mainSequence)
+        interactiveSequences = try values.decode([InteractiveSequence]?.self, forKey: .interactiveSequences)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(mainSequence, forKey: .mainSequence)
+        try container.encode(interactiveSequences, forKey: .interactiveSequences)
     }
 
 

@@ -30,13 +30,16 @@ import Foundation
 
 
 /** Files list */
-
-public struct FilesList: Codable {
+public class FilesList: Codable {
 
     /** Files and folders contained by folder StorageFile. */
     public var value: [StorageFile]?
 
-    public init(value: [StorageFile]?) {
+    private enum CodingKeys: String, CodingKey {
+        case value
+    }
+
+    public init(value: [StorageFile]? = nil) {
         self.value = value
     }
 

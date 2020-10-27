@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Data point. */
-
-public struct DataPoint: Codable {
+public class DataPoint: Codable {
 
 
 

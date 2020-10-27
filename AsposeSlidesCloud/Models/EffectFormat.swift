@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Effect format */
-
-public struct EffectFormat: Codable {
+public class EffectFormat: Codable {
 
     /** blur effect */
     public var blur: BlurEffect?
@@ -50,7 +49,18 @@ public struct EffectFormat: Codable {
     /** fill overlay effect */
     public var fillOverlay: FillOverlayEffect?
 
-    public init(blur: BlurEffect?, glow: GlowEffect?, innerShadow: InnerShadowEffect?, outerShadow: OuterShadowEffect?, presetShadow: PresetShadowEffect?, softEdge: SoftEdgeEffect?, reflection: ReflectionEffect?, fillOverlay: FillOverlayEffect?) {
+    private enum CodingKeys: String, CodingKey {
+        case blur
+        case glow
+        case innerShadow
+        case outerShadow
+        case presetShadow
+        case softEdge
+        case reflection
+        case fillOverlay
+    }
+
+    public init(blur: BlurEffect? = nil, glow: GlowEffect? = nil, innerShadow: InnerShadowEffect? = nil, outerShadow: OuterShadowEffect? = nil, presetShadow: PresetShadowEffect? = nil, softEdge: SoftEdgeEffect? = nil, reflection: ReflectionEffect? = nil, fillOverlay: FillOverlayEffect? = nil) {
         self.blur = blur
         self.glow = glow
         self.innerShadow = innerShadow

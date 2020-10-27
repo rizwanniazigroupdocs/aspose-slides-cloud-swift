@@ -30,15 +30,19 @@ import Foundation
 
 
 /** Object exists */
-
-public struct ObjectExist: Codable {
+public class ObjectExist: Codable {
 
     /** Indicates that the file or folder exists. */
     public var exists: Bool?
     /** True if it is a folder, false if it is a file. */
     public var isFolder: Bool?
 
-    public init(exists: Bool?, isFolder: Bool?) {
+    private enum CodingKeys: String, CodingKey {
+        case exists
+        case isFolder
+    }
+
+    public init(exists: Bool? = nil, isFolder: Bool? = nil) {
         self.exists = exists
         self.isFolder = isFolder
     }

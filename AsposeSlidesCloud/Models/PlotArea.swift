@@ -30,8 +30,7 @@ import Foundation
 
 
 /** Represents the plot area */
-
-public struct PlotArea: Codable {
+public class PlotArea: Codable {
 
     public enum LayoutTargetType: String, Codable { 
         case inner = "Inner"
@@ -54,7 +53,18 @@ public struct PlotArea: Codable {
     /** Get or sets the line format. */
     public var lineFormat: LineFormat?
 
-    public init(X: Double?, Y: Double?, width: Double?, height: Double?, layoutTargetType: LayoutTargetType?, fillFormat: FillFormat?, effectFormat: EffectFormat?, lineFormat: LineFormat?) {
+    private enum CodingKeys: String, CodingKey {
+        case X
+        case Y
+        case width
+        case height
+        case layoutTargetType
+        case fillFormat
+        case effectFormat
+        case lineFormat
+    }
+
+    public init(X: Double? = nil, Y: Double? = nil, width: Double? = nil, height: Double? = nil, layoutTargetType: LayoutTargetType? = nil, fillFormat: FillFormat? = nil, effectFormat: EffectFormat? = nil, lineFormat: LineFormat? = nil) {
         self.X = X
         self.Y = Y
         self.width = width
