@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/api-v3.0-lightgrey) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aspose-slides-cloud/aspose-slides-cloud-swift) [![GitHub license](https://img.shields.io/github/license/aspose-slides-cloud/aspose-slides-cloud-swift)](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift)
+![](https://img.shields.io/badge/api-v4.0-lightgrey) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/aspose-words-cloud/aspose-words-cloud-swift) [![GitHub license](https://img.shields.io/github/license/aspose-words-cloud/aspose-words-cloud-swift)](https://github.com/aspose-words-cloud/aspose-words-cloud-swift)
 
 # Aspose.Slides Cloud SDK for Swift
 This repository contains Aspose.Slides Cloud SDK for Swift source code. This SDK allows you to work with Aspose.Slides Cloud REST APIs in your Swift applications.
@@ -14,7 +14,7 @@ This repository contains Aspose.Slides Cloud SDK for Swift source code. This SDK
 
 ### New Features & Recent API Changes
 
-### 20.12
+#### 20.12
 * New property "HttpRequestTimeout" is added to SDK configuration. It allows to specify a custom timeout (in seconds) for HTTP requests made by the SDK.
 
 #### 20.10
