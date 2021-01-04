@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/api-v3.0-lightgrey) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/rizwanniazigroupdocs/aspose-slides-cloud-swift) [![GitHub license](https://img.shields.io/github/license/aspose-slides-cloud/aspose-slides-cloud-swift)](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift)
+![](https://img.shields.io/badge/api-v3.0-lightgrey)  [![GitHub license](https://img.shields.io/github/license/aspose-slides-cloud/aspose-slides-cloud-swift)](https://github.com/aspose-slides-cloud/aspose-slides-cloud-swift)
 
 # Aspose.Slides Cloud SDK for Swift
 This repository contains Aspose.Slides Cloud SDK for Swift source code. This SDK allows you to work with Aspose.Slides Cloud REST APIs in your Swift applications.
